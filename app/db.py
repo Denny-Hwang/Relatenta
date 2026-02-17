@@ -6,6 +6,7 @@ Single global database — no Actor concept.
 from contextlib import contextmanager
 from sqlalchemy import create_engine, select, func
 from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.pool import StaticPool
 
 Base = declarative_base()
 
@@ -20,7 +21,7 @@ def _get_engine():
         _engine = create_engine(
             "sqlite://",
             connect_args={"check_same_thread": False},
-            poolclass=__import__("sqlalchemy.pool", fromlist=["StaticPool"]).StaticPool,
+            poolclass=StaticPool,
             future=True,
         )
         from . import models  # noqa: F401
