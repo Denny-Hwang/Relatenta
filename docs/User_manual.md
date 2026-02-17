@@ -1,329 +1,230 @@
-# Research Relationship Visualization Service - User Manual
+# Relatenta — User Manual
 
 ## Overview
-This MVP service visualizes research relationships by ingesting publication data from OpenAlex or CSV files, then generating interactive network graphs and heatmaps showing collaborations between authors, keywords, organizations, and nations.
+
+Relatenta is a research relationship visualization service. It ingests publication data from OpenAlex or CSV files and generates interactive network graphs and heatmaps showing collaborations between authors, keywords, organizations, and nations.
 
 ## System Architecture
-- **Frontend**: Streamlit web interface for user interaction
-- **Backend**: FastAPI REST API server
-- **Database**: SQLite with SQLAlchemy ORM
-- **Visualization**: PyVis for network graphs, Plotly for heatmaps
+
+- **Application:** Single Streamlit process (no separate backend)
+- **Database:** In-memory SQLite (one per actor, session-scoped)
+- **Visualization:** PyVis for network graphs, Plotly for heatmaps
+- **Data Source:** OpenAlex API and CSV files
 
 ## Prerequisites
-- Python 3.8 or higher
+
+- Python 3.10 or higher
 - pip package manager
-- 2GB+ free disk space for database
 - Modern web browser
+- Internet connection (for OpenAlex data ingestion)
 
-## Installation Guide
+## Installation
 
-### Step 1: Project Setup
+### Step 1: Clone the Repository
+
 ```bash
-# Create project directory
-mkdir research-viz-service
-cd research-viz-service
-
-# Create Python virtual environment
-python -m venv .venv
-
-# Activate virtual environment
-# On Linux/Mac:
-source .venv/bin/activate
-# On Windows:
-.venv\Scripts\activate
+git clone https://github.com/Denny-Hwang/Relatenta.git
+cd Relatenta
 ```
 
-### Step 2: Install Dependencies
+### Step 2: Create Virtual Environment
+
 ```bash
-# Copy requirements.txt to your project folder, then:
+python -m venv venv
+
+# Linux/Mac:
+source venv/bin/activate
+# Windows:
+venv\Scripts\activate
+```
+
+### Step 3: Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### Step 3: Environment Configuration
+### Step 4: Run the Application
+
 ```bash
-# Copy .env.example to .env
-cp .env.example .env
-
-# Edit .env if needed (default settings work for local development)
+streamlit run streamlit_app.py
 ```
 
-### Step 4: File Structure
-Create the following directory structure:
-```
-research-viz-service/
-├── .env
-├── requirements.txt
-├── app/
-│   ├── backend/
-│   │   ├── __init__.py
-│   │   ├── db.py
-│   │   ├── models.py
-│   │   ├── schemas.py
-│   │   ├── crud.py
-│   │   ├── connectors_openalex.py
-│   │   ├── services_graph.py
-│   │   ├── services_heatmap.py
-│   │   └── main.py
-│   └── frontend/
-│       └── streamlit_app.py
-```
+The app opens automatically at http://localhost:8501.
 
-### Step 5: Start the Services
-
-**Terminal 1 - Start Backend API:**
-```bash
-# From project root with venv activated
-uvicorn app.backend.main:app --reload --port 8000
-```
-The API will be available at http://localhost:8000
-API documentation at http://localhost:8000/docs
-
-**Terminal 2 - Start Frontend:**
-```bash
-# From project root with venv activated
-streamlit run app/frontend/streamlit_app.py
-```
-The web interface will open automatically (usually at http://localhost:8501)
+---
 
 ## Using the Application
 
-### 1. Database Initialization
-- Click **"Initialize DB"** button in the sidebar (first time only)
-- This creates the SQLite database and tables
+### 1. Actor Management
+
+An **Actor** represents an independent analysis project with its own database. Think of it as a workspace.
+
+**Create an Actor:**
+1. In the left sidebar, expand "Create New Actor"
+2. Enter a name (e.g., "AI Research Team", "Climate Science")
+3. Click "Create"
+
+**Select an Actor:**
+- Use the dropdown under "Select Active Actor" in the sidebar
+
+**Delete an Actor:**
+- Click "Delete" next to the selected actor
+- Enter the password (`8888`) to confirm
 
 ### 2. Data Ingestion
 
 #### Option A: OpenAlex Import (Recommended)
-1. In sidebar, enter researcher name (e.g., "Geoffrey Hinton")
-2. Click **"Search OpenAlex"**
-3. Review search results
-4. Select authors by their source_id
-5. Adjust "Max works" slider (200 is good default)
-6. Click **"Ingest Selected"**
-7. Wait for completion message
+
+1. In the sidebar under "Data Ingestion," enter a researcher name
+2. Click "Search"
+3. Review results — each card shows:
+   - Paper count and citation count
+   - Institution and country
+   - Research topics
+4. Select one or more authors from the list
+5. Adjust "Max works per author" (default: 200)
+6. Click "Ingest Selected"
 
 #### Option B: CSV Import
-1. Prepare CSV files with proper columns:
-   - **works.csv**: `title, doi, year, venue, type, language, keywords`
-   - **authors.csv**: `work_title, work_doi, author_name, position`
-   - **affiliations.csv**: `work_title, work_doi, author_name, org_name, country_code`
-   - **keywords.csv**: `work_title, work_doi, term`
-2. Select CSV type in dropdown
-3. Upload file
-4. Click **"Import CSV"**
+
+1. Select a data type from the dropdown: `works`, `authors`, `affiliations`, or `keywords`
+2. Upload a CSV file with the correct columns (see CSV Format below)
+3. Click "Import CSV"
+
+#### Option C: Restore from Export
+
+1. Under "Restore from Export," upload a ZIP file from a previous export
+2. Click "Restore Data"
 
 ### 3. Graph Visualization
 
-Navigate to **Graph** tab:
+Navigate to the **Graph** tab:
 
 1. **Select Layer:**
-   - `authors`: Co-authorship network
-   - `keywords`: Keyword co-occurrence
-   - `orgs`: Organization collaborations
-   - `nations`: International collaborations
+   - `authors` — Co-authorship network
+   - `keywords` — Keyword co-occurrence
+   - `orgs` — Organization collaborations
+   - `nations` — International collaborations
 
 2. **Set Filters:**
-   - Year range (e.g., 2015-2024)
+   - Year range (e.g., 2015-2025)
    - Minimum edge weight (filters weak connections)
-   - Focus author IDs (optional, comma-separated)
 
-3. Click **"Build Graph"**
+3. **Focus Mode (optional):**
+   - Use the built-in search helper to find entity IDs
+   - Enter comma-separated IDs in the focus input
+   - Choose "Full Network" (highlight) or "Focus Only" (isolate)
 
-4. **Interact with Graph:**
+4. Click **"Build Graph"**
+
+5. **Graph Interaction:**
    - Drag nodes to rearrange
-   - Hover for details
-   - Zoom in/out with mouse wheel
-   - Click nodes to highlight connections
+   - Hover over nodes for details
+   - Scroll to zoom in/out
+   - Press SPACE to toggle physics simulation
 
 ### 4. Heatmap Analysis
 
-Navigate to **Heatmaps** tab:
+Navigate to the **Heatmaps** tab:
 
-1. **Select Type:**
-   - `author_keyword`: Shows which authors work on which topics
-   - `nation_nation`: Shows collaboration intensity between countries
-
+1. Select type: `author_keyword` or `nation_nation`
 2. Set year range
+3. Click "Compute Heatmap"
+4. Hover over cells for values; darker colors = stronger relationships
 
-3. Click **"Compute Heatmap"**
+### 5. Data Export
 
-4. **Interpret Results:**
-   - Darker colors = stronger relationships
-   - Hover over cells for exact values
+- Click "Export CSV" in the sidebar to download all data as a ZIP file
+- The ZIP contains CSV files for works, authors, organizations, keywords, affiliations, venues, and metadata
 
-### 5. Data Curation
+---
 
-Navigate to **Curation** tab:
-
-**Merge Duplicate Authors:**
-1. Enter ID of author to keep
-2. Enter ID of author to remove
-3. Add reason for merge
-4. Click **"Merge"**
-
-This reassigns all works from removed author to kept author.
-
-## CSV Format Examples
+## CSV Format Reference
 
 ### works.csv
+
 ```csv
 title,doi,year,venue,type,language,keywords
-"Deep Learning in Neural Networks",10.1016/j.neunet.2014.09.003,2015,"Neural Networks","journal-article","en","deep learning;neural networks;backpropagation"
-"Attention Is All You Need",10.48550/arXiv.1706.03762,2017,"NeurIPS","conference-paper","en","transformers;attention;NLP"
+"Deep Learning in Neural Networks",10.1016/j.neunet.2014.09.003,2015,"Neural Networks","journal-article","en","deep learning;neural networks"
 ```
 
 ### authors.csv
+
 ```csv
 work_title,work_doi,author_name,position
-"Deep Learning in Neural Networks",,Jürgen Schmidhuber,0
-"Attention Is All You Need",,Ashish Vaswani,0
-"Attention Is All You Need",,Noam Shazeer,1
+"Deep Learning in Neural Networks",,John Smith,0
 ```
 
 ### affiliations.csv
+
 ```csv
 work_title,work_doi,author_name,org_name,country_code
-"Deep Learning in Neural Networks",,Jürgen Schmidhuber,IDSIA,CH
-"Attention Is All You Need",,Ashish Vaswani,Google Brain,US
+"Deep Learning in Neural Networks",,John Smith,MIT,US
 ```
 
 ### keywords.csv
+
 ```csv
 work_title,work_doi,term
 "Deep Learning in Neural Networks",,artificial intelligence
-"Deep Learning in Neural Networks",,machine learning
 ```
+
+---
+
+## Data Persistence
+
+**Important:** This app uses in-memory databases. All data is lost when the session ends.
+
+**To preserve your work:**
+1. Click "Export CSV" to download a ZIP file
+2. Store the ZIP file locally
+3. In your next session, use "Restore from Export" to reload the data
+
+---
 
 ## Tips and Best Practices
 
-### Performance Optimization
-- Start with smaller datasets (100-200 papers) for testing
+### Performance
+
+- Start with 1-2 researchers (200 papers each) and expand gradually
 - Use year filters to reduce graph complexity
 - Increase edge weight threshold for cleaner visualizations
-- For large datasets (1000+ papers), ingestion may take several minutes
+- For large datasets (500+ papers), use Focus Only mode
 
 ### Data Quality
+
 - OpenAlex data is generally high quality but may have duplicates
-- Use the merge feature to consolidate duplicate authors
-- Verify author affiliations are correctly mapped
-- Keywords from OpenAlex are automatically extracted
+- Verify author disambiguation using institution, H-index, and research topics
+- Keywords are automatically extracted from OpenAlex concepts
 
 ### Troubleshooting
 
-**Database Issues:**
-- If "Initialize DB" fails, delete `app.db` file and try again
-- Check file permissions in project directory
+| Problem | Solution |
+|---------|----------|
+| Graph is too cluttered | Increase edge weight minimum (try 2.0+) |
+| No nodes in graph | Reduce edge weight threshold or widen year range |
+| Author search returns many results | Include full name; check institution and H-index |
+| Data lost after refresh | Always export before closing; use Restore to reload |
+| Slow ingestion | Reduce max works per author; import fewer authors at a time |
 
-**Import Failures:**
-- Ensure CSV encoding is UTF-8
-- Check for special characters in names
-- Verify DOIs are properly formatted (10.xxxx/yyyy)
-
-**Graph Not Displaying:**
-- Reduce date range or increase edge weight threshold
-- Check browser console for JavaScript errors
-- Try refreshing the page
-
-**Slow Performance:**
-- Reduce number of works being processed
-- Close other browser tabs
-- Consider using smaller year ranges
-
-**Backend Connection Errors:**
-- Verify backend is running on port 8000
-- Check .env file has correct BACKEND_HOST and BACKEND_PORT
-- Ensure no firewall blocking local connections
-
-## API Endpoints Reference
-
-### Core Endpoints
-- `GET /health` - Service health check
-- `POST /init-db` - Initialize database
-- `GET /search-authors?q={name}` - Search OpenAlex for authors
-- `POST /ingest/openalex` - Import author works from OpenAlex
-- `POST /graph` - Generate network graph data
-- `POST /heatmap` - Generate heatmap data
-- `POST /import/csv` - Import data from CSV
-- `POST /curate/merge` - Merge duplicate authors
-
-### API Documentation
-Full API documentation with request/response schemas available at:
-http://localhost:8000/docs (when backend is running)
-
-## Advanced Features (Future Enhancements)
-
-### Planned Features
-- PDF parsing for direct paper import
-- LLM-based keyword extraction
-- Advanced duplicate detection
-- Export functionality (GraphML, GEXF)
-- Time-series analysis
-- Citation network analysis
-- Recommendation system for collaborations
-
-### Extending the Service
-The modular architecture allows easy extension:
-- Add new connectors in `connectors_*.py`
-- Create new visualization services in `services_*.py`
-- Extend models in `models.py` for additional metadata
-- Add new graph layers by modifying `services_graph.py`
-
-## System Requirements
-
-### Minimum Requirements
-- CPU: 2 cores
-- RAM: 4GB
-- Storage: 5GB free space
-- Python: 3.8+
-- Internet: Required for OpenAlex import
-
-### Recommended Requirements
-- CPU: 4+ cores
-- RAM: 8GB+
-- Storage: 20GB free space
-- Python: 3.10+
-- Internet: Broadband for faster imports
-
-## Support and Contributions
-
-### Reporting Issues
-When reporting issues, include:
-1. Error messages (full traceback)
-2. Steps to reproduce
-3. Data sample (if applicable)
-4. System information (OS, Python version)
-
-### Contributing
-- Follow PEP 8 style guide
-- Add type hints to new functions
-- Include docstrings for public methods
-- Test with both small and large datasets
-
-## License and Credits
-- OpenAlex data is provided under open license
-- This service is an MVP demonstration
-- Built with FastAPI, Streamlit, SQLAlchemy, PyVis, and Plotly
-
-## Quick Start Checklist
-
-- [ ] Python 3.8+ installed
-- [ ] Virtual environment created and activated
-- [ ] Requirements installed via pip
-- [ ] .env file created from .env.example
-- [ ] File structure created as specified
-- [ ] Backend started (uvicorn)
-- [ ] Frontend started (streamlit)
-- [ ] Database initialized via UI
-- [ ] Test data ingested (search and import an author)
-- [ ] Graph visualization tested
-- [ ] Heatmap generation tested
+---
 
 ## Glossary
 
-- **OpenAlex**: Free, open database of scholarly works and authors
-- **DOI**: Digital Object Identifier, unique ID for academic papers
-- **Co-authorship**: When authors collaborate on a paper
-- **Edge weight**: Strength of connection (e.g., number of co-authored papers)
-- **Node**: Entity in graph (author, keyword, organization, nation)
-- **ORCID**: Unique identifier for researchers
-- **Venue**: Publication outlet (journal or conference)
+| Term | Definition |
+|------|-----------|
+| **Actor** | An independent analysis project with its own database |
+| **OpenAlex** | Free, open database of 250M+ scholarly works |
+| **DOI** | Digital Object Identifier, unique ID for academic papers |
+| **Co-authorship** | When researchers collaborate on a publication |
+| **Edge weight** | Strength of connection (e.g., number of shared papers) |
+| **Node** | An entity in the graph (author, keyword, organization, or nation) |
+| **ORCID** | Unique persistent identifier for researchers |
+| **Focus Mode** | Filter the graph to show only selected nodes and their neighbors |
+
+---
+
+## License
+
+This project is licensed under the MIT License.
