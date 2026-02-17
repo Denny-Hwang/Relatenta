@@ -768,6 +768,39 @@ def report_tab():
 
     st.divider()
 
+    # ---- Highlight Works ----
+    if rpt.get("highlight_works"):
+        st.subheader("Highlight Papers")
+        st.caption("Top cited papers in your dataset")
+        for i, w in enumerate(rpt["highlight_works"][:10]):
+            citation_badge = f"**{w['cited_by_count']:,} citations**" if w["cited_by_count"] else "Citations: N/A"
+            title_display = w["title"]
+            if w.get("link"):
+                title_display = f"[{w['title']}]({w['link']})"
+            year_str = f"({w['year']})" if w["year"] else ""
+            venue_str = f"*{w['venue']}*" if w["venue"] else ""
+
+            with st.container():
+                st.markdown(
+                    f"**{i+1}.** {title_display} {year_str}\n\n"
+                    f"   {w['authors']}\n\n"
+                    f"   {venue_str}  —  {citation_badge}"
+                )
+                if i < len(rpt["highlight_works"][:10]) - 1:
+                    st.markdown("---")
+
+    st.divider()
+
+    # ---- Collaboration Network Graph ----
+    if rpt.get("graph_nodes") and rpt.get("graph_edges"):
+        st.subheader("Collaboration Network")
+        st.caption("Top co-author connections (strongest collaborations)")
+        graph_fig = _render_network_graph(rpt)
+        if graph_fig is not None:
+            st.pyplot(graph_fig)
+
+    st.divider()
+
     # ---- PDF Download ----
     st.subheader("Download Report")
     if st.button("Generate PDF", key="gen_pdf_btn"):
@@ -782,6 +815,71 @@ def report_tab():
             mime="application/pdf",
             key="dl_pdf_btn",
         )
+
+
+def _render_network_graph(rpt: dict):
+    """Render a co-author network graph using networkx + matplotlib."""
+    try:
+        import networkx as nx
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+
+        G = nx.Graph()
+        id_to_label = {n["id"]: n["label"] for n in rpt["graph_nodes"]}
+        for n in rpt["graph_nodes"]:
+            G.add_node(n["id"], label=n["label"])
+        for e in rpt["graph_edges"]:
+            G.add_edge(e["a"], e["b"], weight=e["weight"])
+
+        if len(G.nodes) == 0:
+            return None
+
+        # spring layout with weight-based attraction
+        pos = nx.spring_layout(G, k=2.5, iterations=80, seed=42, weight="weight")
+
+        # node sizing by degree
+        degrees = dict(G.degree())
+        max_deg = max(degrees.values()) if degrees else 1
+        node_sizes = [300 + 1200 * (degrees[n] / max_deg) for n in G.nodes]
+
+        # edge widths by weight
+        weights = [G[u][v]["weight"] for u, v in G.edges]
+        max_w = max(weights) if weights else 1
+        edge_widths = [0.5 + 3.5 * (w / max_w) for w in weights]
+        edge_alphas = [0.3 + 0.5 * (w / max_w) for w in weights]
+
+        fig, ax = plt.subplots(figsize=(12, 9))
+        fig.patch.set_facecolor("#1a1a2e")
+        ax.set_facecolor("#1a1a2e")
+
+        # draw edges with varying alpha
+        for (u, v), width, alpha in zip(G.edges, edge_widths, edge_alphas):
+            x = [pos[u][0], pos[v][0]]
+            y = [pos[u][1], pos[v][1]]
+            ax.plot(x, y, color="white", linewidth=width, alpha=alpha, zorder=1)
+
+        # draw nodes
+        node_colors = ["#4A90E2"] * len(G.nodes)
+        nx.draw_networkx_nodes(G, pos, ax=ax, node_size=node_sizes,
+                               node_color=node_colors, edgecolors="#2E5C8A",
+                               linewidths=1.5, alpha=0.9)
+
+        # labels — truncate long names
+        labels = {}
+        for n in G.nodes:
+            name = id_to_label.get(n, str(n))
+            labels[n] = name[:20] + "..." if len(name) > 20 else name
+        nx.draw_networkx_labels(G, pos, labels, ax=ax, font_size=8,
+                                font_color="white", font_weight="bold")
+
+        ax.set_title("Co-author Network (Top Collaborations)", fontsize=14,
+                     fontweight="bold", color="white", pad=15)
+        ax.axis("off")
+        fig.tight_layout()
+        return fig
+    except Exception:
+        return None
 
 
 def _generate_report_pdf(rpt: dict) -> bytes:
@@ -934,6 +1032,44 @@ def _generate_report_pdf(rpt: dict) -> bytes:
             fig.tight_layout()
             pdf.savefig(fig)
             plt.close(fig)
+
+        # --- Page 8: Highlight Papers ---
+        if rpt.get("highlight_works"):
+            works = rpt["highlight_works"][:12]
+            fig, ax = plt.subplots(figsize=(11, max(8.5, len(works) * 0.7 + 2)))
+            ax.axis("off")
+            fig.patch.set_facecolor("#FAFAFA")
+            ax.set_title("Highlight Papers (Top Cited)", fontsize=18,
+                         fontweight="bold", pad=20, color="#2C3E50")
+
+            y_pos = 0.95
+            line_height = 1.0 / (len(works) + 1)
+            for i, w in enumerate(works):
+                cite_str = f"{w['cited_by_count']:,} citations" if w["cited_by_count"] else "N/A"
+                year_str = f"({w['year']})" if w["year"] else ""
+                title_line = f"{i+1}. {w['title'][:85]}{'...' if len(w['title']) > 85 else ''} {year_str}"
+                detail_line = f"    {w['authors'][:70]}{'...' if len(w['authors']) > 70 else ''}"
+                venue_cite = f"    {w['venue'][:50]}  —  {cite_str}"
+
+                y = y_pos - i * line_height
+                ax.text(0.02, y, title_line, fontsize=9, fontweight="bold",
+                        va="top", color="#2C3E50", transform=ax.transAxes)
+                ax.text(0.02, y - line_height * 0.28, detail_line, fontsize=8,
+                        va="top", color="#7F8C8D", transform=ax.transAxes)
+                ax.text(0.02, y - line_height * 0.56, venue_cite, fontsize=8,
+                        va="top", color="#34495E", transform=ax.transAxes,
+                        style="italic")
+
+            fig.tight_layout()
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        # --- Page 9: Collaboration Network Graph ---
+        if rpt.get("graph_nodes") and rpt.get("graph_edges"):
+            graph_fig = _render_network_graph(rpt)
+            if graph_fig is not None:
+                pdf.savefig(graph_fig)
+                plt.close(graph_fig)
 
     buf.seek(0)
     return buf.read()
