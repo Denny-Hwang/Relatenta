@@ -1,7 +1,6 @@
 import io
 import os
 import zipfile
-import time
 import tempfile
 
 import streamlit as st
@@ -9,33 +8,25 @@ import pandas as pd
 from sqlalchemy import select, func
 from datetime import datetime
 
-from app.db import get_db, init_db, list_actors, delete_actor_db, get_actor_stats
+from app.db import get_db, init_db, reset_db, get_stats
 from app import connectors_openalex as oa
 from app import crud
 from app import models
 from app.services_graph import build_graph
 from app.services_heatmap import author_keyword_heat, nation_nation_heat
-from app.services_export import export_actor_to_csv
+from app.services_export import export_to_csv
 
 st.set_page_config(page_title="Relatenta", layout="wide", page_icon="🔬")
 
+# Ensure DB exists on every run
+init_db()
+
 # ============= Session State =============
-if "current_actor" not in st.session_state:
-    st.session_state.current_actor = None
 if "search_hits" not in st.session_state:
     st.session_state.search_hits = []
 
-# ============= Helper: actors list =============
-
-def _actors_with_stats() -> list:
-    """Return actors list enriched with statistics."""
-    actors = list_actors()
-    for a in actors:
-        stats = get_actor_stats(a["name"])
-        a.update(stats)
-    return actors
-
 # ============= Visualization =============
+
 
 def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height: str = "700px"):
     """PyVis interactive network graph."""
@@ -170,7 +161,7 @@ def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height:
         )
 
         os.unlink(temp_file)
-        st.info("🎯 **Graph Controls:** Hover over nodes for details | Click and drag to move | Scroll to zoom | Press SPACE to toggle physics")
+        st.info("**Graph Controls:** Hover for details | Click & drag to move | Scroll to zoom | SPACE to toggle physics")
         st.components.v1.html(enhanced_html, height=750, scrolling=True)
 
     except Exception as e:
@@ -195,112 +186,59 @@ def _draw_fallback(graph_json: dict):
         if graph_json["edges"]:
             st.dataframe(pd.DataFrame(graph_json["edges"]), use_container_width=True, height=400)
 
-# ============= Sidebar: Actor Management =============
 
-def sidebar_actor_management():
-    st.sidebar.header("🎭 Actor Management")
+# ============= Sidebar =============
 
-    # Create new actor
-    with st.sidebar.expander("➕ Create New Actor", expanded=False):
-        with st.form("create_actor_form"):
-            new_name = st.text_input("Actor Name", help="Unique name for the research group/project")
-            submitted = st.form_submit_button("Create", type="primary")
-            if submitted and new_name and len(new_name) >= 2:
-                init_db(new_name)
-                st.success(f"Created actor: '{new_name}'")
-                st.session_state.current_actor = new_name
+
+def sidebar_data():
+    """Sidebar: search, ingest, export, restore."""
+    stats = get_stats()
+
+    # --- Current data summary ---
+    st.sidebar.header("Database")
+    if stats["works"] > 0:
+        st.sidebar.info(
+            f"Papers: {stats['works']} | Authors: {stats['authors']}\n"
+            f"Orgs: {stats['organizations']} | Keywords: {stats['keywords']}"
+        )
+
+        col1, col2 = st.sidebar.columns(2)
+        with col1:
+            try:
+                zip_bytes = export_to_csv()
+                st.download_button(
+                    "Export CSV", data=zip_bytes,
+                    file_name=f"relatenta_export_{datetime.now().strftime('%Y%m%d')}.zip",
+                    mime="application/zip", key="export_btn",
+                )
+            except Exception as e:
+                st.error(f"Export error: {e}")
+        with col2:
+            if st.button("Clear All", key="clear_btn"):
+                st.session_state.confirm_clear = True
                 st.rerun()
 
-    # Select active actor
-    st.sidebar.subheader("📂 Select Active Actor")
-    actors = _actors_with_stats()
-
-    if actors:
-        options = ["-- Select an Actor --"]
-        name_map: dict[str, str | None] = {"-- Select an Actor --": None}
-        for a in actors:
-            label = f"{a['name']} ({a.get('works', 0)} works)"
-            options.append(label)
-            name_map[label] = a["name"]
-
-        current_label = "-- Select an Actor --"
-        if st.session_state.current_actor:
-            for lbl, nm in name_map.items():
-                if nm == st.session_state.current_actor:
-                    current_label = lbl
-                    break
-
-        selected = st.sidebar.selectbox("Active Database:", options, index=options.index(current_label), key="actor_selector")
-        new_actor = name_map[selected]
-        if new_actor != st.session_state.current_actor:
-            st.session_state.current_actor = new_actor
-            st.session_state.search_hits = []
-
-        if st.session_state.current_actor:
-            actor_data = next((a for a in actors if a["name"] == st.session_state.current_actor), None)
-            if actor_data:
-                st.sidebar.info(
-                    f"**Current:** {st.session_state.current_actor}\n"
-                    f"- Papers: {actor_data.get('works', 0)}\n"
-                    f"- Authors: {actor_data.get('authors', 0)}\n"
-                    f"- Orgs: {actor_data.get('organizations', 0)}"
-                )
-
-                col1, col2 = st.sidebar.columns(2)
-                with col1:
-                    try:
-                        zip_bytes = export_actor_to_csv(st.session_state.current_actor)
-                        st.download_button(
-                            "📥 Export CSV", data=zip_bytes,
-                            file_name=f"{st.session_state.current_actor}_export_{datetime.now().strftime('%Y%m%d')}.zip",
-                            mime="application/zip", key="export_btn",
-                        )
-                    except Exception as e:
-                        st.error(f"Export error: {e}")
-                with col2:
-                    confirm_key = f"confirm_delete_{st.session_state.current_actor}"
-                    if confirm_key not in st.session_state:
-                        st.session_state[confirm_key] = False
-
-                    if not st.session_state[confirm_key]:
-                        if st.button("🗑️ Delete", key="delete_btn"):
-                            st.session_state[confirm_key] = True
-                            st.rerun()
-                    else:
-                        st.sidebar.warning(f"Delete '{st.session_state.current_actor}'?")
-                        pw = st.sidebar.text_input("Password:", type="password", key=f"pw_{st.session_state.current_actor}")
-                        c1, c2 = st.sidebar.columns(2)
-                        with c1:
-                            if st.button("Confirm", key="confirm_del", type="primary"):
-                                if pw == "8888":
-                                    actor_to_delete = st.session_state.current_actor
-                                    delete_actor_db(actor_to_delete)
-                                    st.session_state.current_actor = None
-                                    st.session_state[confirm_key] = False
-                                    st.rerun()
-                                else:
-                                    st.sidebar.error("Incorrect password")
-                        with c2:
-                            if st.button("Cancel", key="cancel_del"):
-                                st.session_state[confirm_key] = False
-                                st.rerun()
+        if st.session_state.get("confirm_clear"):
+            st.sidebar.warning("This will delete all data.")
+            c1, c2 = st.sidebar.columns(2)
+            with c1:
+                if st.button("Confirm", key="confirm_clear_btn", type="primary"):
+                    reset_db()
+                    st.session_state.confirm_clear = False
+                    st.session_state.search_hits = []
+                    st.rerun()
+            with c2:
+                if st.button("Cancel", key="cancel_clear_btn"):
+                    st.session_state.confirm_clear = False
+                    st.rerun()
     else:
-        st.sidebar.info("No actors yet. Create one to start!")
+        st.sidebar.info("No data yet. Search and ingest authors below.")
 
-# ============= Sidebar: Data Ingestion =============
-
-def sidebar_ingest():
-    if not st.session_state.current_actor:
-        st.sidebar.warning("Select an actor first")
-        return
-
-    actor = st.session_state.current_actor
-    st.sidebar.header("📊 Data Ingestion")
-    st.sidebar.caption(f"Actor: {actor}")
+    st.sidebar.divider()
 
     # --- OpenAlex search ---
-    st.sidebar.subheader("🔍 OpenAlex Search")
-    name = st.sidebar.text_input("Author/Researcher Name", key="author_search")
+    st.sidebar.header("OpenAlex Search")
+    name = st.sidebar.text_input("Author / Researcher Name", key="author_search")
     if st.sidebar.button("Search", key="search_btn") and name.strip():
         try:
             st.session_state.search_hits = oa.search_authors_by_name(name.strip())
@@ -310,18 +248,23 @@ def sidebar_ingest():
     if st.session_state.search_hits:
         st.sidebar.write("### Search Results")
         for idx, hit in enumerate(st.session_state.search_hits):
-            with st.sidebar.expander(f"👤 {hit.get('display_name', 'Unknown')}", expanded=idx < 3):
+            with st.sidebar.expander(f"{hit.get('display_name', 'Unknown')}", expanded=idx < 3):
                 c1, c2 = st.columns(2)
                 c1.metric("Papers", hit.get("works_count", 0))
                 c2.metric("Citations", hit.get("cited_by_count", 0))
                 inst = hit.get("last_known_institution", "N/A")
                 country = hit.get("institution_country", "")
-                st.write(f"🏢 **Institution:** {inst}" + (f" ({country})" if country else ""))
+                st.write(f"**Institution:** {inst}" + (f" ({country})" if country else ""))
+                if hit.get("orcid"):
+                    st.write(f"**ORCID:** {hit['orcid']}")
+                if hit.get("h_index") is not None:
+                    st.write(f"**H-index:** {hit['h_index']}")
                 if hit.get("top_concepts"):
                     st.write("**Research Topics:**")
                     for c in hit["top_concepts"]:
                         st.write(f"- {c['name']} ({c['score']:.0%})")
-                st.write(f"**ID:** `{hit['id'].split('/')[-1] if hit['id'].startswith('http') else hit['id']}`")
+                sid = hit["id"].split("/")[-1] if hit["id"].startswith("http") else hit["id"]
+                st.write(f"**ID:** `{sid}`")
 
         st.sidebar.write("---")
         st.sidebar.write("### Select Authors to Ingest")
@@ -339,10 +282,10 @@ def sidebar_ingest():
 
         if sel:
             max_works = st.sidebar.slider("Max works per author", 50, 600, 200, 50)
-            if st.sidebar.button("📥 Ingest Selected", type="primary", key="ingest_btn"):
-                with st.spinner(f"Ingesting to {actor}..."):
+            if st.sidebar.button("Ingest Selected", type="primary", key="ingest_btn"):
+                with st.spinner("Ingesting data from OpenAlex..."):
                     total = 0
-                    with get_db(actor) as db:
+                    with get_db() as db:
                         for author_id in sel:
                             works = oa.list_author_works(author_id, per_page=200, max_pages=max(1, max_works // 200))
                             for w in works:
@@ -358,14 +301,16 @@ def sidebar_ingest():
                     st.session_state.search_hits = []
                     st.rerun()
 
+    st.sidebar.divider()
+
     # --- CSV Import ---
-    st.sidebar.subheader("📁 CSV Import")
+    st.sidebar.header("CSV Import")
     kind = st.sidebar.selectbox("Data Type", ["works", "authors", "affiliations", "keywords"])
     uploaded = st.sidebar.file_uploader("Upload CSV", type=["csv"], key="csv_upload")
-    if uploaded and st.sidebar.button("📤 Import CSV"):
+    if uploaded and st.sidebar.button("Import CSV"):
         text = uploaded.read().decode("utf-8")
         df = pd.read_csv(io.StringIO(text))
-        with get_db(actor) as db:
+        with get_db() as db:
             _import_csv(db, kind, df)
             crud.recompute_coauthor_edges(db)
             crud.recompute_nation_edges(db)
@@ -376,17 +321,17 @@ def sidebar_ingest():
         st.sidebar.success(f"Imported {len(df)} rows")
         st.rerun()
 
-    # --- ZIP Restore (re-import previously exported data) ---
-    st.sidebar.subheader("📦 Restore from Export")
+    # --- ZIP Restore ---
+    st.sidebar.header("Restore from Export")
     st.sidebar.caption("Upload a previously exported ZIP to restore data")
     zip_file = st.sidebar.file_uploader("Upload ZIP", type=["zip"], key="zip_restore")
-    if zip_file and st.sidebar.button("🔄 Restore Data", key="restore_btn"):
-        _restore_from_zip(actor, zip_file)
+    if zip_file and st.sidebar.button("Restore Data", key="restore_btn"):
+        _restore_from_zip(zip_file)
         st.rerun()
 
 
 def _import_csv(db, kind: str, df: pd.DataFrame):
-    """Import CSV data into the database (logic extracted from old main.py)."""
+    """Import CSV data into the database."""
     if kind == "works":
         for _, r in df.iterrows():
             w = {
@@ -440,16 +385,16 @@ def _import_csv(db, kind: str, df: pd.DataFrame):
             db.add(models.WorkKeyword(work_id=work.id, keyword_id=kw.id, weight=1.0, extractor="manual"))
 
 
-def _restore_from_zip(actor_name: str, zip_file):
-    """Restore actor data from a previously exported ZIP file."""
+def _restore_from_zip(zip_file):
+    """Restore data from a previously exported ZIP file."""
     try:
-        init_db(actor_name)
+        reset_db()
         zip_bytes = zip_file.read()
         with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
             names = zf.namelist()
-            with get_db(actor_name) as db:
+            with get_db() as db:
                 # Import works first
-                works_file = next((n for n in names if n.endswith("_works.csv")), None)
+                works_file = next((n for n in names if n.endswith("works.csv") and "work_" not in n), None)
                 if works_file:
                     df = pd.read_csv(io.StringIO(zf.read(works_file).decode("utf-8")))
                     for _, r in df.iterrows():
@@ -467,22 +412,21 @@ def _restore_from_zip(actor_name: str, zip_file):
                         crud.upsert_work_from_openalex(db, w)
 
                 # Import work-author relationships
-                wa_file = next((n for n in names if n.endswith("_work_authors.csv")), None)
+                wa_file = next((n for n in names if "work_authors" in n), None)
                 if wa_file:
                     df = pd.read_csv(io.StringIO(zf.read(wa_file).decode("utf-8")))
                     _import_csv(db, "authors", df)
 
                 # Import affiliations
-                aff_file = next((n for n in names if n.endswith("_affiliations.csv")), None)
+                aff_file = next((n for n in names if "affiliations" in n), None)
                 if aff_file:
                     df = pd.read_csv(io.StringIO(zf.read(aff_file).decode("utf-8")))
                     _import_csv(db, "affiliations", df)
 
                 # Import work-keywords
-                wk_file = next((n for n in names if n.endswith("_work_keywords.csv")), None)
+                wk_file = next((n for n in names if "work_keywords" in n), None)
                 if wk_file:
                     df = pd.read_csv(io.StringIO(zf.read(wk_file).decode("utf-8")))
-                    # Rename column to match _import_csv expectation
                     if "keyword" in df.columns:
                         df = df.rename(columns={"keyword": "term"})
                     _import_csv(db, "keywords", df)
@@ -495,125 +439,68 @@ def _restore_from_zip(actor_name: str, zip_file):
                 except Exception:
                     pass
 
-        st.sidebar.success(f"Restored data for '{actor_name}'")
+        st.sidebar.success("Data restored successfully")
     except Exception as e:
         st.sidebar.error(f"Restore failed: {e}")
 
+
 # ============= Tabs =============
 
+
 def how_to_use_tab():
-    st.header("📚 How to Use This Service")
+    st.header("How to Use")
     st.markdown("""
-    Welcome to the **Multi-Actor Research Relationship Visualization Service**!
-    This guide will help you understand the system's capabilities.
+    Welcome to **Relatenta** — a research relationship visualization service.
     """)
 
-    with st.expander("🚀 Quick Start Guide", expanded=True):
+    with st.expander("Quick Start", expanded=True):
         st.markdown("""
-        ### Getting Started in 5 Minutes
+        ### Getting Started
 
-        1. **Create an Actor Database** (left sidebar)
-           - Click "➕ Create New Actor"
-           - Enter a name (e.g., "AI Research Team", "Stanford NLP")
-
-        2. **Import Research Data**
-           - Search for a researcher by name in the sidebar
-           - Select one or more researchers
-           - Click "📥 Ingest Selected" to import their publications
-
-        3. **Visualize Relationships**
-           - Go to the "Graph" tab
-           - Choose a layer (authors, keywords, orgs, nations)
-           - Click "🎨 Build Graph"
-
-        4. **Save Your Work**
-           - Use "📥 Export CSV" to download your data
-           - Use "📦 Restore from Export" to reload it in a future session
+        1. **Search for a researcher** in the left sidebar (e.g., "Geoffrey Hinton")
+        2. **Review the search results** — check institution, H-index, and topics to pick the right person
+        3. **Select one or more authors** and click "Ingest Selected"
+        4. **Go to the Graph tab** — pick a layer and click "Build Graph"
 
         > **Note:** Data is stored in memory only.
-        > Export before closing the browser to preserve your work!
+        > Use "Export CSV" to save your work before closing the browser.
         """)
 
-    with st.expander("📊 Understanding Visualizations", expanded=False):
+    with st.expander("Graph Layers", expanded=False):
         st.markdown("""
-        ### Network Graph Layers
-
-        **👥 Author Layer** — Co-authorship network
-        - Node = Author, Edge = Co-authored papers
-
-        **🔍 Keyword Layer** — Topic co-occurrence
-        - Node = Keyword, Edge = Papers with both topics
-
-        **🏢 Organization Layer** — Institutional collaboration
-        - Node = Institution, Edge = Joint publications
-
-        **🌍 Nation Layer** — International collaboration
-        - Node = Country, Edge = International co-authorships
-
-        ### Heatmaps
-        - **Author-Keyword**: Which authors work on which topics
-        - **Nation-Nation**: International collaboration intensity
+        | Layer | Nodes | Edges | Use Case |
+        |-------|-------|-------|----------|
+        | **Authors** | Researchers | Co-authored papers | Collaboration network |
+        | **Keywords** | Topics | Papers with both topics | Research landscape |
+        | **Organizations** | Institutions | Joint publications | Partnership analysis |
+        | **Nations** | Countries | International co-authorships | Global patterns |
         """)
 
-    with st.expander("🎮 Graph Controls", expanded=False):
+    with st.expander("Graph Controls", expanded=False):
         st.markdown("""
-        - 🖱️ Drag to pan
-        - 📌 Click nodes to select
-        - 🔍 Scroll to zoom
-        - ⌨️ Press SPACE to toggle physics
-        - **Focus Mode**: Enter IDs to highlight or isolate specific nodes
+        - Drag to pan the view
+        - Click nodes to select and highlight connections
+        - Scroll to zoom in/out
+        - Press SPACE to toggle physics simulation
+        - Use **Focus Mode** to highlight or isolate specific nodes
         """)
 
-    with st.expander("💾 Data Management", expanded=False):
+    with st.expander("Data Persistence", expanded=False):
         st.markdown("""
-        ### Important: In-Memory Storage
-        This app runs on Streamlit Cloud with **no persistent database**.
-        Data exists only during your session.
+        This app uses an in-memory database. Data is lost when the session ends.
 
-        **To preserve data:**
-        1. Click "📥 Export CSV" to download a ZIP file
-        2. Next session, use "📦 Restore from Export" to reload
-
-        **Data Sources:**
-        - **OpenAlex**: Open database of 250M+ scholarly works
-        - **CSV Import**: Upload your own structured data
+        **To save:** Click "Export CSV" in the sidebar to download a ZIP file.
+        **To restore:** Use "Restore from Export" to upload a previously saved ZIP.
         """)
-
-
-def overview_tab():
-    st.header("📈 System Overview")
-    actors = _actors_with_stats()
-    if not actors:
-        st.info("No actor databases found. Create one from the sidebar to get started!")
-        return
-
-    st.subheader("🎭 Actor Databases")
-    for i in range(0, len(actors), 3):
-        cols = st.columns(3)
-        for j, col in enumerate(cols):
-            if i + j < len(actors):
-                a = actors[i + j]
-                with col:
-                    st.metric(a["name"], f"{a.get('works', 0)} papers")
-                    st.caption(f"Authors: {a.get('authors', 0)} | Orgs: {a.get('organizations', 0)} | Keywords: {a.get('keywords', 0)}")
-                    if st.button("Select", key=f"select_{a['name']}"):
-                        st.session_state.current_actor = a["name"]
-                        st.rerun()
-
-    st.subheader("📊 System Statistics")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Total Actors", len(actors))
-    c2.metric("Total Papers", sum(a.get("works", 0) for a in actors))
-    c3.metric("Total Authors", sum(a.get("authors", 0) for a in actors))
 
 
 def graph_tab():
-    if not st.session_state.current_actor:
-        st.warning("Please select an actor from the sidebar to visualize data")
+    stats = get_stats()
+    if stats["works"] == 0:
+        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
         return
 
-    actor = st.session_state.current_actor
-    st.header(f"🔗 Graph Explorer - {actor}")
+    st.header("Network Graph")
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -626,20 +513,29 @@ def graph_tab():
         edge_min = st.slider("Edge weight min", 0.0, 10.0, 1.0, 0.5, key="graph_edge_min")
 
     # Focus ID search helpers
-    _render_focus_helper(actor, layer)
+    _render_focus_helper(layer)
 
-    focus_placeholder = {"authors": "e.g., 1,5,23", "keywords": "e.g., 12,45,78", "orgs": "e.g., 3,15,42", "nations": "e.g., US,GB,DE"}
-    focus = st.text_input(f"Focus {layer} IDs (comma-separated, optional)", key="graph_focus", placeholder=focus_placeholder[layer])
+    focus_placeholder = {
+        "authors": "e.g., 1,5,23", "keywords": "e.g., 12,45,78",
+        "orgs": "e.g., 3,15,42", "nations": "e.g., US,GB,DE",
+    }
+    focus = st.text_input(
+        f"Focus {layer} IDs (comma-separated, optional)",
+        key="graph_focus", placeholder=focus_placeholder[layer],
+    )
 
     focus_ids = _parse_focus_ids(layer, focus)
 
     focus_only = False
     if focus_ids:
-        mode = st.radio("Focus mode:", ["Full Network (highlight)", "Focus Only (isolate)"], index=0, key="focus_mode", horizontal=True)
+        mode = st.radio(
+            "Focus mode:", ["Full Network (highlight)", "Focus Only (isolate)"],
+            index=0, key="focus_mode", horizontal=True,
+        )
         focus_only = mode.startswith("Focus Only")
 
     # Viz settings
-    with st.expander("🎨 Visualization Controls", expanded=False):
+    with st.expander("Visualization Controls", expanded=False):
         c1, c2, c3 = st.columns(3)
         with c1:
             node_size_range = st.slider("Node Size Range", 5, 100, (15, 40), key="node_size_range")
@@ -650,13 +546,13 @@ def graph_tab():
         with c3:
             edge_width_range = st.slider("Edge Width Range", 0.1, 10.0, (0.5, 4.0), key="edge_width_range")
 
-    if st.button("🎨 Build Graph", type="primary", key="build_graph_btn"):
+    if st.button("Build Graph", type="primary", key="build_graph_btn"):
         with st.spinner("Building graph..."):
             try:
-                with get_db(actor) as db:
+                with get_db() as db:
                     g = build_graph(db, layer, year_min, year_max, edge_min, focus_ids, focus_only)
                 if not g["nodes"]:
-                    st.warning("No nodes found. Try adjusting your parameters.")
+                    st.warning("No nodes found. Try lowering edge weight or widening the year range.")
                     return
                 st.success(f"Graph: {len(g['nodes'])} nodes, {len(g['edges'])} edges")
                 draw_pyvis_graph(g, viz_settings={
@@ -671,12 +567,12 @@ def graph_tab():
 
 
 def heatmap_tab():
-    if not st.session_state.current_actor:
-        st.warning("Please select an actor from the sidebar to visualize data")
+    stats = get_stats()
+    if stats["works"] == 0:
+        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
         return
 
-    actor = st.session_state.current_actor
-    st.header(f"🔥 Heatmaps - {actor}")
+    st.header("Heatmaps")
 
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -686,9 +582,9 @@ def heatmap_tab():
     with c3:
         year_max = st.number_input("Year max", value=2025, step=1, key="hm_year_max")
 
-    if st.button("📊 Compute Heatmap", type="primary", key="compute_hm_btn"):
+    if st.button("Compute Heatmap", type="primary", key="compute_hm_btn"):
         with st.spinner("Computing heatmap..."):
-            with get_db(actor) as db:
+            with get_db() as db:
                 if kind == "author_keyword":
                     hm = author_keyword_heat(db, year_min, year_max)
                 elif kind == "nation_nation":
@@ -703,19 +599,23 @@ def heatmap_tab():
             import plotly.express as px
             x = [c["label"] for c in hm["cols"]]
             y = [r["label"] for r in hm["rows"]]
-            fig = px.imshow(hm["data"], labels=dict(x="Columns", y="Rows", color="Weight"),
-                            x=x, y=y, aspect="auto", color_continuous_scale="Viridis")
+            fig = px.imshow(
+                hm["data"], labels=dict(x="Columns", y="Rows", color="Weight"),
+                x=x, y=y, aspect="auto", color_continuous_scale="Viridis",
+            )
             st.plotly_chart(fig, use_container_width=True)
+
 
 # ============= Helpers =============
 
-def _render_focus_helper(actor: str, layer: str):
+
+def _render_focus_helper(layer: str):
     """Render in-database search helpers for finding focus IDs."""
     if layer == "authors":
-        with st.expander("👤 Find Author IDs", expanded=False):
+        with st.expander("Find Author IDs", expanded=False):
             q = st.text_input("Search author name:", key="author_search_graph", placeholder="Enter part of name...")
             if q and len(q) >= 2:
-                with get_db(actor) as db:
+                with get_db() as db:
                     rows = db.execute(
                         select(models.Author.id, models.Author.display_name)
                         .where(func.lower(models.Author.display_name).contains(q.lower()))
@@ -730,10 +630,10 @@ def _render_focus_helper(actor: str, layer: str):
                 else:
                     st.write("No authors found.")
     elif layer == "keywords":
-        with st.expander("🔍 Find Keyword IDs", expanded=False):
+        with st.expander("Find Keyword IDs", expanded=False):
             q = st.text_input("Search keyword:", key="kw_search_graph", placeholder="Enter part of keyword...")
             if q and len(q) >= 2:
-                with get_db(actor) as db:
+                with get_db() as db:
                     rows = db.execute(
                         select(models.Keyword.id, models.Keyword.term_display)
                         .where(func.lower(models.Keyword.term_display).contains(q.lower()))
@@ -748,10 +648,10 @@ def _render_focus_helper(actor: str, layer: str):
                 else:
                     st.write("No keywords found.")
     elif layer == "orgs":
-        with st.expander("🏢 Find Organization IDs", expanded=False):
+        with st.expander("Find Organization IDs", expanded=False):
             q = st.text_input("Search organization:", key="org_search_graph", placeholder="Enter part of name...")
             if q and len(q) >= 2:
-                with get_db(actor) as db:
+                with get_db() as db:
                     rows = db.execute(
                         select(models.Organization.id, models.Organization.name, models.Organization.country_code)
                         .where(func.lower(models.Organization.name).contains(q.lower()))
@@ -766,10 +666,12 @@ def _render_focus_helper(actor: str, layer: str):
                 else:
                     st.write("No organizations found.")
     elif layer == "nations":
-        with st.expander("🌍 Nation Codes", expanded=False):
-            common = [("US", "United States"), ("GB", "United Kingdom"), ("DE", "Germany"),
-                      ("FR", "France"), ("CN", "China"), ("JP", "Japan"), ("KR", "South Korea"),
-                      ("CA", "Canada"), ("AU", "Australia"), ("IN", "India")]
+        with st.expander("Nation Codes", expanded=False):
+            common = [
+                ("US", "United States"), ("GB", "United Kingdom"), ("DE", "Germany"),
+                ("FR", "France"), ("CN", "China"), ("JP", "Japan"), ("KR", "South Korea"),
+                ("CA", "Canada"), ("AU", "Australia"), ("IN", "India"),
+            ]
             cols = st.columns(3)
             for i, (code, name) in enumerate(common):
                 with cols[i % 3]:
@@ -792,25 +694,23 @@ def _parse_focus_ids(layer: str, focus_str: str):
                 ids.append(int(s))
         return ids if ids else None
 
+
 # ============= Main =============
 
+
 def main():
-    st.title("🔬 Relatenta - Research Relationship Visualization")
-    st.caption("⚠️ Data is stored in memory only. Export your data before closing!")
+    st.title("Relatenta")
+    st.caption("Research Relationship Visualization")
 
     with st.sidebar:
-        sidebar_actor_management()
-        st.sidebar.divider()
-        sidebar_ingest()
+        sidebar_data()
 
-    tabs = st.tabs(["📚 How to Use", "📈 Overview", "🔗 Graph", "🔥 Heatmaps"])
+    tabs = st.tabs(["How to Use", "Graph", "Heatmaps"])
     with tabs[0]:
         how_to_use_tab()
     with tabs[1]:
-        overview_tab()
-    with tabs[2]:
         graph_tab()
-    with tabs[3]:
+    with tabs[2]:
         heatmap_tab()
 
 

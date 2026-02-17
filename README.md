@@ -1,6 +1,6 @@
 # Relatenta
 
-**Multi-Actor Research Relationship Visualization Platform** — Visualize collaboration networks among researchers, institutions, keywords, and nations using interactive network graphs.
+**Research Relationship Visualization** — Visualize collaboration networks among researchers, institutions, keywords, and nations using interactive network graphs.
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io)
@@ -17,69 +17,9 @@ Relatenta ingests scholarly publication data from the [OpenAlex API](https://ope
 - **OpenAlex Author Search** — Enhanced disambiguation with H-index, citations, ORCID, and research topics
 - **4-Layer Network Visualization** — Co-authorship, keyword co-occurrence, institutional collaboration, and international collaboration
 - **Heatmap Analysis** — Author-keyword and nation-nation collaboration matrices
-- **Multi-Actor Architecture** — Manage multiple independent analysis projects in parallel
 - **CSV Import/Export** — Bulk import and export of works, authors, affiliations, and keywords
 - **Focus Filtering** — Ego-network analysis centered on specific nodes
 - **Streamlit Cloud Ready** — In-memory database with ZIP export/restore for data persistence
-
----
-
-## Folder Structure
-
-```
-Relatenta/
-├── README.md                    # This file
-├── requirements.txt             # Python dependencies
-├── streamlit_app.py             # Streamlit app (single-process, no separate backend)
-├── app/                         # Core logic package
-│   ├── __init__.py
-│   ├── db.py                    # In-memory SQLite engine & session management
-│   ├── models.py                # SQLAlchemy ORM models (12 tables)
-│   ├── crud.py                  # CRUD operations & edge recomputation
-│   ├── connectors_openalex.py   # OpenAlex API connector
-│   ├── services_graph.py        # Network graph builder (4 layers)
-│   ├── services_heatmap.py      # Heatmap data generator
-│   └── services_export.py       # CSV/ZIP export service
-├── databases/                   # (unused in cloud mode, kept for compatibility)
-│   └── .gitkeep
-└── docs/                        # Documentation
-    ├── Implementation_Guide.md
-    └── User_manual.md
-```
-
----
-
-## Architecture
-
-```
-┌──────────────────────────────────────────────┐
-│            Streamlit Application              │
-│            (streamlit_app.py)                 │
-│                                               │
-│  ┌──────────┐  ┌──────────┐  ┌────────────┐ │
-│  │ Actor    │  │ Graph &  │  │ Data       │ │
-│  │ Mgmt UI  │  │ Heatmap  │  │ Ingestion  │ │
-│  │          │  │ (PyVis)  │  │ & Export   │ │
-│  └─────┬────┘  └────┬─────┘  └─────┬──────┘ │
-│        │            │              │         │
-│  ┌─────▼────────────▼──────────────▼───────┐ │
-│  │        app/ (service layer)             │ │
-│  │  db.py · crud.py · models.py            │ │
-│  │  services_graph · services_heatmap      │ │
-│  │  services_export · connectors_openalex  │ │
-│  └─────────────────┬───────────────────────┘ │
-└────────────────────┼─────────────────────────┘
-                     │
-       ┌─────────────┼──────────────┐
-       │             │              │
-┌──────▼──────┐ ┌───▼──────────┐ ┌─▼───────────┐
-│ In-Memory   │ │ OpenAlex API │ │ CSV Files   │
-│ SQLite      │ │ (250M+ recs) │ │ (Import /   │
-│ (per actor) │ │              │ │  Export)    │
-└─────────────┘ └──────────────┘ └─────────────┘
-```
-
-> **Note:** There is no separate backend server. Streamlit calls all service functions directly. Each actor gets its own in-memory SQLite database within the Streamlit process.
 
 ---
 
@@ -91,11 +31,9 @@ Relatenta/
 git clone https://github.com/Denny-Hwang/Relatenta.git
 cd Relatenta
 
-# Create virtual environment (recommended)
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -107,48 +45,42 @@ streamlit run streamlit_app.py
 
 The app opens at **http://localhost:8501**.
 
-### 3. Basic Workflow
+### 3. Usage
 
-1. **Create an Actor** — Sidebar > "Create New Actor" > enter a project name
-2. **Ingest Data** — Search for a researcher via OpenAlex > select > "Ingest Selected"
-3. **Visualize** — Go to the "Graph" tab > pick a layer > "Build Graph"
-4. **Export** — Click "Export CSV" to download your data as a ZIP file
-5. **Restore** — Next session, upload the ZIP via "Restore from Export"
+1. **Search** for a researcher name in the sidebar (e.g., "Geoffrey Hinton")
+2. **Review** the search results — check institution, H-index, and topics to disambiguate
+3. **Select** one or more authors and click "Ingest Selected"
+4. **Visualize** — go to the Graph tab, pick a layer, click "Build Graph"
+5. **Export** your data as ZIP before closing the browser
+
+---
+
+## Architecture
+
+```
+streamlit_app.py              (UI, sidebar, tabs)
+  |
+  +-- app/db.py               (single in-memory SQLite engine)
+  +-- app/models.py            (SQLAlchemy ORM, 12 tables)
+  +-- app/crud.py              (data ops, edge computation)
+  +-- app/connectors_openalex.py  (OpenAlex API client)
+  +-- app/services_graph.py    (4-layer network graph builder)
+  +-- app/services_heatmap.py  (heatmap matrix generator)
+  +-- app/services_export.py   (CSV/ZIP export)
+```
+
+Single Streamlit process. No separate backend server. One in-memory SQLite database shared across the session.
 
 ---
 
 ## Data Persistence
 
-This app uses **in-memory SQLite** databases. Data exists only during the active browser session.
+This app uses an **in-memory database**. Data exists only during the active browser session.
 
 | Action | How |
 |--------|-----|
-| **Save data** | Sidebar > "Export CSV" — downloads a ZIP with all tables |
-| **Restore data** | Sidebar > "Restore from Export" — upload a previously exported ZIP |
-
-> Always export your data before closing the browser.
-
----
-
-## Database Schema
-
-12 tables managed via SQLAlchemy ORM:
-
-| Table | Description |
-|-------|-------------|
-| `authors` | Researcher info (name, ORCID) |
-| `author_aliases` | Name variants for disambiguation |
-| `organizations` | Institutions and universities |
-| `venues` | Journals and conferences |
-| `works` | Publication metadata |
-| `work_authors` | Work-author relationships |
-| `work_affiliations` | Work-author-organization links |
-| `keywords` | Keywords and concepts |
-| `work_keywords` | Work-keyword relationships |
-| `coauthor_edges` | Co-authorship network edges |
-| `org_edges` | Institutional collaboration edges |
-| `nation_edges` | International collaboration edges |
-| `merges` | Entity merge audit log |
+| **Save** | Sidebar > "Export CSV" — downloads a ZIP with all tables |
+| **Restore** | Sidebar > "Restore from Export" — upload a previously exported ZIP |
 
 ---
 
@@ -156,7 +88,7 @@ This app uses **in-memory SQLite** databases. Data exists only during the active
 
 | Layer | Nodes | Edges | Use Case |
 |-------|-------|-------|----------|
-| **Co-authorship** | Authors | Shared publications | Identify research collaborators |
+| **Co-authorship** | Authors | Shared publications | Identify collaborators |
 | **Keyword Co-occurrence** | Keywords | Papers with both topics | Map research landscapes |
 | **Institutional** | Organizations | Joint publications | Discover partnerships |
 | **National** | Countries | International co-authorships | Analyze global patterns |
@@ -165,7 +97,7 @@ This app uses **in-memory SQLite** databases. Data exists only during the active
 
 ## Tech Stack
 
-- **Frontend & App:** Streamlit, PyVis (network graphs), Plotly (heatmaps only)
+- **App:** Streamlit, PyVis (network graphs), Plotly (heatmaps)
 - **Database:** In-memory SQLite + SQLAlchemy ORM
 - **Data Source:** OpenAlex API
 - **Language:** Python 3.10+
