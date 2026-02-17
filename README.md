@@ -1,200 +1,185 @@
-# 🔬 Reatenta
+# Relatenta
 
-**Research Relationship Visualization Platform** — 학술 연구자 간 관계를 인터랙티브 네트워크 그래프로 시각화하는 플랫폼
+**Multi-Actor Research Relationship Visualization Platform** — Visualize collaboration networks among researchers, institutions, keywords, and nations using interactive network graphs.
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## 📋 Overview
+## Overview
 
-OpenAlex API(2억 5천만+ 학술 레코드)와 CSV 데이터를 기반으로 연구자, 키워드, 기관, 국가 간 협력 관계를 **4-Layer 네트워크 그래프**와 **히트맵**으로 시각화합니다.
+Relatenta ingests scholarly publication data from the [OpenAlex API](https://openalex.org/) (250M+ records) or CSV files, and renders **4-layer network graphs** and **heatmaps** that reveal collaboration patterns across researchers, topics, organizations, and countries.
 
-### 핵심 기능
-- 🔍 **OpenAlex 연구자 검색 & 데이터 수집** — 향상된 저자 동명이인 구별 (H-index, i10-index, 인용수, ORCID 등)
-- 🌐 **4-Layer 네트워크 시각화** — 공저자, 키워드 동시출현, 기관 협력, 국가 협력
-- 📊 **히트맵 분석** — 저자-키워드, 국가-국가 협력 매트릭스
-- 🎭 **Multi-Actor 아키텍처** — 독립된 데이터베이스로 다수의 분석 프로젝트 병렬 관리
-- 📁 **CSV Import/Export** — 논문, 저자, 소속, 키워드 데이터 일괄 처리
-- 🔗 **포커스 필터링** — 특정 노드 중심의 Ego Network 분석
+### Key Features
+
+- **OpenAlex Author Search** — Enhanced disambiguation with H-index, citations, ORCID, and research topics
+- **4-Layer Network Visualization** — Co-authorship, keyword co-occurrence, institutional collaboration, and international collaboration
+- **Heatmap Analysis** — Author-keyword and nation-nation collaboration matrices
+- **Multi-Actor Architecture** — Manage multiple independent analysis projects in parallel
+- **CSV Import/Export** — Bulk import and export of works, authors, affiliations, and keywords
+- **Focus Filtering** — Ego-network analysis centered on specific nodes
+- **Streamlit Cloud Ready** — In-memory database with ZIP export/restore for data persistence
 
 ---
 
-## 📂 Folder Structure
+## Folder Structure
 
 ```
-reatenta/
-├── README.md                    # 이 파일
-├── requirements.txt             # Python 의존성
-├── .env.example                 # 환경변수 템플릿
-├── .gitignore                   # Git 제외 파일
-├── streamlit_app.py             # 🖥️  Streamlit 프론트엔드 (1,800+ lines)
-├── app/                         # 🔧 FastAPI 백엔드 패키지
+Relatenta/
+├── README.md                    # This file
+├── requirements.txt             # Python dependencies
+├── streamlit_app.py             # Streamlit app (single-process, no separate backend)
+├── app/                         # Core logic package
 │   ├── __init__.py
-│   ├── main.py                  # FastAPI 앱 & 16개 API 엔드포인트
-│   ├── models.py                # SQLAlchemy ORM 모델 (12 테이블)
-│   ├── db.py                    # 데이터베이스 엔진 & 세션 관리
-│   ├── schemas.py               # Pydantic 요청/응답 스키마
-│   ├── crud.py                  # CRUD 연산 & 엣지 재계산
-│   ├── connectors_openalex.py   # OpenAlex API 커넥터
-│   ├── services_graph.py        # 네트워크 그래프 빌더
-│   ├── services_heatmap.py      # 히트맵 데이터 생성
-│   └── services_export.py       # CSV/ZIP 내보내기 서비스
-├── databases/                   # 📦 SQLite DB 파일 저장 (자동생성)
+│   ├── db.py                    # In-memory SQLite engine & session management
+│   ├── models.py                # SQLAlchemy ORM models (12 tables)
+│   ├── crud.py                  # CRUD operations & edge recomputation
+│   ├── connectors_openalex.py   # OpenAlex API connector
+│   ├── services_graph.py        # Network graph builder (4 layers)
+│   ├── services_heatmap.py      # Heatmap data generator
+│   └── services_export.py       # CSV/ZIP export service
+├── databases/                   # (unused in cloud mode, kept for compatibility)
 │   └── .gitkeep
-└── docs/                        # 📖 문서
-    ├── Implementation_Guide.md  # 구현 가이드
-    ├── User_manual.md           # 사용자 매뉴얼
-    └── Research_Viz_SW개발문서.docx  # 소프트웨어 개발 문서
+└── docs/                        # Documentation
+    ├── Implementation_Guide.md
+    └── User_manual.md
 ```
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
-┌─────────────────────┐     HTTP/REST      ┌─────────────────────┐
-│   Streamlit Frontend │ ◄──────────────► │   FastAPI Backend    │
-│   (streamlit_app.py) │                   │   (app/main.py)      │
-│                      │                   │                      │
-│  • Actor 관리 UI      │                   │  • 16 API Endpoints  │
-│  • 검색 & Ingest      │                   │  • CRUD Operations   │
-│  • PyVis 그래프 렌더링 │                   │  • Graph Builder     │
-│  • Plotly 히트맵      │                   │  • Heatmap Engine    │
-│  • CSV Import/Export  │                   │  • Export Service    │
-└─────────────────────┘                   └──────────┬──────────┘
-                                                      │
-                              ┌────────────────────────┼─────────────────┐
-                              │                        │                 │
-                    ┌─────────▼──────┐     ┌──────────▼──────┐  ┌──────▼───────┐
-                    │  SQLite (per   │     │  OpenAlex API   │  │  CSV Files   │
-                    │  Actor DB)     │     │  (250M+ records)│  │  (Import)    │
-                    └────────────────┘     └─────────────────┘  └──────────────┘
+┌──────────────────────────────────────────────┐
+│            Streamlit Application              │
+│            (streamlit_app.py)                 │
+│                                               │
+│  ┌──────────┐  ┌──────────┐  ┌────────────┐ │
+│  │ Actor    │  │ Graph &  │  │ Data       │ │
+│  │ Mgmt UI  │  │ Heatmap  │  │ Ingestion  │ │
+│  │          │  │ (PyVis)  │  │ & Export   │ │
+│  └─────┬────┘  └────┬─────┘  └─────┬──────┘ │
+│        │            │              │         │
+│  ┌─────▼────────────▼──────────────▼───────┐ │
+│  │        app/ (service layer)             │ │
+│  │  db.py · crud.py · models.py            │ │
+│  │  services_graph · services_heatmap      │ │
+│  │  services_export · connectors_openalex  │ │
+│  └─────────────────┬───────────────────────┘ │
+└────────────────────┼─────────────────────────┘
+                     │
+       ┌─────────────┼──────────────┐
+       │             │              │
+┌──────▼──────┐ ┌───▼──────────┐ ┌─▼───────────┐
+│ In-Memory   │ │ OpenAlex API │ │ CSV Files   │
+│ SQLite      │ │ (250M+ recs) │ │ (Import /   │
+│ (per actor) │ │              │ │  Export)    │
+└─────────────┘ └──────────────┘ └─────────────┘
 ```
+
+> **Note:** There is no separate backend server. Streamlit calls all service functions directly. Each actor gets its own in-memory SQLite database within the Streamlit process.
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/your-username/reatenta.git
-cd reatenta
+git clone https://github.com/Denny-Hwang/Relatenta.git
+cd Relatenta
 
-# 가상환경 생성 (권장)
+# Create virtual environment (recommended)
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# 의존성 설치
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. 환경변수 설정
+### 2. Run
 
 ```bash
-cp .env.example .env
-# 필요시 .env 파일 편집
+streamlit run streamlit_app.py
 ```
 
-### 3. 서버 실행
+The app opens at **http://localhost:8501**.
 
-**터미널 1 — FastAPI 백엔드:**
-```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
+### 3. Basic Workflow
 
-**터미널 2 — Streamlit 프론트엔드:**
-```bash
-streamlit run streamlit_app.py --server.port 8501
-```
-
-### 4. 브라우저 접속
-
-- **Frontend:** http://localhost:8501
-- **API Docs:** http://localhost:8000/docs
+1. **Create an Actor** — Sidebar > "Create New Actor" > enter a project name
+2. **Ingest Data** — Search for a researcher via OpenAlex > select > "Ingest Selected"
+3. **Visualize** — Go to the "Graph" tab > pick a layer > "Build Graph"
+4. **Export** — Click "Export CSV" to download your data as a ZIP file
+5. **Restore** — Next session, upload the ZIP via "Restore from Export"
 
 ---
 
-## 🔌 API Endpoints
+## Data Persistence
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/health` | 서버 상태 확인 |
-| `GET` | `/actors` | Actor 목록 조회 |
-| `POST` | `/actors/{name}/init` | 새 Actor DB 초기화 |
-| `DELETE` | `/actors/{name}` | Actor DB 삭제 |
-| `GET` | `/actors/{name}/stats` | Actor 통계 조회 |
-| `GET` | `/actors/{name}/export` | Actor 데이터 CSV 내보내기 |
-| `GET` | `/search-authors` | OpenAlex 저자 검색 |
-| `GET` | `/{actor}/search-local-authors` | 로컬 저자 검색 |
-| `GET` | `/{actor}/search-local-keywords` | 로컬 키워드 검색 |
-| `GET` | `/{actor}/search-local-orgs` | 로컬 기관 검색 |
-| `POST` | `/{actor}/validate-authors` | 저자 ID 검증 |
-| `POST` | `/{actor}/validate-keywords` | 키워드 ID 검증 |
-| `POST` | `/{actor}/validate-orgs` | 기관 ID 검증 |
-| `POST` | `/{actor}/ingest/openalex` | OpenAlex 데이터 수집 |
-| `POST` | `/{actor}/graph` | 네트워크 그래프 생성 |
-| `POST` | `/{actor}/heatmap` | 히트맵 데이터 생성 |
-| `POST` | `/{actor}/import/csv` | CSV 데이터 가져오기 |
+This app uses **in-memory SQLite** databases. Data exists only during the active browser session.
+
+| Action | How |
+|--------|-----|
+| **Save data** | Sidebar > "Export CSV" — downloads a ZIP with all tables |
+| **Restore data** | Sidebar > "Restore from Export" — upload a previously exported ZIP |
+
+> Always export your data before closing the browser.
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
-12개 테이블로 구성된 관계형 데이터베이스:
+12 tables managed via SQLAlchemy ORM:
 
 | Table | Description |
 |-------|-------------|
-| `authors` | 연구자 정보 (이름, ORCID) |
-| `author_aliases` | 저자 이름 변형 (동명이인 처리) |
-| `organizations` | 기관/대학 정보 |
-| `venues` | 학술지/컨퍼런스 |
-| `works` | 논문 메타데이터 |
-| `work_authors` | 논문-저자 연결 |
-| `work_affiliations` | 논문-저자-기관 연결 |
-| `keywords` | 키워드/개념 |
-| `work_keywords` | 논문-키워드 연결 |
-| `coauthor_edges` | 공저자 네트워크 엣지 |
-| `org_edges` | 기관 협력 엣지 |
-| `nation_edges` | 국가 협력 엣지 |
-| `merges` | 엔티티 병합 로그 |
+| `authors` | Researcher info (name, ORCID) |
+| `author_aliases` | Name variants for disambiguation |
+| `organizations` | Institutions and universities |
+| `venues` | Journals and conferences |
+| `works` | Publication metadata |
+| `work_authors` | Work-author relationships |
+| `work_affiliations` | Work-author-organization links |
+| `keywords` | Keywords and concepts |
+| `work_keywords` | Work-keyword relationships |
+| `coauthor_edges` | Co-authorship network edges |
+| `org_edges` | Institutional collaboration edges |
+| `nation_edges` | International collaboration edges |
+| `merges` | Entity merge audit log |
 
 ---
 
-## 📊 Visualization Layers
+## Visualization Layers
 
 | Layer | Nodes | Edges | Use Case |
 |-------|-------|-------|----------|
-| **Co-authorship** | 연구자 | 공동 논문 수 | 연구 협력 네트워크 분석 |
-| **Keyword Co-occurrence** | 키워드 | 동시 출현 빈도 | 연구 주제 관계 파악 |
-| **Institutional** | 기관 | 기관간 공동 연구 | 산학 협력 분석 |
-| **National** | 국가 | 국제 공동 연구 | 글로벌 협력 패턴 |
+| **Co-authorship** | Authors | Shared publications | Identify research collaborators |
+| **Keyword Co-occurrence** | Keywords | Papers with both topics | Map research landscapes |
+| **Institutional** | Organizations | Joint publications | Discover partnerships |
+| **National** | Countries | International co-authorships | Analyze global patterns |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Frontend:** Streamlit, PyVis, Plotly
-- **Backend:** FastAPI, Uvicorn
-- **Database:** SQLite + SQLAlchemy ORM
+- **Frontend & App:** Streamlit, PyVis (network graphs), Plotly (heatmaps only)
+- **Database:** In-memory SQLite + SQLAlchemy ORM
 - **Data Source:** OpenAlex API
 - **Language:** Python 3.10+
 
 ---
 
-## 📖 Documentation
+## Documentation
 
-자세한 문서는 `docs/` 폴더를 참조하세요:
-- [Implementation Guide](docs/Implementation_Guide.md) — 구현 상세 가이드
-- [User Manual](docs/User_manual.md) — 사용자 매뉴얼
+- [User Manual](docs/User_manual.md) — Step-by-step usage guide
+- [Implementation Guide](docs/Implementation_Guide.md) — Technical details and extension guide
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork this repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -204,6 +189,6 @@ streamlit run streamlit_app.py --server.port 8501
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
