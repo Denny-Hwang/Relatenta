@@ -15,6 +15,7 @@ from app import models
 from app.services_graph import build_graph
 from app.services_heatmap import author_keyword_heat, nation_nation_heat
 from app.services_export import export_to_csv
+from app.services_report import gather_report
 
 st.set_page_config(page_title="Relatenta", layout="wide", page_icon="🔬")
 
@@ -599,11 +600,343 @@ def heatmap_tab():
             import plotly.express as px
             x = [c["label"] for c in hm["cols"]]
             y = [r["label"] for r in hm["rows"]]
+            row_count = len(y)
+            fig_height = max(500, row_count * 28 + 200)
             fig = px.imshow(
                 hm["data"], labels=dict(x="Columns", y="Rows", color="Weight"),
                 x=x, y=y, aspect="auto", color_continuous_scale="Viridis",
             )
+            fig.update_layout(height=fig_height, margin=dict(l=10, r=10, t=30, b=80))
             st.plotly_chart(fig, use_container_width=True)
+
+
+def report_tab():
+    stats = get_stats()
+    if stats["works"] == 0:
+        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
+        return
+
+    st.header("Analytic Report")
+
+    if st.button("Generate Report", type="primary", key="gen_report_btn"):
+        with st.spinner("Analyzing data..."):
+            with get_db() as db:
+                rpt = gather_report(db)
+            st.session_state.report_data = rpt
+
+    if "report_data" not in st.session_state:
+        st.caption("Click **Generate Report** to analyze your data.")
+        return
+
+    rpt = st.session_state.report_data
+    year_label = ""
+    if rpt["year_min"] and rpt["year_max"]:
+        year_label = f"{rpt['year_min']} – {rpt['year_max']}"
+
+    # ---- Summary Metrics ----
+    st.subheader("Summary")
+    m1, m2, m3, m4, m5 = st.columns(5)
+    m1.metric("Papers", f"{rpt['n_works']:,}")
+    m2.metric("Authors", f"{rpt['n_authors']:,}")
+    m3.metric("Organizations", f"{rpt['n_orgs']:,}")
+    m4.metric("Keywords", f"{rpt['n_keywords']:,}")
+    m5.metric("Venues", f"{rpt['n_venues']:,}")
+    if year_label:
+        st.caption(f"Publication years: {year_label}")
+
+    st.divider()
+
+    # ---- Publication Trend ----
+    if rpt["pub_trend"]:
+        st.subheader("Publication Trend")
+        import plotly.express as px
+        df_trend = pd.DataFrame(rpt["pub_trend"])
+        fig_trend = px.bar(
+            df_trend, x="year", y="count",
+            labels={"year": "Year", "count": "Papers"},
+            color_discrete_sequence=["#4A90E2"],
+        )
+        fig_trend.update_layout(height=350, margin=dict(l=40, r=20, t=30, b=40))
+        st.plotly_chart(fig_trend, use_container_width=True)
+
+    # ---- Two-column layout: Authors & Keywords ----
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        if rpt["top_authors"]:
+            st.subheader("Top Authors")
+            df_auth = pd.DataFrame(rpt["top_authors"])
+            fig_auth = px.bar(
+                df_auth.iloc[:15], x="papers", y="name", orientation="h",
+                labels={"papers": "Papers", "name": ""},
+                color_discrete_sequence=["#4A90E2"],
+            )
+            fig_auth.update_layout(
+                height=max(350, len(df_auth.iloc[:15]) * 28 + 80),
+                margin=dict(l=10, r=20, t=10, b=30),
+                yaxis=dict(autorange="reversed"),
+            )
+            st.plotly_chart(fig_auth, use_container_width=True)
+
+    with col_right:
+        if rpt["top_keywords"]:
+            st.subheader("Top Research Topics")
+            df_kw = pd.DataFrame(rpt["top_keywords"])
+            fig_kw = px.bar(
+                df_kw.iloc[:15], x="count", y="term", orientation="h",
+                labels={"count": "Occurrences", "term": ""},
+                color_discrete_sequence=["#F5A623"],
+            )
+            fig_kw.update_layout(
+                height=max(350, len(df_kw.iloc[:15]) * 28 + 80),
+                margin=dict(l=10, r=20, t=10, b=30),
+                yaxis=dict(autorange="reversed"),
+            )
+            st.plotly_chart(fig_kw, use_container_width=True)
+
+    st.divider()
+
+    # ---- Country & Venue distribution ----
+    col_left2, col_right2 = st.columns(2)
+
+    with col_left2:
+        if rpt["country_dist"]:
+            st.subheader("Country Distribution")
+            df_cc = pd.DataFrame(rpt["country_dist"])
+            fig_cc = px.bar(
+                df_cc, x="country", y="papers",
+                labels={"country": "Country", "papers": "Papers"},
+                color_discrete_sequence=["#7ED321"],
+            )
+            fig_cc.update_layout(height=350, margin=dict(l=40, r=20, t=10, b=40))
+            st.plotly_chart(fig_cc, use_container_width=True)
+
+    with col_right2:
+        if rpt["top_venues"]:
+            st.subheader("Top Venues")
+            df_v = pd.DataFrame(rpt["top_venues"])
+            fig_v = px.bar(
+                df_v, x="papers", y="venue", orientation="h",
+                labels={"papers": "Papers", "venue": ""},
+                color_discrete_sequence=["#BD10E0"],
+            )
+            fig_v.update_layout(
+                height=max(350, len(df_v) * 28 + 80),
+                margin=dict(l=10, r=20, t=10, b=30),
+                yaxis=dict(autorange="reversed"),
+            )
+            st.plotly_chart(fig_v, use_container_width=True)
+
+    st.divider()
+
+    # ---- Collaboration & Topic Relationships ----
+    col_left3, col_right3 = st.columns(2)
+
+    with col_left3:
+        if rpt["top_collabs"]:
+            st.subheader("Strongest Collaborations")
+            df_col = pd.DataFrame(rpt["top_collabs"])
+            df_col["pair"] = df_col["author_a"] + "  &  " + df_col["author_b"]
+            fig_collab = px.bar(
+                df_col.iloc[:10], x="papers", y="pair", orientation="h",
+                labels={"papers": "Co-authored Papers", "pair": ""},
+                color_discrete_sequence=["#4A90E2"],
+            )
+            fig_collab.update_layout(
+                height=max(300, len(df_col.iloc[:10]) * 35 + 80),
+                margin=dict(l=10, r=20, t=10, b=30),
+                yaxis=dict(autorange="reversed"),
+            )
+            st.plotly_chart(fig_collab, use_container_width=True)
+
+    with col_right3:
+        if rpt["top_kw_pairs"]:
+            st.subheader("Topic Co-occurrence")
+            df_kwp = pd.DataFrame(rpt["top_kw_pairs"])
+            df_kwp["pair"] = df_kwp["keyword_a"] + "  &  " + df_kwp["keyword_b"]
+            fig_kwp = px.bar(
+                df_kwp.iloc[:10], x="co_occurrences", y="pair", orientation="h",
+                labels={"co_occurrences": "Co-occurrences", "pair": ""},
+                color_discrete_sequence=["#F5A623"],
+            )
+            fig_kwp.update_layout(
+                height=max(300, len(df_kwp.iloc[:10]) * 35 + 80),
+                margin=dict(l=10, r=20, t=10, b=30),
+                yaxis=dict(autorange="reversed"),
+            )
+            st.plotly_chart(fig_kwp, use_container_width=True)
+
+    st.divider()
+
+    # ---- PDF Download ----
+    st.subheader("Download Report")
+    if st.button("Generate PDF", key="gen_pdf_btn"):
+        with st.spinner("Creating PDF..."):
+            pdf_bytes = _generate_report_pdf(rpt)
+            st.session_state.report_pdf = pdf_bytes
+    if "report_pdf" in st.session_state:
+        st.download_button(
+            "Download PDF",
+            data=st.session_state.report_pdf,
+            file_name=f"relatenta_report_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf",
+            mime="application/pdf",
+            key="dl_pdf_btn",
+        )
+
+
+def _generate_report_pdf(rpt: dict) -> bytes:
+    """Generate a multi-page PDF report using matplotlib."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.backends.backend_pdf import PdfPages
+
+    buf = io.BytesIO()
+    with PdfPages(buf) as pdf:
+        # --- Page 1: Title + Summary ---
+        fig, ax = plt.subplots(figsize=(11, 8.5))
+        ax.axis("off")
+        fig.patch.set_facecolor("#FAFAFA")
+
+        ax.text(0.5, 0.88, "Relatenta", fontsize=32, fontweight="bold",
+                ha="center", va="top", color="#2C3E50")
+        ax.text(0.5, 0.80, "Analytic Report", fontsize=18, ha="center",
+                va="top", color="#7F8C8D")
+
+        year_label = ""
+        if rpt["year_min"] and rpt["year_max"]:
+            year_label = f"Period: {rpt['year_min']} – {rpt['year_max']}"
+
+        summary_text = (
+            f"Papers: {rpt['n_works']:,}     Authors: {rpt['n_authors']:,}     "
+            f"Organizations: {rpt['n_orgs']:,}\n"
+            f"Keywords: {rpt['n_keywords']:,}     Venues: {rpt['n_venues']:,}\n"
+            f"{year_label}"
+        )
+        ax.text(0.5, 0.62, summary_text, fontsize=14, ha="center", va="top",
+                color="#34495E", linespacing=1.8,
+                bbox=dict(boxstyle="round,pad=0.8", facecolor="#ECF0F1",
+                          edgecolor="#BDC3C7", alpha=0.9))
+
+        from datetime import datetime as _dt
+        ax.text(0.5, 0.10, f"Generated: {_dt.now().strftime('%Y-%m-%d %H:%M')}",
+                fontsize=10, ha="center", color="#95A5A6")
+        pdf.savefig(fig)
+        plt.close(fig)
+
+        # --- Page 2: Publication Trend ---
+        if rpt["pub_trend"]:
+            fig, ax = plt.subplots(figsize=(11, 5))
+            years = [d["year"] for d in rpt["pub_trend"]]
+            counts = [d["count"] for d in rpt["pub_trend"]]
+            ax.bar(years, counts, color="#4A90E2", edgecolor="white", linewidth=0.5)
+            ax.set_title("Publication Trend", fontsize=16, fontweight="bold", pad=15)
+            ax.set_xlabel("Year")
+            ax.set_ylabel("Papers")
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            fig.tight_layout()
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        # --- Page 3: Top Authors ---
+        if rpt["top_authors"]:
+            data = rpt["top_authors"][:15]
+            fig, ax = plt.subplots(figsize=(11, max(5, len(data) * 0.4 + 1.5)))
+            names = [d["name"] for d in data][::-1]
+            papers = [d["papers"] for d in data][::-1]
+            ax.barh(names, papers, color="#4A90E2", edgecolor="white", linewidth=0.5)
+            ax.set_title("Top Authors by Paper Count", fontsize=16, fontweight="bold", pad=15)
+            ax.set_xlabel("Papers")
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            fig.tight_layout()
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        # --- Page 4: Top Keywords ---
+        if rpt["top_keywords"]:
+            data = rpt["top_keywords"][:15]
+            fig, ax = plt.subplots(figsize=(11, max(5, len(data) * 0.4 + 1.5)))
+            terms = [d["term"] for d in data][::-1]
+            cnts = [d["count"] for d in data][::-1]
+            ax.barh(terms, cnts, color="#F5A623", edgecolor="white", linewidth=0.5)
+            ax.set_title("Top Research Topics", fontsize=16, fontweight="bold", pad=15)
+            ax.set_xlabel("Occurrences")
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            fig.tight_layout()
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        # --- Page 5: Country Distribution ---
+        if rpt["country_dist"]:
+            data = rpt["country_dist"][:15]
+            fig, ax = plt.subplots(figsize=(11, 5))
+            countries = [d["country"] for d in data]
+            papers = [d["papers"] for d in data]
+            ax.bar(countries, papers, color="#7ED321", edgecolor="white", linewidth=0.5)
+            ax.set_title("Country Distribution", fontsize=16, fontweight="bold", pad=15)
+            ax.set_xlabel("Country")
+            ax.set_ylabel("Papers")
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            fig.tight_layout()
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        # --- Page 6: Collaborations & Topic Co-occurrence ---
+        if rpt["top_collabs"] or rpt["top_kw_pairs"]:
+            n_rows = (1 if rpt["top_collabs"] else 0) + (1 if rpt["top_kw_pairs"] else 0)
+            fig, axes = plt.subplots(n_rows, 1, figsize=(11, 5 * n_rows))
+            if n_rows == 1:
+                axes = [axes]
+            ax_idx = 0
+
+            if rpt["top_collabs"]:
+                data = rpt["top_collabs"][:10]
+                ax = axes[ax_idx]
+                pairs = [f"{d['author_a']}  &  {d['author_b']}" for d in data][::-1]
+                papers = [d["papers"] for d in data][::-1]
+                ax.barh(pairs, papers, color="#4A90E2", edgecolor="white", linewidth=0.5)
+                ax.set_title("Strongest Collaborations", fontsize=14, fontweight="bold", pad=10)
+                ax.set_xlabel("Co-authored Papers")
+                ax.spines["top"].set_visible(False)
+                ax.spines["right"].set_visible(False)
+                ax_idx += 1
+
+            if rpt["top_kw_pairs"]:
+                data = rpt["top_kw_pairs"][:10]
+                ax = axes[ax_idx]
+                pairs = [f"{d['keyword_a']}  &  {d['keyword_b']}" for d in data][::-1]
+                co = [d["co_occurrences"] for d in data][::-1]
+                ax.barh(pairs, co, color="#F5A623", edgecolor="white", linewidth=0.5)
+                ax.set_title("Topic Co-occurrence", fontsize=14, fontweight="bold", pad=10)
+                ax.set_xlabel("Co-occurrences")
+                ax.spines["top"].set_visible(False)
+                ax.spines["right"].set_visible(False)
+
+            fig.tight_layout()
+            pdf.savefig(fig)
+            plt.close(fig)
+
+        # --- Page 7: Top Venues ---
+        if rpt["top_venues"]:
+            data = rpt["top_venues"][:15]
+            fig, ax = plt.subplots(figsize=(11, max(5, len(data) * 0.4 + 1.5)))
+            venues = [d["venue"][:50] for d in data][::-1]
+            papers = [d["papers"] for d in data][::-1]
+            ax.barh(venues, papers, color="#BD10E0", edgecolor="white", linewidth=0.5)
+            ax.set_title("Top Venues", fontsize=16, fontweight="bold", pad=15)
+            ax.set_xlabel("Papers")
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            fig.tight_layout()
+            pdf.savefig(fig)
+            plt.close(fig)
+
+    buf.seek(0)
+    return buf.read()
 
 
 # ============= Helpers =============
@@ -705,13 +1038,15 @@ def main():
     with st.sidebar:
         sidebar_data()
 
-    tabs = st.tabs(["How to Use", "Graph", "Heatmaps"])
+    tabs = st.tabs(["How to Use", "Graph", "Heatmaps", "Report"])
     with tabs[0]:
         how_to_use_tab()
     with tabs[1]:
         graph_tab()
     with tabs[2]:
         heatmap_tab()
+    with tabs[3]:
+        report_tab()
 
 
 if __name__ == "__main__":
