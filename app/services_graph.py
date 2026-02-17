@@ -5,8 +5,6 @@ from . import models
 
 def build_graph(db: Session, layer: str, year_min: int | None, year_max: int | None, edge_min_weight: float = 0.0, focus_ids: Optional[List[int]] = None, focus_only: bool = False) -> Dict[str, Any]:
     nodes, edges = [], []
-    
-    print(f"DEBUG: build_graph called with layer={layer}, focus_only={focus_only}, focus_ids={focus_ids}")
 
     if layer == "authors":
         # nodes: authors; edges: coauthor_edges
