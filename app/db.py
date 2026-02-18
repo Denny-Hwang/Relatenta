@@ -1,6 +1,6 @@
 """
 In-memory SQLite database layer.
-Single global database — no Actor concept.
+Per-session isolation — each Streamlit session gets its own DB.
 """
 
 from contextlib import contextmanager
@@ -10,38 +10,67 @@ from sqlalchemy.pool import StaticPool
 
 Base = declarative_base()
 
-_engine = None
-_session_factory = None
+_engines: dict = {}
+_factories: dict = {}
+_MAX_SESSIONS = 50
+
+
+def _session_key() -> str:
+    """Return a unique key for the current Streamlit session."""
+    try:
+        import streamlit as st
+        if "_db_key" not in st.session_state:
+            import uuid
+            st.session_state._db_key = str(uuid.uuid4())
+        return st.session_state._db_key
+    except Exception:
+        return "_default"
+
+
+def _cleanup_if_needed():
+    """Remove oldest sessions if we exceed the limit."""
+    if len(_engines) > _MAX_SESSIONS:
+        current = _session_key()
+        for k in list(_engines.keys()):
+            if k != current:
+                try:
+                    _engines[k].dispose()
+                except Exception:
+                    pass
+                _engines.pop(k, None)
+                _factories.pop(k, None)
 
 
 def _get_engine():
-    """Get or create the single in-memory SQLite engine."""
-    global _engine
-    if _engine is None:
-        _engine = create_engine(
+    """Get or create the engine for the current session."""
+    key = _session_key()
+    if key not in _engines:
+        _cleanup_if_needed()
+        engine = create_engine(
             "sqlite://",
             connect_args={"check_same_thread": False},
             poolclass=StaticPool,
             future=True,
         )
         from . import models  # noqa: F401
-        Base.metadata.create_all(bind=_engine)
-    return _engine
+        Base.metadata.create_all(bind=engine)
+        _engines[key] = engine
+    return _engines[key]
 
 
 def _get_session_factory():
-    global _session_factory
-    if _session_factory is None:
+    key = _session_key()
+    if key not in _factories:
         engine = _get_engine()
-        _session_factory = sessionmaker(
+        _factories[key] = sessionmaker(
             bind=engine, autoflush=False, autocommit=False, future=True
         )
-    return _session_factory
+    return _factories[key]
 
 
 @contextmanager
 def get_db():
-    """Get a database session."""
+    """Get a database session for the current Streamlit session."""
     factory = _get_session_factory()
     db = factory()
     try:
@@ -55,17 +84,17 @@ def get_db():
 
 
 def init_db():
-    """Ensure the in-memory database schema exists."""
+    """Ensure the in-memory database schema exists for this session."""
     _get_engine()
 
 
 def reset_db():
-    """Drop all data and recreate tables."""
-    global _engine, _session_factory
-    if _engine is not None:
-        _engine.dispose()
-    _engine = None
-    _session_factory = None
+    """Drop all data and recreate tables for this session."""
+    key = _session_key()
+    if key in _engines:
+        _engines[key].dispose()
+        del _engines[key]
+    _factories.pop(key, None)
     _get_engine()
 
 

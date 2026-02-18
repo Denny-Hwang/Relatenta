@@ -272,7 +272,13 @@ def sidebar_data():
         author_options = []
         for hit in st.session_state.search_hits:
             aff = hit.get("last_known_institution", "N/A") or "N/A"
-            label = f"{hit['display_name']} - {aff}"
+            papers = hit.get("works_count", 0)
+            top_topic = ""
+            if hit.get("top_concepts"):
+                top_topic = hit["top_concepts"][0]["name"]
+            label = f"{hit['display_name']} | {aff} | {papers} papers"
+            if top_topic:
+                label += f" | {top_topic}"
             sid = hit["id"].split("/")[-1] if hit["id"].startswith("http") else hit["id"]
             author_options.append((label, sid))
 
@@ -618,6 +624,15 @@ def report_tab():
 
     st.header("Analytic Report")
 
+    report_name = st.text_input(
+        "Report name (used in PDF filename)",
+        value=st.session_state.get("report_name", ""),
+        placeholder="e.g., Geoffrey Hinton",
+        key="report_name_input",
+    )
+    if report_name:
+        st.session_state.report_name = report_name
+
     if st.button("Generate Report", type="primary", key="gen_report_btn"):
         with st.spinner("Analyzing data..."):
             with get_db() as db:
@@ -808,10 +823,16 @@ def report_tab():
             pdf_bytes = _generate_report_pdf(rpt)
             st.session_state.report_pdf = pdf_bytes
     if "report_pdf" in st.session_state:
+        name_part = st.session_state.get("report_name", "").strip()
+        if name_part:
+            safe_name = "".join(c if c.isalnum() or c in " _-" else "_" for c in name_part).strip().replace(" ", "_")
+            pdf_filename = f"Relatenta_report_{safe_name}.pdf"
+        else:
+            pdf_filename = f"Relatenta_report_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf"
         st.download_button(
             "Download PDF",
             data=st.session_state.report_pdf,
-            file_name=f"relatenta_report_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf",
+            file_name=pdf_filename,
             mime="application/pdf",
             key="dl_pdf_btn",
         )
@@ -849,7 +870,7 @@ def _render_network_graph(rpt: dict):
         edge_widths = [0.5 + 3.5 * (w / max_w) for w in weights]
         edge_alphas = [0.3 + 0.5 * (w / max_w) for w in weights]
 
-        fig, ax = plt.subplots(figsize=(12, 9))
+        fig, ax = plt.subplots(figsize=(11, 8.5))
         fig.patch.set_facecolor("#1a1a2e")
         ax.set_facecolor("#1a1a2e")
 
@@ -924,7 +945,7 @@ def _generate_report_pdf(rpt: dict) -> bytes:
 
         # --- Page 2: Publication Trend ---
         if rpt["pub_trend"]:
-            fig, ax = plt.subplots(figsize=(11, 5))
+            fig, ax = plt.subplots(figsize=(11, 8.5))
             years = [d["year"] for d in rpt["pub_trend"]]
             counts = [d["count"] for d in rpt["pub_trend"]]
             ax.bar(years, counts, color="#4A90E2", edgecolor="white", linewidth=0.5)
@@ -933,44 +954,44 @@ def _generate_report_pdf(rpt: dict) -> bytes:
             ax.set_ylabel("Papers")
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
-            fig.tight_layout()
+            fig.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
             pdf.savefig(fig)
             plt.close(fig)
 
         # --- Page 3: Top Authors ---
         if rpt["top_authors"]:
             data = rpt["top_authors"][:15]
-            fig, ax = plt.subplots(figsize=(11, max(5, len(data) * 0.4 + 1.5)))
-            names = [d["name"] for d in data][::-1]
+            fig, ax = plt.subplots(figsize=(11, 8.5))
+            names = [d["name"][:30] for d in data][::-1]
             papers = [d["papers"] for d in data][::-1]
             ax.barh(names, papers, color="#4A90E2", edgecolor="white", linewidth=0.5)
             ax.set_title("Top Authors by Paper Count", fontsize=16, fontweight="bold", pad=15)
             ax.set_xlabel("Papers")
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
-            fig.tight_layout()
+            fig.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
             pdf.savefig(fig)
             plt.close(fig)
 
         # --- Page 4: Top Keywords ---
         if rpt["top_keywords"]:
             data = rpt["top_keywords"][:15]
-            fig, ax = plt.subplots(figsize=(11, max(5, len(data) * 0.4 + 1.5)))
-            terms = [d["term"] for d in data][::-1]
+            fig, ax = plt.subplots(figsize=(11, 8.5))
+            terms = [d["term"][:35] for d in data][::-1]
             cnts = [d["count"] for d in data][::-1]
             ax.barh(terms, cnts, color="#F5A623", edgecolor="white", linewidth=0.5)
             ax.set_title("Top Research Topics", fontsize=16, fontweight="bold", pad=15)
             ax.set_xlabel("Occurrences")
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
-            fig.tight_layout()
+            fig.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
             pdf.savefig(fig)
             plt.close(fig)
 
         # --- Page 5: Country Distribution ---
         if rpt["country_dist"]:
             data = rpt["country_dist"][:15]
-            fig, ax = plt.subplots(figsize=(11, 5))
+            fig, ax = plt.subplots(figsize=(11, 8.5))
             countries = [d["country"] for d in data]
             papers = [d["papers"] for d in data]
             ax.bar(countries, papers, color="#7ED321", edgecolor="white", linewidth=0.5)
@@ -979,14 +1000,14 @@ def _generate_report_pdf(rpt: dict) -> bytes:
             ax.set_ylabel("Papers")
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
-            fig.tight_layout()
+            fig.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
             pdf.savefig(fig)
             plt.close(fig)
 
         # --- Page 6: Collaborations & Topic Co-occurrence ---
         if rpt["top_collabs"] or rpt["top_kw_pairs"]:
             n_rows = (1 if rpt["top_collabs"] else 0) + (1 if rpt["top_kw_pairs"] else 0)
-            fig, axes = plt.subplots(n_rows, 1, figsize=(11, 5 * n_rows))
+            fig, axes = plt.subplots(n_rows, 1, figsize=(11, 8.5))
             if n_rows == 1:
                 axes = [axes]
             ax_idx = 0
@@ -994,7 +1015,7 @@ def _generate_report_pdf(rpt: dict) -> bytes:
             if rpt["top_collabs"]:
                 data = rpt["top_collabs"][:10]
                 ax = axes[ax_idx]
-                pairs = [f"{d['author_a']}  &  {d['author_b']}" for d in data][::-1]
+                pairs = [f"{d['author_a'][:20]}  &  {d['author_b'][:20]}" for d in data][::-1]
                 papers = [d["papers"] for d in data][::-1]
                 ax.barh(pairs, papers, color="#4A90E2", edgecolor="white", linewidth=0.5)
                 ax.set_title("Strongest Collaborations", fontsize=14, fontweight="bold", pad=10)
@@ -1006,7 +1027,7 @@ def _generate_report_pdf(rpt: dict) -> bytes:
             if rpt["top_kw_pairs"]:
                 data = rpt["top_kw_pairs"][:10]
                 ax = axes[ax_idx]
-                pairs = [f"{d['keyword_a']}  &  {d['keyword_b']}" for d in data][::-1]
+                pairs = [f"{d['keyword_a'][:20]}  &  {d['keyword_b'][:20]}" for d in data][::-1]
                 co = [d["co_occurrences"] for d in data][::-1]
                 ax.barh(pairs, co, color="#F5A623", edgecolor="white", linewidth=0.5)
                 ax.set_title("Topic Co-occurrence", fontsize=14, fontweight="bold", pad=10)
@@ -1014,51 +1035,54 @@ def _generate_report_pdf(rpt: dict) -> bytes:
                 ax.spines["top"].set_visible(False)
                 ax.spines["right"].set_visible(False)
 
-            fig.tight_layout()
+            fig.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
             pdf.savefig(fig)
             plt.close(fig)
 
         # --- Page 7: Top Venues ---
         if rpt["top_venues"]:
-            data = rpt["top_venues"][:15]
-            fig, ax = plt.subplots(figsize=(11, max(5, len(data) * 0.4 + 1.5)))
-            venues = [d["venue"][:50] for d in data][::-1]
+            data = rpt["top_venues"][:12]
+            fig, ax = plt.subplots(figsize=(11, 8.5))
+            venues = [d["venue"][:45] for d in data][::-1]
             papers = [d["papers"] for d in data][::-1]
             ax.barh(venues, papers, color="#BD10E0", edgecolor="white", linewidth=0.5)
             ax.set_title("Top Venues", fontsize=16, fontweight="bold", pad=15)
             ax.set_xlabel("Papers")
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
-            fig.tight_layout()
+            fig.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
             pdf.savefig(fig)
             plt.close(fig)
 
         # --- Page 8: Highlight Papers ---
         if rpt.get("highlight_works"):
-            works = rpt["highlight_works"][:12]
-            fig, ax = plt.subplots(figsize=(11, max(8.5, len(works) * 0.7 + 2)))
+            works = rpt["highlight_works"][:10]
+            fig, ax = plt.subplots(figsize=(11, 8.5))
             ax.axis("off")
             fig.patch.set_facecolor("#FAFAFA")
             ax.set_title("Highlight Papers (Top Cited)", fontsize=18,
                          fontweight="bold", pad=20, color="#2C3E50")
 
-            y_pos = 0.95
-            line_height = 1.0 / (len(works) + 1)
+            line_height = 0.88 / max(len(works), 1)
             for i, w in enumerate(works):
                 cite_str = f"{w['cited_by_count']:,} citations" if w["cited_by_count"] else "N/A"
                 year_str = f"({w['year']})" if w["year"] else ""
-                title_line = f"{i+1}. {w['title'][:85]}{'...' if len(w['title']) > 85 else ''} {year_str}"
-                detail_line = f"    {w['authors'][:70]}{'...' if len(w['authors']) > 70 else ''}"
-                venue_cite = f"    {w['venue'][:50]}  —  {cite_str}"
+                title_line = f"{i+1}. {w['title'][:80]}{'...' if len(w['title']) > 80 else ''} {year_str}"
+                detail_line = f"    {w['authors'][:65]}{'...' if len(w['authors']) > 65 else ''}"
+                venue_cite = f"    {w['venue'][:45]}  —  {cite_str}"
+                link_line = f"    {w['link']}" if w.get("link") else ""
 
-                y = y_pos - i * line_height
-                ax.text(0.02, y, title_line, fontsize=9, fontweight="bold",
+                y = 0.93 - i * line_height
+                ax.text(0.02, y, title_line, fontsize=8.5, fontweight="bold",
                         va="top", color="#2C3E50", transform=ax.transAxes)
-                ax.text(0.02, y - line_height * 0.28, detail_line, fontsize=8,
+                ax.text(0.02, y - line_height * 0.22, detail_line, fontsize=7.5,
                         va="top", color="#7F8C8D", transform=ax.transAxes)
-                ax.text(0.02, y - line_height * 0.56, venue_cite, fontsize=8,
+                ax.text(0.02, y - line_height * 0.44, venue_cite, fontsize=7.5,
                         va="top", color="#34495E", transform=ax.transAxes,
                         style="italic")
+                if link_line:
+                    ax.text(0.02, y - line_height * 0.66, link_line, fontsize=6.5,
+                            va="top", color="#2980B9", transform=ax.transAxes)
 
             fig.tight_layout()
             pdf.savefig(fig)
