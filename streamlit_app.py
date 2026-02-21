@@ -238,11 +238,26 @@ def sidebar_data():
     st.sidebar.divider()
 
     # --- OpenAlex search ---
-    st.sidebar.header("OpenAlex Search")
-    name = st.sidebar.text_input("Author / Researcher Name", key="author_search")
-    if st.sidebar.button("Search", key="search_btn") and name.strip():
+    st.sidebar.header("Search")
+    query = st.sidebar.text_input(
+        "Name, ORCID, or Google Scholar URL",
+        key="author_search",
+        placeholder="e.g., Geoffrey Hinton / 0000-0001-... / scholar.google.com/...",
+    )
+    if st.sidebar.button("Search", key="search_btn") and query.strip():
         try:
-            st.session_state.search_hits = oa.search_authors_by_name(name.strip())
+            qtype = oa.detect_query_type(query.strip())
+            if qtype == "orcid":
+                st.session_state.search_hits = oa.search_author_by_orcid(query.strip())
+                if not st.session_state.search_hits:
+                    st.sidebar.warning("No author found for this ORCID.")
+            elif qtype == "google_scholar":
+                with st.spinner("Resolving Google Scholar profile..."):
+                    st.session_state.search_hits = oa.search_author_by_google_scholar(query.strip())
+                if not st.session_state.search_hits:
+                    st.sidebar.warning("Could not resolve Google Scholar profile. Try searching by name instead.")
+            else:
+                st.session_state.search_hits = oa.search_authors_by_name(query.strip())
         except Exception as e:
             st.sidebar.error(f"Search failed: {e}")
 
