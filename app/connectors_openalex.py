@@ -73,12 +73,14 @@ def search_authors_by_name(name: str, per_page: int = 25) -> List[Dict[str, Any]
     return [_format_author_result(item) for item in data.get("results", [])]
 
 
-def search_author_by_orcid(orcid_input: str) -> List[Dict[str, Any]]:
+def search_author_by_orcid(orcid_input: str) -> Tuple[List[Dict[str, Any]], str]:
     """Search for an author by ORCID via OpenAlex.
 
     Accepts formats:
       - 0000-0001-2345-6789
       - https://orcid.org/0000-0001-2345-6789
+
+    Returns (results, method) where method is 'orcid' or 'orcid_name_fallback'.
     """
     q = orcid_input.strip()
 
@@ -88,40 +90,69 @@ def search_author_by_orcid(orcid_input: str) -> List[Dict[str, Any]]:
 
     match = _ORCID_RE.search(q)
     if not match:
-        return []
+        return [], "orcid"
     orcid = match.group(0)
 
     # Direct lookup (faster)
-    r = requests.get(f"{OPENALEX}/authors/orcid:{orcid}", timeout=30)
-    if r.status_code == 200:
-        item = r.json()
-        if item.get("id"):
-            return [_format_author_result(item)]
+    try:
+        r = requests.get(f"{OPENALEX}/authors/orcid:{orcid}", timeout=30)
+        if r.status_code == 200:
+            item = r.json()
+            if item.get("id"):
+                return [_format_author_result(item)], "orcid"
+    except Exception:
+        pass
 
     # Fallback: filter search
-    params = {"filter": f"orcid:{orcid}"}
-    r = requests.get(f"{OPENALEX}/authors", params=params, timeout=30)
-    r.raise_for_status()
-    data = r.json()
-    return [_format_author_result(item) for item in data.get("results", [])]
+    try:
+        params = {"filter": f"orcid:{orcid}"}
+        r = requests.get(f"{OPENALEX}/authors", params=params, timeout=30)
+        if r.status_code == 200:
+            data = r.json()
+            results = [_format_author_result(item) for item in data.get("results", [])]
+            if results:
+                return results, "orcid"
+    except Exception:
+        pass
+
+    # Last resort: resolve name from ORCID.org, then search by name
+    name = _resolve_orcid_name(orcid)
+    if name:
+        return search_authors_by_name(name), "orcid_name_fallback"
+
+    return [], "orcid"
 
 
-def search_author_by_google_scholar(url: str) -> List[Dict[str, Any]]:
+def search_author_by_google_scholar(url: str) -> Tuple[List[Dict[str, Any]], str]:
     """Try to resolve a Google Scholar profile to an OpenAlex author.
 
     Strategy:
       1. Fetch the Google Scholar profile page
-      2. Extract the author's name from the page title
-      3. Search OpenAlex by that name
+      2. Extract name and ORCID (if linked on the page)
+      3. If ORCID found → exact OpenAlex lookup
+      4. Otherwise → search OpenAlex by name
+
+    Returns (results, method) where method is 'scholar_orcid', 'scholar_name', etc.
     """
-    name = _resolve_google_scholar_name(url.strip())
-    if not name:
-        return []
-    return search_authors_by_name(name)
+    info = _resolve_google_scholar_profile(url.strip())
+    if not info:
+        return [], "scholar_failed"
+
+    # If an ORCID was found on the Scholar page, try exact lookup
+    if info.get("orcid"):
+        results, method = search_author_by_orcid(info["orcid"])
+        if results:
+            return results, "scholar_orcid"
+
+    # Fall back to name search
+    if info.get("name"):
+        return search_authors_by_name(info["name"]), "scholar_name"
+
+    return [], "scholar_failed"
 
 
-def _resolve_google_scholar_name(url: str) -> str | None:
-    """Extract author name from a Google Scholar profile page."""
+def _resolve_google_scholar_profile(url: str) -> dict | None:
+    """Extract author info (name, ORCID, affiliation) from a Google Scholar profile."""
     try:
         headers = {
             "User-Agent": (
@@ -136,23 +167,71 @@ def _resolve_google_scholar_name(url: str) -> str | None:
             return None
 
         text = r.text
+        info: Dict[str, str] = {}
 
-        # Method 1: look for <div id="gsc_prf_in">Author Name</div>
+        # Extract name: <div id="gsc_prf_in">Author Name</div>
         m = re.search(r'id="gsc_prf_in"[^>]*>([^<]+)</\s*div>', text)
         if m:
-            name = m.group(1).strip()
-            if name:
-                return name
+            info["name"] = m.group(1).strip()
+        else:
+            # Fallback: <title>Author Name - Google Scholar</title>
+            m = re.search(r"<title>(.+?)(?:\s*[-–—]\s*Google Scholar)?</title>", text)
+            if m:
+                name = m.group(1).strip()
+                if name and name.lower() != "google scholar":
+                    info["name"] = name
 
-        # Method 2: parse <title>Author Name - Google Scholar</title>
-        m = re.search(r"<title>(.+?)(?:\s*[-–—]\s*Google Scholar)?</title>", text)
+        # Try to extract ORCID link from the page
+        m = re.search(r'orcid\.org/(\d{4}-\d{4}-\d{4}-\d{3}[\dX])', text)
         if m:
-            name = m.group(1).strip()
-            if name and name.lower() != "google scholar":
-                return name
+            info["orcid"] = m.group(1)
+
+        # Extract affiliation
+        m = re.search(r'class="gsc_prf_il"[^>]*>([^<]+)<', text)
+        if m:
+            info["affiliation"] = m.group(1).strip()
+
+        return info if info else None
 
     except Exception:
+        return None
+
+
+def _resolve_orcid_name(orcid: str) -> str | None:
+    """Fetch author name from ORCID.org as fallback when OpenAlex has no match.
+
+    Tries the ORCID public API (JSON) first, then falls back to HTML scraping.
+    """
+    # Method 1: ORCID public API (works without auth for public records)
+    try:
+        headers = {"Accept": "application/json"}
+        r = requests.get(
+            f"https://pub.orcid.org/v3.0/{orcid}/personal-details",
+            headers=headers, timeout=15,
+        )
+        if r.status_code == 200:
+            data = r.json()
+            name_obj = data.get("name") or {}
+            given = (name_obj.get("given-names") or {}).get("value", "") or ""
+            family = (name_obj.get("family-name") or {}).get("value", "") or ""
+            full = f"{given} {family}".strip()
+            if full:
+                return full
+    except Exception:
         pass
+
+    # Method 2: scrape the ORCID.org HTML page
+    try:
+        r = requests.get(f"https://orcid.org/{orcid}", timeout=15)
+        if r.status_code == 200:
+            m = re.search(r"<title>(.+?)(?:\s*[-–—]\s*ORCID)?</title>", r.text)
+            if m:
+                name = m.group(1).strip()
+                if name and name.lower() != "orcid":
+                    return name
+    except Exception:
+        pass
+
     return None
 
 

@@ -248,14 +248,28 @@ def sidebar_data():
         try:
             qtype = oa.detect_query_type(query.strip())
             if qtype == "orcid":
-                st.session_state.search_hits = oa.search_author_by_orcid(query.strip())
-                if not st.session_state.search_hits:
-                    st.sidebar.warning("No author found for this ORCID.")
+                results, method = oa.search_author_by_orcid(query.strip())
+                st.session_state.search_hits = results
+                if not results:
+                    st.sidebar.warning("No author found for this ORCID in OpenAlex or ORCID.org.")
+                elif method == "orcid_name_fallback":
+                    st.sidebar.info(
+                        "This ORCID is not indexed in OpenAlex. "
+                        "Showing name-based results from ORCID.org — please verify the correct author."
+                    )
             elif qtype == "google_scholar":
                 with st.spinner("Resolving Google Scholar profile..."):
-                    st.session_state.search_hits = oa.search_author_by_google_scholar(query.strip())
-                if not st.session_state.search_hits:
+                    results, method = oa.search_author_by_google_scholar(query.strip())
+                st.session_state.search_hits = results
+                if not results:
                     st.sidebar.warning("Could not resolve Google Scholar profile. Try searching by name instead.")
+                elif method == "scholar_orcid":
+                    st.sidebar.success("Found exact match via ORCID linked on Google Scholar profile.")
+                elif method == "scholar_name":
+                    st.sidebar.info(
+                        "Showing name-based results from Google Scholar profile. "
+                        "Please verify the correct author."
+                    )
             else:
                 st.session_state.search_hits = oa.search_authors_by_name(query.strip())
         except Exception as e:
