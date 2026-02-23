@@ -25,6 +25,12 @@ init_db()
 # ============= Session State =============
 if "search_hits" not in st.session_state:
     st.session_state.search_hits = []
+if "demo_dismissed" not in st.session_state:
+    st.session_state.demo_dismissed = False
+if "built_graph" not in st.session_state:
+    st.session_state.built_graph = None
+if "built_graph_settings" not in st.session_state:
+    st.session_state.built_graph_settings = None
 
 # ============= Visualization =============
 
@@ -197,7 +203,11 @@ def sidebar_data():
 
     # --- Current data summary ---
     st.sidebar.header("Database")
+    is_demo = not st.session_state.demo_dismissed and stats["works"] > 0
+
     if stats["works"] > 0:
+        if is_demo:
+            st.sidebar.caption("Example: Geoffrey Hinton")
         st.sidebar.info(
             f"Papers: {stats['works']} | Authors: {stats['authors']}\n"
             f"Orgs: {stats['organizations']} | Keywords: {stats['keywords']}"
@@ -215,18 +225,18 @@ def sidebar_data():
             except Exception as e:
                 st.error(f"Export error: {e}")
         with col2:
-            if st.button("Clear All", key="clear_btn"):
+            btn_label = "Start Fresh" if is_demo else "Clear All"
+            if st.button(btn_label, key="clear_btn"):
                 st.session_state.confirm_clear = True
                 st.rerun()
 
         if st.session_state.get("confirm_clear"):
-            st.sidebar.warning("This will delete all data.")
+            msg = "Clear example data and start a new analysis?" if is_demo else "This will delete all data."
+            st.sidebar.warning(msg)
             c1, c2 = st.sidebar.columns(2)
             with c1:
                 if st.button("Confirm", key="confirm_clear_btn", type="primary"):
-                    reset_db()
-                    st.session_state.confirm_clear = False
-                    st.session_state.search_hits = []
+                    _clear_all_data()
                     st.rerun()
             with c2:
                 if st.button("Cancel", key="cancel_clear_btn"):
@@ -335,6 +345,8 @@ def sidebar_data():
                             pass
                     st.sidebar.success(f"Ingested {total} works")
                     st.session_state.search_hits = []
+                    st.session_state.demo_dismissed = True
+                    st.session_state.built_graph = None
                     st.rerun()
 
     st.sidebar.divider()
@@ -355,6 +367,8 @@ def sidebar_data():
             except Exception:
                 pass
         st.sidebar.success(f"Imported {len(df)} rows")
+        st.session_state.demo_dismissed = True
+        st.session_state.built_graph = None
         st.rerun()
 
     # --- ZIP Restore ---
@@ -363,6 +377,8 @@ def sidebar_data():
     zip_file = st.sidebar.file_uploader("Upload ZIP", type=["zip"], key="zip_restore")
     if zip_file and st.sidebar.button("Restore Data", key="restore_btn"):
         _restore_from_zip(zip_file)
+        st.session_state.demo_dismissed = True
+        st.session_state.built_graph = None
         st.rerun()
 
 
@@ -536,6 +552,13 @@ def graph_tab():
         st.info("No data yet. Search and ingest authors from the sidebar to get started.")
         return
 
+    # Demo banner
+    if not st.session_state.demo_dismissed and st.session_state.built_graph:
+        st.info(
+            "**Example:** Geoffrey Hinton's co-authorship network. "
+            "Use the sidebar to search your own researchers, or click **Start Fresh** to begin a new analysis."
+        )
+
     st.header("Network Graph")
 
     c1, c2, c3, c4 = st.columns(4)
@@ -589,17 +612,25 @@ def graph_tab():
                     g = build_graph(db, layer, year_min, year_max, edge_min, focus_ids, focus_only)
                 if not g["nodes"]:
                     st.warning("No nodes found. Try lowering edge weight or widening the year range.")
+                    st.session_state.built_graph = None
                     return
-                st.success(f"Graph: {len(g['nodes'])} nodes, {len(g['edges'])} edges")
-                draw_pyvis_graph(g, viz_settings={
+                st.session_state.built_graph = g
+                st.session_state.built_graph_settings = {
                     "node_size_range": node_size_range,
                     "font_size_range": font_size_range,
                     "physics_iterations": physics_iterations,
                     "auto_stop_physics": auto_stop,
                     "edge_width_range": edge_width_range,
-                })
+                }
             except Exception as e:
                 st.error(f"Error building graph: {e}")
+                return
+
+    # Display stored graph (persists across reruns)
+    if st.session_state.built_graph and st.session_state.built_graph.get("nodes"):
+        g = st.session_state.built_graph
+        st.success(f"Graph: {len(g['nodes'])} nodes, {len(g['edges'])} edges")
+        draw_pyvis_graph(g, viz_settings=st.session_state.built_graph_settings)
 
 
 def heatmap_tab():
@@ -1217,6 +1248,48 @@ def _parse_focus_ids(layer: str, focus_str: str):
         return ids if ids else None
 
 
+# ============= Demo =============
+
+
+def _load_demo_data() -> bool:
+    """Load Geoffrey Hinton's data from OpenAlex as a demo example."""
+    try:
+        hits = oa.search_authors_by_name("Geoffrey Hinton", per_page=1)
+        if not hits:
+            return False
+        author_id = hits[0]["id"]
+        works = oa.list_author_works(author_id, per_page=200, max_pages=1)
+        if not works:
+            return False
+        with get_db() as db:
+            for w in works:
+                crud.upsert_work_from_openalex(db, w)
+            crud.recompute_coauthor_edges(db)
+            crud.recompute_nation_edges(db)
+            try:
+                crud.recompute_org_edges(db)
+            except Exception:
+                pass
+            # Pre-build co-author graph for immediate display
+            g = build_graph(db, "authors", 2000, 2026, 1.0, None, False)
+        st.session_state.built_graph = g
+        st.session_state.built_graph_settings = None
+        return True
+    except Exception:
+        return False
+
+
+def _clear_all_data():
+    """Clear all data and session state."""
+    reset_db()
+    st.session_state.demo_dismissed = True
+    st.session_state.search_hits = []
+    st.session_state.built_graph = None
+    st.session_state.built_graph_settings = None
+    for key in ["report_data", "report_pdf", "confirm_clear"]:
+        st.session_state.pop(key, None)
+
+
 # ============= Main =============
 
 
@@ -1224,18 +1297,28 @@ def main():
     st.title("Relatenta")
     st.caption("Research Relationship Visualization")
 
+    # Auto-load demo on first visit
+    stats = get_stats()
+    if stats["works"] == 0 and not st.session_state.demo_dismissed:
+        with st.spinner("Loading example data (Geoffrey Hinton)..."):
+            if _load_demo_data():
+                st.rerun()
+            else:
+                st.info("Could not load example data automatically. Please search and ingest authors from the sidebar.")
+                st.session_state.demo_dismissed = True
+
     with st.sidebar:
         sidebar_data()
 
-    tabs = st.tabs(["How to Use", "Graph", "Heatmaps", "Report"])
+    tabs = st.tabs(["Graph", "Heatmaps", "Report", "How to Use"])
     with tabs[0]:
-        how_to_use_tab()
-    with tabs[1]:
         graph_tab()
-    with tabs[2]:
+    with tabs[1]:
         heatmap_tab()
-    with tabs[3]:
+    with tabs[2]:
         report_tab()
+    with tabs[3]:
+        how_to_use_tab()
 
 
 if __name__ == "__main__":
