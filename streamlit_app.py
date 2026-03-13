@@ -16,6 +16,11 @@ from app.services_graph import build_graph
 from app.services_heatmap import author_keyword_heat, nation_nation_heat
 from app.services_export import export_to_csv
 from app.services_report import gather_report
+from app.services_insight import (
+    detect_communities, detect_bursts, recommend_collaborators,
+    find_shortest_path, detect_research_gaps, build_strategic_diagram,
+    build_thematic_evolution,
+)
 
 st.set_page_config(page_title="Relatenta", layout="wide", page_icon="🔬")
 
@@ -84,6 +89,23 @@ def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height:
         }}
         """)
 
+        community_palette = [
+            {"background": "#FF6B6B", "border": "#CC5555"},
+            {"background": "#4ECDC4", "border": "#3AA89E"},
+            {"background": "#45B7D1", "border": "#2D8FA6"},
+            {"background": "#96CEB4", "border": "#6DA88E"},
+            {"background": "#FFEAA7", "border": "#D4C07A"},
+            {"background": "#DDA0DD", "border": "#B27DB2"},
+            {"background": "#98D8C8", "border": "#6FB3A3"},
+            {"background": "#F7DC6F", "border": "#C8B24A"},
+            {"background": "#BB8FCE", "border": "#9568A5"},
+            {"background": "#85C1E9", "border": "#5A9ABD"},
+            {"background": "#F1948A", "border": "#C36C64"},
+            {"background": "#82E0AA", "border": "#5AB882"},
+            {"background": "#F8C471", "border": "#CA9B4D"},
+            {"background": "#AED6F1", "border": "#82ADC6"},
+            {"background": "#D7BDE2", "border": "#AD95B8"},
+        ]
         color_scheme = {
             "author": {"background": "#4A90E2", "border": "#2E5C8A"},
             "focus_author": {"background": "#FF6B6B", "border": "#CC5555"},
@@ -94,6 +116,9 @@ def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height:
             "nation": {"background": "#BD10E0", "border": "#8B0AA8"},
             "focus_nation": {"background": "#FF6B6B", "border": "#CC5555"},
         }
+        # Add community colors dynamically
+        for i in range(15):
+            color_scheme[f"community_{i}"] = community_palette[i]
 
         for n in graph_json["nodes"]:
             node_id = n["id"]
@@ -1290,6 +1315,504 @@ def _clear_all_data():
         st.session_state.pop(key, None)
 
 
+# ============= Insights Tab =============
+
+
+def insights_tab():
+    stats = get_stats()
+    if stats["works"] == 0:
+        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
+        return
+
+    st.header("Research Insights")
+    st.caption("Discover hidden patterns, emerging topics, collaboration opportunities, and research gaps.")
+
+    analysis_type = st.selectbox(
+        "Select Analysis",
+        [
+            "Community Detection",
+            "Emerging Topics (Burst Detection)",
+            "Collaborator Recommendation",
+            "Shortest Path (Networking Path)",
+            "Research Gap Detection",
+            "Strategic Diagram",
+            "Thematic Evolution",
+        ],
+        key="insight_analysis_type",
+    )
+
+    db = next(get_db())
+
+    # ── Community Detection ──────────────────────────────────────────
+    if analysis_type == "Community Detection":
+        st.subheader("Community Detection")
+        st.caption("Identify research communities/clusters within the network using the Louvain algorithm.")
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            layer = st.selectbox("Network Layer", ["authors", "keywords", "orgs", "nations"], key="comm_layer")
+        with col2:
+            resolution = st.slider("Resolution", 0.5, 3.0, 1.0, 0.1, key="comm_resolution",
+                                   help="Higher values = more communities")
+        with col3:
+            year_range = _get_year_range(db)
+            yr_min = st.number_input("Year Min", value=year_range[0], key="comm_yr_min") if year_range[0] else None
+            yr_max = st.number_input("Year Max", value=year_range[1], key="comm_yr_max") if year_range[1] else None
+
+        if st.button("Detect Communities", key="btn_comm"):
+            with st.spinner("Detecting communities..."):
+                result = detect_communities(db, layer, resolution, yr_min, yr_max)
+
+            if result.get("message"):
+                st.warning(result["message"])
+            elif result["num_communities"] > 0:
+                st.success(f"Found **{result['num_communities']}** communities (Modularity: {result['modularity']})")
+
+                # Display community summary
+                comm_data = []
+                for cid, info in result["communities"].items():
+                    comm_data.append({
+                        "Community": cid,
+                        "Label": info["label"],
+                        "Size": info["size"],
+                        "Density": info["density"],
+                        "Members (top 5)": ", ".join(info["nodes"][:5]),
+                    })
+                st.dataframe(pd.DataFrame(comm_data), use_container_width=True)
+
+                # Build colored graph
+                graph_json = build_graph(db, layer, yr_min, yr_max)
+                if graph_json["nodes"]:
+                    _color_graph_by_community(graph_json, result["partition"], layer)
+                    draw_pyvis_graph(graph_json)
+            else:
+                st.info("No communities detected. Try ingesting more data.")
+
+    # ── Burst Detection ──────────────────────────────────────────────
+    elif analysis_type == "Emerging Topics (Burst Detection)":
+        st.subheader("Emerging Topics (Burst Detection)")
+        st.caption("Identify keywords experiencing sudden growth — indicating emerging research fronts.")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            window = st.slider("Detection Window (years)", 2, 5, 3, key="burst_window")
+        with col2:
+            min_papers = st.number_input("Min Papers Threshold", 2, 50, 3, key="burst_min")
+
+        if st.button("Detect Emerging Topics", key="btn_burst"):
+            with st.spinner("Analyzing keyword trends..."):
+                results = detect_bursts(db, window, min_papers)
+
+            if not results:
+                st.info("Not enough temporal data for burst detection.")
+            else:
+                # Status summary
+                burst_count = sum(1 for r in results if r["status"] == "burst")
+                growing_count = sum(1 for r in results if r["status"] == "growing")
+                st.success(f"Found **{burst_count}** bursting and **{growing_count}** growing topics")
+
+                # Top 15 chart
+                import plotly.graph_objects as go
+                top15 = results[:15]
+                colors = {"burst": "#FF4444", "growing": "#FFA500", "stable": "#4A90E2", "declining": "#888888"}
+                fig = go.Figure(go.Bar(
+                    x=[r["keyword"] for r in top15],
+                    y=[r["burst_score"] for r in top15],
+                    marker_color=[colors.get(r["status"], "#4A90E2") for r in top15],
+                    text=[r["status"].upper() for r in top15],
+                    textposition="outside",
+                ))
+                fig.update_layout(
+                    title="Top 15 Keywords by Burst Score",
+                    xaxis_title="Keyword", yaxis_title="Burst Score",
+                    template="plotly_dark", height=450,
+                )
+                st.plotly_chart(fig, use_container_width=True)
+
+                # Detailed table
+                table_data = []
+                for r in results[:30]:
+                    table_data.append({
+                        "Keyword": r["keyword"],
+                        "Status": r["status"].upper(),
+                        "Burst Score": r["burst_score"],
+                        "Baseline Avg": r["baseline_avg"],
+                        "Recent Avg": r["recent_avg"],
+                        "Total Papers": r["total_papers"],
+                        "Trend": " ".join(["▁▂▃▅▆▇"[min(int(v / max(max(r["trend"]), 1) * 6), 6)] for v in r["trend"]]),
+                    })
+                st.dataframe(pd.DataFrame(table_data), use_container_width=True)
+
+    # ── Collaborator Recommendation ──────────────────────────────────
+    elif analysis_type == "Collaborator Recommendation":
+        st.subheader("Collaborator Recommendation")
+        st.caption("Find potential collaborators based on keyword overlap and network proximity.")
+
+        # Get all authors
+        authors = db.execute(
+            select(models.Author.id, models.Author.display_name)
+            .order_by(models.Author.display_name)
+        ).all()
+
+        if not authors:
+            st.info("No authors in database.")
+        else:
+            author_options = {f"{name} (ID: {aid})": aid for aid, name in authors}
+            selected = st.selectbox("Select Target Author", list(author_options.keys()), key="rec_author")
+            top_n = st.slider("Number of Recommendations", 5, 20, 10, key="rec_topn")
+
+            if st.button("Find Collaborators", key="btn_rec"):
+                author_id = author_options[selected]
+                with st.spinner("Analyzing research interests and network..."):
+                    results = recommend_collaborators(db, author_id, top_n)
+
+                if not results:
+                    st.info("No recommendations found. The author may need more published works with keywords.")
+                else:
+                    st.success(f"Found **{len(results)}** potential collaborators")
+
+                    for i, r in enumerate(results):
+                        with st.expander(f"#{i+1} — {r['author_name']} (Score: {r['score']})"):
+                            col1, col2, col3 = st.columns(3)
+                            col1.metric("Similarity Score", f"{r['score']:.2f}")
+                            col2.metric("Keyword Overlap (Jaccard)", f"{r['jaccard_similarity']:.2f}")
+                            col3.metric("Common Neighbors", r["common_neighbors"])
+
+                            if r["shared_keywords"]:
+                                st.markdown(f"**Shared Keywords:** {', '.join(r['shared_keywords'])}")
+                            if r["unique_keywords"]:
+                                st.markdown(f"**Their Unique Expertise:** {', '.join(r['unique_keywords'])}")
+                            if r["common_neighbor_names"]:
+                                st.markdown(f"**Common Co-authors:** {', '.join(r['common_neighbor_names'])}")
+                            if r["path_length"] > 0:
+                                st.markdown(f"**Network Distance:** {r['path_length']} steps")
+                            elif r["path_length"] == -1:
+                                st.markdown("**Network Distance:** Not connected")
+
+    # ── Shortest Path ────────────────────────────────────────────────
+    elif analysis_type == "Shortest Path (Networking Path)":
+        st.subheader("Shortest Path Analysis")
+        st.caption("Find the shortest collaboration path between two researchers.")
+
+        authors = db.execute(
+            select(models.Author.id, models.Author.display_name)
+            .order_by(models.Author.display_name)
+        ).all()
+
+        if len(authors) < 2:
+            st.info("Need at least 2 authors in database.")
+        else:
+            author_options = {f"{name} (ID: {aid})": aid for aid, name in authors}
+            col1, col2 = st.columns(2)
+            with col1:
+                src = st.selectbox("Source Author", list(author_options.keys()), key="path_src")
+            with col2:
+                tgt = st.selectbox("Target Author", list(author_options.keys()), index=min(1, len(author_options)-1), key="path_tgt")
+
+            if st.button("Find Path", key="btn_path"):
+                src_id = author_options[src]
+                tgt_id = author_options[tgt]
+
+                if src_id == tgt_id:
+                    st.warning("Please select two different authors.")
+                else:
+                    with st.spinner("Searching collaboration network..."):
+                        result = find_shortest_path(db, src_id, tgt_id)
+
+                    if not result["path_exists"]:
+                        st.warning(result.get("message", "No path found."))
+                    else:
+                        st.success(f"Path found! **{result['path_length']}** steps")
+
+                        # Visual path
+                        path_parts = []
+                        for i, p in enumerate(result["path"]):
+                            if i > 0:
+                                weight = p.get("connection_weight", "?")
+                                shared = p.get("shared_papers", "?")
+                                path_parts.append(f" --({shared} papers)--> ")
+                            path_parts.append(f"**{p['name']}**")
+                        st.markdown("".join(path_parts))
+
+                        # Path details table
+                        path_table = []
+                        for i, p in enumerate(result["path"]):
+                            entry = {"Step": i, "Author": p["name"]}
+                            if i > 0:
+                                entry["Shared Papers"] = p.get("shared_papers", "-")
+                                entry["Connection Weight"] = p.get("connection_weight", "-")
+                            path_table.append(entry)
+                        st.dataframe(pd.DataFrame(path_table), use_container_width=True)
+
+                        if result.get("alternative_paths"):
+                            st.markdown(f"**{len(result['alternative_paths'])} alternative path(s) found**")
+                            for j, alt in enumerate(result["alternative_paths"]):
+                                names = " -> ".join([p["name"] for p in alt])
+                                st.caption(f"Alt {j+1}: {names}")
+
+    # ── Research Gap Detection ───────────────────────────────────────
+    elif analysis_type == "Research Gap Detection":
+        st.subheader("Research Gap Detection")
+        st.caption("Find structural holes in the keyword network — under-explored research areas between active clusters.")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            min_kw = st.number_input("Min Papers per Keyword", 2, 20, 3, key="gap_min")
+        with col2:
+            top_n = st.slider("Number of Gaps", 5, 30, 15, key="gap_topn")
+
+        year_range = _get_year_range(db)
+        col3, col4 = st.columns(2)
+        with col3:
+            yr_min = st.number_input("Year Min", value=year_range[0], key="gap_yr_min") if year_range[0] else None
+        with col4:
+            yr_max = st.number_input("Year Max", value=year_range[1], key="gap_yr_max") if year_range[1] else None
+
+        if st.button("Detect Research Gaps", key="btn_gap"):
+            with st.spinner("Analyzing keyword network structure..."):
+                results = detect_research_gaps(db, yr_min, yr_max, min_kw, top_n)
+
+            if not results:
+                st.info("Not enough keyword diversity for gap detection. Try ingesting more data.")
+            else:
+                st.success(f"Found **{len(results)}** research gaps")
+
+                for i, gap in enumerate(results):
+                    ca = gap["community_a"]
+                    cb = gap["community_b"]
+                    with st.expander(
+                        f"Gap #{i+1} — {' / '.join(ca['top_keywords'][:2])} vs {' / '.join(cb['top_keywords'][:2])} "
+                        f"(Score: {gap['gap_score']})"
+                    ):
+                        col1, col2, col3 = st.columns(3)
+                        col1.metric("Gap Score", gap["gap_score"])
+                        col2.metric("Inter-community Edges", gap["inter_edges"])
+                        col3.metric("Rank Score", gap["rank_score"])
+
+                        st.markdown(f"**Cluster A ({ca['size']} keywords):** {', '.join(ca['top_keywords'])}")
+                        st.markdown(f"**Cluster B ({cb['size']} keywords):** {', '.join(cb['top_keywords'])}")
+
+                        if gap["potential_bridges"]:
+                            st.markdown(f"**Weak Bridge Keywords:** {', '.join(gap['potential_bridges'])}")
+
+                        st.info(f"**Opportunity:** {gap['suggestion']}")
+
+    # ── Strategic Diagram ────────────────────────────────────────────
+    elif analysis_type == "Strategic Diagram":
+        st.subheader("Strategic Diagram")
+        st.caption("Callon's centrality-density map classifying research themes as Motor / Niche / Emerging / Basic.")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            min_kw = st.number_input("Min Papers per Keyword", 2, 20, 3, key="strat_min")
+        year_range = _get_year_range(db)
+        with col2:
+            yr_min = st.number_input("Year Min", value=year_range[0], key="strat_yr_min") if year_range[0] else None
+        yr_max = None
+        if year_range[1]:
+            yr_max = st.number_input("Year Max", value=year_range[1], key="strat_yr_max")
+
+        if st.button("Build Strategic Diagram", key="btn_strat"):
+            with st.spinner("Computing centrality and density..."):
+                result = build_strategic_diagram(db, yr_min, yr_max, min_kw)
+
+            if result.get("message"):
+                st.warning(result["message"])
+            elif not result["themes"]:
+                st.info("Not enough data for strategic diagram.")
+            else:
+                import plotly.graph_objects as go
+
+                quadrant_colors = {
+                    "Motor": "#2ECC71",
+                    "Niche": "#3498DB",
+                    "Basic & Transversal": "#F39C12",
+                    "Emerging or Declining": "#E74C3C",
+                }
+
+                fig = go.Figure()
+
+                for theme in result["themes"]:
+                    fig.add_trace(go.Scatter(
+                        x=[theme["centrality_norm"]],
+                        y=[theme["density_norm"]],
+                        mode="markers+text",
+                        marker=dict(
+                            size=max(theme["size"] * 5, 15),
+                            color=quadrant_colors.get(theme["quadrant"], "#888"),
+                            opacity=0.7,
+                            line=dict(width=2, color="white"),
+                        ),
+                        text=[theme["label"]],
+                        textposition="top center",
+                        textfont=dict(size=11),
+                        name=theme["quadrant"],
+                        hovertemplate=(
+                            f"<b>{theme['label']}</b><br>"
+                            f"Quadrant: {theme['quadrant']}<br>"
+                            f"Keywords: {', '.join(theme['top_keywords'][:3])}<br>"
+                            f"Centrality: {theme['centrality_norm']:.2f}<br>"
+                            f"Density: {theme['density_norm']:.2f}<br>"
+                            f"Papers: {theme['total_papers']}<br>"
+                            f"Size: {theme['size']} keywords"
+                            "<extra></extra>"
+                        ),
+                    ))
+
+                # Quadrant lines and labels
+                fig.add_hline(y=0.5, line_dash="dash", line_color="rgba(255,255,255,0.3)")
+                fig.add_vline(x=0.5, line_dash="dash", line_color="rgba(255,255,255,0.3)")
+
+                fig.add_annotation(x=0.75, y=0.95, text="MOTOR THEMES", showarrow=False,
+                                   font=dict(size=12, color="#2ECC71"))
+                fig.add_annotation(x=0.25, y=0.95, text="NICHE THEMES", showarrow=False,
+                                   font=dict(size=12, color="#3498DB"))
+                fig.add_annotation(x=0.75, y=0.05, text="BASIC & TRANSVERSAL", showarrow=False,
+                                   font=dict(size=12, color="#F39C12"))
+                fig.add_annotation(x=0.25, y=0.05, text="EMERGING / DECLINING", showarrow=False,
+                                   font=dict(size=12, color="#E74C3C"))
+
+                fig.update_layout(
+                    title="Strategic Diagram (Callon's Centrality-Density)",
+                    xaxis_title="Centrality (External Cohesion)",
+                    yaxis_title="Density (Internal Cohesion)",
+                    xaxis=dict(range=[-0.05, 1.05]),
+                    yaxis=dict(range=[-0.05, 1.05]),
+                    template="plotly_dark",
+                    height=600,
+                    showlegend=False,
+                )
+                st.plotly_chart(fig, use_container_width=True)
+
+                # Summary table
+                table_data = [{
+                    "Theme": t["label"],
+                    "Quadrant": t["quadrant"],
+                    "Centrality": round(t["centrality_norm"], 2),
+                    "Density": round(t["density_norm"], 2),
+                    "Keywords": t["size"],
+                    "Papers": t["total_papers"],
+                    "Top Keywords": ", ".join(t["top_keywords"][:5]),
+                } for t in result["themes"]]
+                st.dataframe(pd.DataFrame(table_data), use_container_width=True)
+
+    # ── Thematic Evolution ───────────────────────────────────────────
+    elif analysis_type == "Thematic Evolution":
+        st.subheader("Thematic Evolution")
+        st.caption("Visualize how research themes evolve, merge, split, or disappear over time.")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            n_periods = st.slider("Number of Time Periods", 2, 5, 3, key="evo_periods")
+        with col2:
+            min_kw = st.number_input("Min Papers per Keyword", 1, 10, 2, key="evo_min")
+
+        if st.button("Build Thematic Evolution", key="btn_evo"):
+            with st.spinner("Analyzing temporal keyword clusters..."):
+                result = build_thematic_evolution(db, n_periods, min_kw)
+
+            if result.get("message"):
+                st.warning(result["message"])
+            elif not result["flows"]:
+                st.info("Not enough temporal data for thematic evolution analysis.")
+            else:
+                import plotly.graph_objects as go
+
+                # Build Sankey diagram
+                node_labels = [n["label"] for n in result["nodes"]]
+                node_colors = []
+                palette = ["#4A90E2", "#F5A623", "#7ED321", "#BD10E0", "#FF6B6B",
+                           "#50E3C2", "#9013FE", "#F8E71C", "#D0021B", "#417505"]
+                for n in result["nodes"]:
+                    node_colors.append(palette[n["period"] % len(palette)])
+
+                # Map node IDs to indices
+                node_id_to_idx = {n["id"]: i for i, n in enumerate(result["nodes"])}
+
+                source_indices = []
+                target_indices = []
+                flow_values = []
+                for f in result["flows"]:
+                    if f["source"] in node_id_to_idx and f["target"] in node_id_to_idx:
+                        source_indices.append(node_id_to_idx[f["source"]])
+                        target_indices.append(node_id_to_idx[f["target"]])
+                        flow_values.append(max(f["weight"], 1))
+
+                if source_indices:
+                    fig = go.Figure(go.Sankey(
+                        node=dict(
+                            pad=15,
+                            thickness=20,
+                            line=dict(color="black", width=0.5),
+                            label=node_labels,
+                            color=node_colors,
+                        ),
+                        link=dict(
+                            source=source_indices,
+                            target=target_indices,
+                            value=flow_values,
+                            color="rgba(255,255,255,0.2)",
+                        ),
+                    ))
+
+                    period_labels = " -> ".join([p["label"] for p in result["periods"]])
+                    fig.update_layout(
+                        title=f"Thematic Evolution: {period_labels}",
+                        template="plotly_dark",
+                        height=500,
+                    )
+                    st.plotly_chart(fig, use_container_width=True)
+
+                # Evolution events
+                if result["events"]:
+                    st.subheader("Evolution Events")
+                    event_icons = {"emergence": "🌱", "disappearance": "💨", "merge": "🔀", "split": "🔱"}
+                    for evt in result["events"]:
+                        icon = event_icons.get(evt["type"], "📌")
+                        st.markdown(f"{icon} **{evt['type'].capitalize()}** ({evt['period']}): {evt['description']}")
+
+                # Period details
+                st.subheader("Period Details")
+                for n in result["nodes"]:
+                    period_label = result["periods"][n["period"]]["label"]
+                    st.caption(f"**[{period_label}]** {n['label']} — {n['size']} papers, keywords: {', '.join(n.get('keywords', []))}")
+
+
+def _get_year_range(db) -> tuple:
+    """Helper to get min/max year from database."""
+    from sqlalchemy import func as sqlfunc
+    yr_min = db.execute(select(sqlfunc.min(models.Work.year)).where(models.Work.year.isnot(None))).scalar()
+    yr_max = db.execute(select(sqlfunc.max(models.Work.year)).where(models.Work.year.isnot(None))).scalar()
+    return (yr_min, yr_max)
+
+
+def _color_graph_by_community(graph_json: dict, partition: dict, layer: str):
+    """Re-color graph nodes based on community partition."""
+    community_colors = [
+        "#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7",
+        "#DDA0DD", "#98D8C8", "#F7DC6F", "#BB8FCE", "#85C1E9",
+        "#F1948A", "#82E0AA", "#F8C471", "#AED6F1", "#D7BDE2",
+    ]
+    prefix_map = {"authors": "A", "keywords": "K", "orgs": "O", "nations": "N"}
+    prefix = prefix_map.get(layer, "")
+
+    for node in graph_json["nodes"]:
+        # Extract numeric/string ID from node id
+        raw_id = node["id"]
+        if raw_id.startswith(prefix):
+            try:
+                node_key = int(raw_id[len(prefix):])
+            except ValueError:
+                node_key = raw_id[len(prefix):]
+        else:
+            node_key = raw_id
+
+        comm_id = partition.get(node_key, 0)
+        color = community_colors[comm_id % len(community_colors)]
+        node["community"] = comm_id
+        node["type"] = f"community_{comm_id}"
+
+
 # ============= Main =============
 
 
@@ -1310,7 +1833,7 @@ def main():
     with st.sidebar:
         sidebar_data()
 
-    tabs = st.tabs(["Graph", "Heatmaps", "Report", "How to Use"])
+    tabs = st.tabs(["Graph", "Heatmaps", "Report", "Insights", "How to Use"])
     with tabs[0]:
         graph_tab()
     with tabs[1]:
@@ -1318,6 +1841,8 @@ def main():
     with tabs[2]:
         report_tab()
     with tabs[3]:
+        insights_tab()
+    with tabs[4]:
         how_to_use_tab()
 
 

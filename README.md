@@ -17,6 +17,14 @@ Relatenta ingests scholarly publication data from the [OpenAlex API](https://ope
 - **OpenAlex Author Search** — Enhanced disambiguation with H-index, citations, ORCID, and research topics
 - **4-Layer Network Visualization** — Co-authorship, keyword co-occurrence, institutional collaboration, and international collaboration
 - **Heatmap Analysis** — Author-keyword and nation-nation collaboration matrices
+- **Research Insights** (NEW in v1.1.0)
+  - Community Detection — Auto-identify research clusters with color-coded visualization
+  - Emerging Topics (Burst Detection) — Spot keywords with sudden growth
+  - Collaborator Recommendation — Find potential collaborators by keyword overlap and network proximity
+  - Shortest Path Analysis — Discover networking paths between any two researchers
+  - Research Gap Detection — Identify under-explored research combinations
+  - Strategic Diagram — Classify themes as Motor / Niche / Emerging / Basic
+  - Thematic Evolution — Visualize how research themes evolve over time
 - **CSV Import/Export** — Bulk import and export of works, authors, affiliations, and keywords
 - **Focus Filtering** — Ego-network analysis centered on specific nodes
 - **Streamlit Cloud Ready** — In-memory database with ZIP export/restore for data persistence
@@ -108,6 +116,9 @@ This app uses an **in-memory database**. Data exists only during the active brow
 
 - [User Manual](docs/User_manual.md) — Step-by-step usage guide
 - [Implementation Guide](docs/Implementation_Guide.md) — Technical details and extension guide
+- [Changelog](CHANGELOG.md) — Version history and release notes
+- [v1.0.0 Feature Spec](docs/devlog/v1.0.0_Feature_Specification.md) — Initial release feature documentation
+- [v1.1.0 Development Spec](docs/devlog/v1.1.0_Enhancement_Development_Spec.md) — Research insight enhancement specification
 
 ---
 
