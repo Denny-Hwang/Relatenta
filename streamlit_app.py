@@ -1341,8 +1341,6 @@ def insights_tab():
         key="insight_analysis_type",
     )
 
-    db = next(get_db())
-
     # ── Community Detection ──────────────────────────────────────────
     if analysis_type == "Community Detection":
         st.subheader("Community Detection")
@@ -1355,13 +1353,14 @@ def insights_tab():
             resolution = st.slider("Resolution", 0.5, 3.0, 1.0, 0.1, key="comm_resolution",
                                    help="Higher values = more communities")
         with col3:
-            year_range = _get_year_range(db)
+            year_range = _get_year_range_from_db()
             yr_min = st.number_input("Year Min", value=year_range[0], key="comm_yr_min") if year_range[0] else None
             yr_max = st.number_input("Year Max", value=year_range[1], key="comm_yr_max") if year_range[1] else None
 
         if st.button("Detect Communities", key="btn_comm"):
             with st.spinner("Detecting communities..."):
-                result = detect_communities(db, layer, resolution, yr_min, yr_max)
+                with get_db() as db:
+                    result = detect_communities(db, layer, resolution, yr_min, yr_max)
 
             if result.get("message"):
                 st.warning(result["message"])
@@ -1381,7 +1380,8 @@ def insights_tab():
                 st.dataframe(pd.DataFrame(comm_data), use_container_width=True)
 
                 # Build colored graph
-                graph_json = build_graph(db, layer, yr_min, yr_max)
+                with get_db() as db:
+                    graph_json = build_graph(db, layer, yr_min, yr_max)
                 if graph_json["nodes"]:
                     _color_graph_by_community(graph_json, result["partition"], layer)
                     draw_pyvis_graph(graph_json)
@@ -1401,7 +1401,8 @@ def insights_tab():
 
         if st.button("Detect Emerging Topics", key="btn_burst"):
             with st.spinner("Analyzing keyword trends..."):
-                results = detect_bursts(db, window, min_papers)
+                with get_db() as db:
+                    results = detect_bursts(db, window, min_papers)
 
             if not results:
                 st.info("Not enough temporal data for burst detection.")
@@ -1448,11 +1449,12 @@ def insights_tab():
         st.subheader("Collaborator Recommendation")
         st.caption("Find potential collaborators based on keyword overlap and network proximity.")
 
-        # Get all authors
-        authors = db.execute(
-            select(models.Author.id, models.Author.display_name)
-            .order_by(models.Author.display_name)
-        ).all()
+        # Get all authors for dropdown
+        with get_db() as db:
+            authors = db.execute(
+                select(models.Author.id, models.Author.display_name)
+                .order_by(models.Author.display_name)
+            ).all()
 
         if not authors:
             st.info("No authors in database.")
@@ -1464,7 +1466,8 @@ def insights_tab():
             if st.button("Find Collaborators", key="btn_rec"):
                 author_id = author_options[selected]
                 with st.spinner("Analyzing research interests and network..."):
-                    results = recommend_collaborators(db, author_id, top_n)
+                    with get_db() as db:
+                        results = recommend_collaborators(db, author_id, top_n)
 
                 if not results:
                     st.info("No recommendations found. The author may need more published works with keywords.")
@@ -1494,10 +1497,11 @@ def insights_tab():
         st.subheader("Shortest Path Analysis")
         st.caption("Find the shortest collaboration path between two researchers.")
 
-        authors = db.execute(
-            select(models.Author.id, models.Author.display_name)
-            .order_by(models.Author.display_name)
-        ).all()
+        with get_db() as db:
+            authors = db.execute(
+                select(models.Author.id, models.Author.display_name)
+                .order_by(models.Author.display_name)
+            ).all()
 
         if len(authors) < 2:
             st.info("Need at least 2 authors in database.")
@@ -1517,7 +1521,8 @@ def insights_tab():
                     st.warning("Please select two different authors.")
                 else:
                     with st.spinner("Searching collaboration network..."):
-                        result = find_shortest_path(db, src_id, tgt_id)
+                        with get_db() as db:
+                            result = find_shortest_path(db, src_id, tgt_id)
 
                     if not result["path_exists"]:
                         st.warning(result.get("message", "No path found."))
@@ -1528,7 +1533,6 @@ def insights_tab():
                         path_parts = []
                         for i, p in enumerate(result["path"]):
                             if i > 0:
-                                weight = p.get("connection_weight", "?")
                                 shared = p.get("shared_papers", "?")
                                 path_parts.append(f" --({shared} papers)--> ")
                             path_parts.append(f"**{p['name']}**")
@@ -1561,7 +1565,7 @@ def insights_tab():
         with col2:
             top_n = st.slider("Number of Gaps", 5, 30, 15, key="gap_topn")
 
-        year_range = _get_year_range(db)
+        year_range = _get_year_range_from_db()
         col3, col4 = st.columns(2)
         with col3:
             yr_min = st.number_input("Year Min", value=year_range[0], key="gap_yr_min") if year_range[0] else None
@@ -1570,7 +1574,8 @@ def insights_tab():
 
         if st.button("Detect Research Gaps", key="btn_gap"):
             with st.spinner("Analyzing keyword network structure..."):
-                results = detect_research_gaps(db, yr_min, yr_max, min_kw, top_n)
+                with get_db() as db:
+                    results = detect_research_gaps(db, yr_min, yr_max, min_kw, top_n)
 
             if not results:
                 st.info("Not enough keyword diversity for gap detection. Try ingesting more data.")
@@ -1605,7 +1610,7 @@ def insights_tab():
         col1, col2 = st.columns(2)
         with col1:
             min_kw = st.number_input("Min Papers per Keyword", 2, 20, 3, key="strat_min")
-        year_range = _get_year_range(db)
+        year_range = _get_year_range_from_db()
         with col2:
             yr_min = st.number_input("Year Min", value=year_range[0], key="strat_yr_min") if year_range[0] else None
         yr_max = None
@@ -1614,7 +1619,8 @@ def insights_tab():
 
         if st.button("Build Strategic Diagram", key="btn_strat"):
             with st.spinner("Computing centrality and density..."):
-                result = build_strategic_diagram(db, yr_min, yr_max, min_kw)
+                with get_db() as db:
+                    result = build_strategic_diagram(db, yr_min, yr_max, min_kw)
 
             if result.get("message"):
                 st.warning(result["message"])
@@ -1709,7 +1715,8 @@ def insights_tab():
 
         if st.button("Build Thematic Evolution", key="btn_evo"):
             with st.spinner("Analyzing temporal keyword clusters..."):
-                result = build_thematic_evolution(db, n_periods, min_kw)
+                with get_db() as db:
+                    result = build_thematic_evolution(db, n_periods, min_kw)
 
             if result.get("message"):
                 st.warning(result["message"])
@@ -1778,11 +1785,12 @@ def insights_tab():
                     st.caption(f"**[{period_label}]** {n['label']} — {n['size']} papers, keywords: {', '.join(n.get('keywords', []))}")
 
 
-def _get_year_range(db) -> tuple:
-    """Helper to get min/max year from database."""
+def _get_year_range_from_db() -> tuple:
+    """Helper to get min/max year from database (opens its own session)."""
     from sqlalchemy import func as sqlfunc
-    yr_min = db.execute(select(sqlfunc.min(models.Work.year)).where(models.Work.year.isnot(None))).scalar()
-    yr_max = db.execute(select(sqlfunc.max(models.Work.year)).where(models.Work.year.isnot(None))).scalar()
+    with get_db() as db:
+        yr_min = db.execute(select(sqlfunc.min(models.Work.year)).where(models.Work.year.isnot(None))).scalar()
+        yr_max = db.execute(select(sqlfunc.max(models.Work.year)).where(models.Work.year.isnot(None))).scalar()
     return (yr_min, yr_max)
 
 
