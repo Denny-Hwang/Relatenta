@@ -354,6 +354,13 @@ def sidebar_data():
         if sel:
             max_works = st.sidebar.slider("Max works per author", 50, 600, 200, 50)
             if st.sidebar.button("Ingest Selected", type="primary", key="ingest_btn"):
+                # Auto-clear demo data before ingesting a new author
+                if not st.session_state.demo_dismissed:
+                    reset_db()
+                    st.session_state.built_graph = None
+                    st.session_state.built_graph_settings = None
+                    for key in ["report_data", "report_pdf", "confirm_clear"]:
+                        st.session_state.pop(key, None)
                 with st.spinner("Ingesting data from OpenAlex..."):
                     total = 0
                     with get_db() as db:
@@ -381,6 +388,13 @@ def sidebar_data():
     kind = st.sidebar.selectbox("Data Type", ["works", "authors", "affiliations", "keywords"])
     uploaded = st.sidebar.file_uploader("Upload CSV", type=["csv"], key="csv_upload")
     if uploaded and st.sidebar.button("Import CSV"):
+        # Auto-clear demo data before importing
+        if not st.session_state.demo_dismissed:
+            reset_db()
+            st.session_state.built_graph = None
+            st.session_state.built_graph_settings = None
+            for key in ["report_data", "report_pdf", "confirm_clear"]:
+                st.session_state.pop(key, None)
         text = uploaded.read().decode("utf-8")
         df = pd.read_csv(io.StringIO(text))
         with get_db() as db:
@@ -1440,7 +1454,7 @@ def insights_tab():
                         "Baseline Avg": r["baseline_avg"],
                         "Recent Avg": r["recent_avg"],
                         "Total Papers": r["total_papers"],
-                        "Trend": " ".join(["▁▂▃▅▆▇"[min(int(v / max(max(r["trend"]), 1) * 6), 6)] for v in r["trend"]]),
+                        "Trend": " ".join(["▁▂▃▅▆▇"[min(int(v / max(max(r["trend"]), 1) * 5), 5)] for v in r["trend"]]) if r["trend"] else "",
                     })
                 st.dataframe(pd.DataFrame(table_data), use_container_width=True)
 
@@ -1730,6 +1744,14 @@ def insights_tab():
                 node_colors = []
                 palette = ["#4A90E2", "#F5A623", "#7ED321", "#BD10E0", "#FF6B6B",
                            "#50E3C2", "#9013FE", "#F8E71C", "#D0021B", "#417505"]
+                # Palette with alpha for links
+                palette_rgba = [
+                    "rgba(74,144,226,0.4)", "rgba(245,166,35,0.4)",
+                    "rgba(126,211,33,0.4)", "rgba(189,16,224,0.4)",
+                    "rgba(255,107,107,0.4)", "rgba(80,227,194,0.4)",
+                    "rgba(144,19,254,0.4)", "rgba(248,231,28,0.4)",
+                    "rgba(208,2,27,0.4)", "rgba(65,117,5,0.4)",
+                ]
                 for n in result["nodes"]:
                     node_colors.append(palette[n["period"] % len(palette)])
 
@@ -1739,17 +1761,21 @@ def insights_tab():
                 source_indices = []
                 target_indices = []
                 flow_values = []
+                link_colors = []
                 for f in result["flows"]:
                     if f["source"] in node_id_to_idx and f["target"] in node_id_to_idx:
-                        source_indices.append(node_id_to_idx[f["source"]])
+                        src_idx = node_id_to_idx[f["source"]]
+                        source_indices.append(src_idx)
                         target_indices.append(node_id_to_idx[f["target"]])
                         flow_values.append(max(f["weight"], 1))
+                        src_period = result["nodes"][src_idx]["period"]
+                        link_colors.append(palette_rgba[src_period % len(palette_rgba)])
 
                 if source_indices:
                     fig = go.Figure(go.Sankey(
                         node=dict(
-                            pad=15,
-                            thickness=20,
+                            pad=30,
+                            thickness=25,
                             line=dict(color="black", width=0.5),
                             label=node_labels,
                             color=node_colors,
@@ -1758,15 +1784,19 @@ def insights_tab():
                             source=source_indices,
                             target=target_indices,
                             value=flow_values,
-                            color="rgba(255,255,255,0.2)",
+                            color=link_colors,
                         ),
                     ))
 
                     period_labels = " -> ".join([p["label"] for p in result["periods"]])
+                    n_nodes = len(result["nodes"])
+                    chart_height = max(500, n_nodes * 40)
                     fig.update_layout(
                         title=f"Thematic Evolution: {period_labels}",
                         template="plotly_dark",
-                        height=500,
+                        height=chart_height,
+                        font=dict(size=13),
+                        margin=dict(l=10, r=10, t=40, b=10),
                     )
                     st.plotly_chart(fig, use_container_width=True)
 
