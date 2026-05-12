@@ -6,23 +6,41 @@ from . import models
 def author_keyword_heat(db: Session, year_min: int | None, year_max: int | None) -> Dict[str, Any]:
     # matrix rows: authors, cols: keywords, values: counts
     # limit to top N authors/keywords for simplicity
-    wq = select(models.Work.id, models.Work.year)
-    if year_min is not None: wq = wq.where(models.Work.year >= year_min)
-    if year_max is not None: wq = wq.where(models.Work.year <= year_max)
-    work_ids = set([wid for wid, _ in db.execute(wq).all()])
-
-    # counts
     from collections import defaultdict
+
+    # Single JOIN: pull all (work_id, author_id) pairs in year range
+    wa_q = (
+        select(models.WorkAuthor.work_id, models.WorkAuthor.author_id)
+        .join(models.Work, models.WorkAuthor.work_id == models.Work.id)
+    )
+    if year_min is not None: wa_q = wa_q.where(models.Work.year >= year_min)
+    if year_max is not None: wa_q = wa_q.where(models.Work.year <= year_max)
+
+    wk_q = (
+        select(models.WorkKeyword.work_id, models.WorkKeyword.keyword_id)
+        .join(models.Work, models.WorkKeyword.work_id == models.Work.id)
+    )
+    if year_min is not None: wk_q = wk_q.where(models.Work.year >= year_min)
+    if year_max is not None: wk_q = wk_q.where(models.Work.year <= year_max)
+
+    work_to_authors: dict[int, set[int]] = defaultdict(set)
+    for wid, aid in db.execute(wa_q).all():
+        work_to_authors[wid].add(aid)
+
+    work_to_kws: dict[int, set[int]] = defaultdict(set)
+    for wid, kid in db.execute(wk_q).all():
+        work_to_kws[wid].add(kid)
+
     ak = defaultdict(int)
     author_tot = defaultdict(int)
     kw_tot = defaultdict(int)
 
-    # build maps
-    for wid in work_ids:
-        authors = db.execute(select(models.WorkAuthor.author_id).where(models.WorkAuthor.work_id == wid)).scalars().all()
-        kws = db.execute(select(models.WorkKeyword.keyword_id).where(models.WorkKeyword.work_id == wid)).scalars().all()
-        for a in set(authors):
-            for k in set(kws):
+    for wid, authors_set in work_to_authors.items():
+        kws_set = work_to_kws.get(wid)
+        if not kws_set:
+            continue
+        for a in authors_set:
+            for k in kws_set:
                 ak[(a, k)] += 1
                 author_tot[a] += 1
                 kw_tot[k] += 1

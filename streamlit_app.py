@@ -230,6 +230,17 @@ def sidebar_data():
     st.sidebar.header("Database")
     is_demo = not st.session_state.demo_dismissed and stats["works"] > 0
 
+    # Persistent unsaved-data warning. The DB is in-memory only — reload = data loss.
+    # Demo data is auto-loaded, so don't pester users about it; only warn after
+    # they have ingested their own data.
+    if stats["works"] > 0 and not is_demo:
+        st.sidebar.warning(
+            "Data is held in memory only.\n\n"
+            "Click **Export CSV** below before closing the tab — a browser refresh "
+            "or session timeout will erase everything.",
+            icon="⚠️",
+        )
+
     if stats["works"] > 0:
         if is_demo:
             st.sidebar.caption("Example: Geoffrey Hinton")
@@ -279,7 +290,10 @@ def sidebar_data():
         key="author_search",
         placeholder="e.g., Geoffrey Hinton / 0000-0001-... / scholar.google.com/...",
     )
-    if st.sidebar.button("Search", key="search_btn") and query.strip():
+    # Auto-trigger search when an empty-state suggestion chip was clicked.
+    auto_query = st.session_state.pop("_run_suggested_search", None)
+    do_search = st.sidebar.button("Search", key="search_btn")
+    if (do_search and query.strip()) or auto_query:
         try:
             qtype = oa.detect_query_type(query.strip())
             if qtype == "orcid":
@@ -588,7 +602,7 @@ def how_to_use_tab():
 def graph_tab():
     stats = get_stats()
     if stats["works"] == 0:
-        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
+        _render_empty_state()
         return
 
     # Demo banner
@@ -610,19 +624,8 @@ def graph_tab():
     with c4:
         edge_min = st.slider("Edge weight min", 0.0, 10.0, 1.0, 0.5, key="graph_edge_min")
 
-    # Focus ID search helpers
-    _render_focus_helper(layer)
-
-    focus_placeholder = {
-        "authors": "e.g., 1,5,23", "keywords": "e.g., 12,45,78",
-        "orgs": "e.g., 3,15,42", "nations": "e.g., US,GB,DE",
-    }
-    focus = st.text_input(
-        f"Focus {layer} IDs (comma-separated, optional)",
-        key="graph_focus", placeholder=focus_placeholder[layer],
-    )
-
-    focus_ids = _parse_focus_ids(layer, focus)
+    # Focus selection — searchable multiselect by name (replaces ID typing)
+    focus_ids = _render_focus_picker(layer)
 
     focus_only = False
     if focus_ids:
@@ -675,7 +678,7 @@ def graph_tab():
 def heatmap_tab():
     stats = get_stats()
     if stats["works"] == 0:
-        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
+        _render_empty_state()
         return
 
     st.header("Heatmaps")
@@ -718,7 +721,7 @@ def heatmap_tab():
 def report_tab():
     stats = get_stats()
     if stats["works"] == 0:
-        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
+        _render_empty_state()
         return
 
     st.header("Analytic Report")
@@ -1201,90 +1204,104 @@ def _generate_report_pdf(rpt: dict) -> bytes:
 # ============= Helpers =============
 
 
-def _render_focus_helper(layer: str):
-    """Render in-database search helpers for finding focus IDs."""
+_SUGGESTED_RESEARCHERS = [
+    "Yoshua Bengio",
+    "Yann LeCun",
+    "Fei-Fei Li",
+    "Andrew Ng",
+    "Geoffrey Hinton",
+]
+
+
+def _render_empty_state():
+    """Friendly empty state with one-click researcher suggestions.
+
+    Clicking a chip seeds the sidebar search field and triggers a rerun, so the
+    user sees the search results immediately and only has to confirm Ingest.
+    """
+    st.markdown(
+        "#### Nothing to show yet\n"
+        "Pick a starting point below or use the **Search** field in the sidebar "
+        "to enter your own researcher, ORCID, or Google Scholar URL."
+    )
+    cols = st.columns(len(_SUGGESTED_RESEARCHERS))
+    for col, name in zip(cols, _SUGGESTED_RESEARCHERS):
+        with col:
+            if st.button(name, key=f"suggest_{name}", use_container_width=True):
+                st.session_state["author_search"] = name
+                st.session_state["_run_suggested_search"] = name
+                st.rerun()
+    st.caption(
+        "Tip: refine with year range, edge weight, and Focus filters once data is loaded."
+    )
+
+
+_NATION_CHOICES = [
+    ("US", "United States"), ("GB", "United Kingdom"), ("DE", "Germany"),
+    ("FR", "France"), ("CN", "China"), ("JP", "Japan"), ("KR", "South Korea"),
+    ("CA", "Canada"), ("AU", "Australia"), ("IN", "India"),
+    ("IT", "Italy"), ("ES", "Spain"), ("NL", "Netherlands"), ("CH", "Switzerland"),
+    ("SE", "Sweden"), ("BR", "Brazil"), ("RU", "Russia"), ("SG", "Singapore"),
+]
+
+
+def _render_focus_picker(layer: str):
+    """Searchable multiselect for focus nodes (replaces typing numeric IDs).
+
+    Returns a list of focus ids (int for authors/keywords/orgs, 2-char str for
+    nations) or None when nothing is selected.
+    """
+    label = f"Focus {layer} (optional)"
+
     if layer == "authors":
-        with st.expander("Find Author IDs", expanded=False):
-            q = st.text_input("Search author name:", key="author_search_graph", placeholder="Enter part of name...")
-            if q and len(q) >= 2:
-                with get_db() as db:
-                    rows = db.execute(
-                        select(models.Author.id, models.Author.display_name)
-                        .where(func.lower(models.Author.display_name).contains(q.lower()))
-                        .order_by(models.Author.display_name).limit(15)
-                    ).all()
-                if rows:
-                    cols = st.columns(3)
-                    for i, (aid, name) in enumerate(rows):
-                        with cols[i % 3]:
-                            st.code(str(aid))
-                            st.caption(name)
-                else:
-                    st.write("No authors found.")
+        with get_db() as db:
+            rows = db.execute(
+                select(models.Author.id, models.Author.display_name)
+                .order_by(models.Author.display_name)
+            ).all()
+        options = {f"{name}  (id {aid})": aid for aid, name in rows}
     elif layer == "keywords":
-        with st.expander("Find Keyword IDs", expanded=False):
-            q = st.text_input("Search keyword:", key="kw_search_graph", placeholder="Enter part of keyword...")
-            if q and len(q) >= 2:
-                with get_db() as db:
-                    rows = db.execute(
-                        select(models.Keyword.id, models.Keyword.term_display)
-                        .where(func.lower(models.Keyword.term_display).contains(q.lower()))
-                        .order_by(models.Keyword.term_display).limit(15)
-                    ).all()
-                if rows:
-                    cols = st.columns(3)
-                    for i, (kid, term) in enumerate(rows):
-                        with cols[i % 3]:
-                            st.code(str(kid))
-                            st.caption(term)
-                else:
-                    st.write("No keywords found.")
+        with get_db() as db:
+            rows = db.execute(
+                select(models.Keyword.id, models.Keyword.term_display)
+                .order_by(models.Keyword.term_display)
+            ).all()
+        options = {f"{term}  (id {kid})": kid for kid, term in rows}
     elif layer == "orgs":
-        with st.expander("Find Organization IDs", expanded=False):
-            q = st.text_input("Search organization:", key="org_search_graph", placeholder="Enter part of name...")
-            if q and len(q) >= 2:
-                with get_db() as db:
-                    rows = db.execute(
-                        select(models.Organization.id, models.Organization.name, models.Organization.country_code)
-                        .where(func.lower(models.Organization.name).contains(q.lower()))
-                        .order_by(models.Organization.name).limit(15)
-                    ).all()
-                if rows:
-                    cols = st.columns(2)
-                    for i, (oid, name, cc) in enumerate(rows):
-                        with cols[i % 2]:
-                            st.code(str(oid))
-                            st.caption(f"{name} ({cc or 'N/A'})")
-                else:
-                    st.write("No organizations found.")
+        with get_db() as db:
+            rows = db.execute(
+                select(models.Organization.id, models.Organization.name, models.Organization.country_code)
+                .order_by(models.Organization.name)
+            ).all()
+        options = {f"{name} ({cc or 'N/A'})  (id {oid})": oid for oid, name, cc in rows}
     elif layer == "nations":
-        with st.expander("Nation Codes", expanded=False):
-            common = [
-                ("US", "United States"), ("GB", "United Kingdom"), ("DE", "Germany"),
-                ("FR", "France"), ("CN", "China"), ("JP", "Japan"), ("KR", "South Korea"),
-                ("CA", "Canada"), ("AU", "Australia"), ("IN", "India"),
-            ]
-            cols = st.columns(3)
-            for i, (code, name) in enumerate(common):
-                with cols[i % 3]:
-                    st.code(code)
-                    st.caption(name)
-
-
-def _parse_focus_ids(layer: str, focus_str: str):
-    """Parse comma-separated focus IDs from text input."""
-    if not focus_str:
-        return None
-    if layer == "nations":
-        ids = [s.strip().upper() for s in focus_str.split(",") if len(s.strip()) == 2]
-        return ids if ids else None
+        # Union: codes seen in DB + common codes
+        with get_db() as db:
+            db_codes = db.execute(
+                select(models.WorkAffiliation.country_code)
+                .where(models.WorkAffiliation.country_code.isnot(None))
+                .distinct()
+            ).scalars().all()
+        code_to_name = {c: n for c, n in _NATION_CHOICES}
+        all_codes = sorted({(c, code_to_name.get(c, c)) for c in db_codes if c}
+                           | set(_NATION_CHOICES))
+        options = {f"{name} ({code})": code for code, name in all_codes}
     else:
-        ids = []
-        for s in focus_str.split(","):
-            s = s.strip()
-            if s.isdigit():
-                ids.append(int(s))
-        return ids if ids else None
+        return None
+
+    if not options:
+        st.caption(f"No {layer} available yet — ingest data first.")
+        return None
+
+    selected_labels = st.multiselect(
+        label, list(options.keys()),
+        key=f"focus_picker_{layer}",
+        placeholder=f"Type a name to filter {layer}…",
+        help="Leave empty to render the full network. Pick one or more nodes to focus the view.",
+    )
+    if not selected_labels:
+        return None
+    return [options[lbl] for lbl in selected_labels]
 
 
 # ============= Demo =============
@@ -1335,7 +1352,7 @@ def _clear_all_data():
 def insights_tab():
     stats = get_stats()
     if stats["works"] == 0:
-        st.info("No data yet. Search and ingest authors from the sidebar to get started.")
+        _render_empty_state()
         return
 
     st.header("Research Insights")
