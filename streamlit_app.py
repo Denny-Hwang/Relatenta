@@ -27,6 +27,32 @@ st.set_page_config(page_title="Relatenta", layout="wide", page_icon="🔬")
 # Ensure DB exists on every run
 init_db()
 
+
+# ============= Cached OpenAlex calls =============
+# Wrap the network-bound connector functions with @st.cache_data so identical
+# queries within the TTL skip a round-trip to api.openalex.org. The connector
+# itself stays free of Streamlit deps, so it's still importable from pytest.
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_search_authors_by_name(name: str, per_page: int = 25):
+    return oa.search_authors_by_name(name, per_page=per_page)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_search_author_by_orcid(query: str):
+    return oa.search_author_by_orcid(query)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_search_author_by_google_scholar(url: str):
+    return oa.search_author_by_google_scholar(url)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_list_author_works(author_id: str, per_page: int, max_pages: int):
+    return oa.list_author_works(author_id, per_page=per_page, max_pages=max_pages)
+
+
 # ============= Session State =============
 if "search_hits" not in st.session_state:
     st.session_state.search_hits = []
@@ -297,7 +323,7 @@ def sidebar_data():
         try:
             qtype = oa.detect_query_type(query.strip())
             if qtype == "orcid":
-                results, method = oa.search_author_by_orcid(query.strip())
+                results, method = _cached_search_author_by_orcid(query.strip())
                 st.session_state.search_hits = results
                 if not results:
                     st.sidebar.warning("No author found for this ORCID in OpenAlex or ORCID.org.")
@@ -308,7 +334,7 @@ def sidebar_data():
                     )
             elif qtype == "google_scholar":
                 with st.spinner("Resolving Google Scholar profile..."):
-                    results, method = oa.search_author_by_google_scholar(query.strip())
+                    results, method = _cached_search_author_by_google_scholar(query.strip())
                 st.session_state.search_hits = results
                 if not results:
                     st.sidebar.warning("Could not resolve Google Scholar profile. Try searching by name instead.")
@@ -320,7 +346,7 @@ def sidebar_data():
                         "Please verify the correct author."
                     )
             else:
-                st.session_state.search_hits = oa.search_authors_by_name(query.strip())
+                st.session_state.search_hits = _cached_search_authors_by_name(query.strip())
         except Exception as e:
             st.sidebar.error(f"Search failed: {e}")
 
@@ -379,7 +405,7 @@ def sidebar_data():
                     total = 0
                     with get_db() as db:
                         for author_id in sel:
-                            works = oa.list_author_works(author_id, per_page=200, max_pages=max(1, max_works // 200))
+                            works = _cached_list_author_works(author_id, 200, max(1, max_works // 200))
                             for w in works:
                                 crud.upsert_work_from_openalex(db, w)
                                 total += 1
@@ -1310,11 +1336,11 @@ def _render_focus_picker(layer: str):
 def _load_demo_data() -> bool:
     """Load Geoffrey Hinton's data from OpenAlex as a demo example."""
     try:
-        hits = oa.search_authors_by_name("Geoffrey Hinton", per_page=1)
+        hits = _cached_search_authors_by_name("Geoffrey Hinton", per_page=1)
         if not hits:
             return False
         author_id = hits[0]["id"]
-        works = oa.list_author_works(author_id, per_page=200, max_pages=1)
+        works = _cached_list_author_works(author_id, 200, 1)
         if not works:
             return False
         with get_db() as db:
