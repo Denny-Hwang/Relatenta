@@ -102,65 +102,60 @@ def build_graph(db: Session, layer: str, year_min: int | None, year_max: int | N
     elif layer == "keywords":
         # nodes: keywords; edges: co-occurrence from same work
         from collections import defaultdict
-        kw_counts = defaultdict(int)
-        # filter works by year
-        wq = select(models.Work.id)
-        if year_min is not None: wq = wq.where(models.Work.year >= year_min)
-        if year_max is not None: wq = wq.where(models.Work.year <= year_max)
-        work_ids = db.execute(wq).scalars().all()
-
         from itertools import combinations
+
+        kw_counts = defaultdict(int)
         edges_map = defaultdict(int)
         added_keyword_ids = set()
-        
+
+        # Single JOIN: pull all (work_id, keyword_id) pairs in year range
+        wkq = (
+            select(models.WorkKeyword.work_id, models.WorkKeyword.keyword_id)
+            .join(models.Work, models.WorkKeyword.work_id == models.Work.id)
+        )
+        if year_min is not None:
+            wkq = wkq.where(models.Work.year >= year_min)
+        if year_max is not None:
+            wkq = wkq.where(models.Work.year <= year_max)
+
+        work_to_kws: dict[int, set[int]] = defaultdict(set)
+        for wid, kid in db.execute(wkq).all():
+            work_to_kws[wid].add(kid)
+
         if focus_ids:
-            # Validate focus keyword IDs
-            valid_focus_ids = []
-            for focus_id in focus_ids:
-                keyword = db.get(models.Keyword, focus_id)
-                if keyword:
-                    valid_focus_ids.append(focus_id)
-            
+            valid_focus_ids = [fid for fid in focus_ids if db.get(models.Keyword, fid)]
             if not valid_focus_ids:
                 return {"nodes": [], "edges": []}
-            
+            focus_set = set(valid_focus_ids)
+
             if focus_only:
-                # Focus Only Mode: Show only focus keywords and their co-occurring keywords
+                # Focus Only Mode: include only works that contain at least one focus keyword
                 focus_related_keywords = set(valid_focus_ids)
-                
-                # Find keywords that co-occur with focus keywords
-                for wid in work_ids:
-                    kws = db.execute(select(models.WorkKeyword.keyword_id).where(models.WorkKeyword.work_id == wid)).scalars().all()
-                    kws_set = set(kws)
-                    
-                    # If this work contains any focus keywords, include all its keywords
-                    if kws_set.intersection(valid_focus_ids):
+                for wid, kws_set in work_to_kws.items():
+                    if kws_set & focus_set:
                         focus_related_keywords.update(kws_set)
-                        for k in kws:
+                        for k in kws_set:
                             kw_counts[k] += 1
-                        for k1, k2 in combinations(sorted(kws), 2):
+                        for k1, k2 in combinations(sorted(kws_set), 2):
                             edges_map[(k1, k2)] += 1
-                
                 added_keyword_ids = focus_related_keywords
             else:
-                # Full Network Mode: Show all keywords but highlight focus keywords
-                for wid in work_ids:
-                    kws = db.execute(select(models.WorkKeyword.keyword_id).where(models.WorkKeyword.work_id == wid)).scalars().all()
-                    kws = sorted(set(kws))
-                    for k in kws:
+                # Full Network Mode: include all works, mark focus separately
+                for wid, kws_set in work_to_kws.items():
+                    kws_sorted = sorted(kws_set)
+                    for k in kws_sorted:
                         kw_counts[k] += 1
                         added_keyword_ids.add(k)
-                    for k1, k2 in combinations(kws, 2):
+                    for k1, k2 in combinations(kws_sorted, 2):
                         edges_map[(k1, k2)] += 1
         else:
             # No focus specified
-            for wid in work_ids:
-                kws = db.execute(select(models.WorkKeyword.keyword_id).where(models.WorkKeyword.work_id == wid)).scalars().all()
-                kws = sorted(set(kws))
-                for k in kws:
+            for wid, kws_set in work_to_kws.items():
+                kws_sorted = sorted(kws_set)
+                for k in kws_sorted:
                     kw_counts[k] += 1
                     added_keyword_ids.add(k)
-                for k1, k2 in combinations(kws, 2):
+                for k1, k2 in combinations(kws_sorted, 2):
                     edges_map[(k1, k2)] += 1
 
         for kid in added_keyword_ids:

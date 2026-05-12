@@ -224,20 +224,17 @@ def recommend_collaborators(db: Session, author_id: int,
     if author_id not in G:
         return []
 
-    # Target author's keywords
-    target_works = db.execute(
-        select(models.WorkAuthor.work_id)
-        .where(models.WorkAuthor.author_id == author_id)
-    ).scalars().all()
+    # Pre-fetch (author_id, keyword_id) for ALL authors in two JOINs.
+    # Builds author_keywords[a_id] -> set of keyword_ids.
+    author_keywords: dict[int, set[int]] = defaultdict(set)
+    rows = db.execute(
+        select(models.WorkAuthor.author_id, models.WorkKeyword.keyword_id)
+        .join(models.WorkKeyword, models.WorkKeyword.work_id == models.WorkAuthor.work_id)
+    ).all()
+    for aid, kid in rows:
+        author_keywords[aid].add(kid)
 
-    target_keywords = set()
-    for wid in target_works:
-        kws = db.execute(
-            select(models.WorkKeyword.keyword_id)
-            .where(models.WorkKeyword.work_id == wid)
-        ).scalars().all()
-        target_keywords.update(kws)
-
+    target_keywords = author_keywords.get(author_id, set())
     if not target_keywords:
         return []
 
@@ -257,20 +254,7 @@ def recommend_collaborators(db: Session, author_id: int,
 
     results = []
     for cand_id in candidates:
-        # Candidate's keywords
-        cand_works = db.execute(
-            select(models.WorkAuthor.work_id)
-            .where(models.WorkAuthor.author_id == cand_id)
-        ).scalars().all()
-
-        cand_keywords = set()
-        for wid in cand_works:
-            kws = db.execute(
-                select(models.WorkKeyword.keyword_id)
-                .where(models.WorkKeyword.work_id == wid)
-            ).scalars().all()
-            cand_keywords.update(kws)
-
+        cand_keywords = author_keywords.get(cand_id)
         if not cand_keywords:
             continue
 

@@ -1,11 +1,53 @@
+import os
 import re
 import requests
 from typing import List, Dict, Any, Tuple
+
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 OPENALEX = "https://api.openalex.org"
 
 # ORCID pattern: 0000-0001-2345-6789 (last char can be X)
 _ORCID_RE = re.compile(r"\d{4}-\d{4}-\d{4}-\d{3}[\dX]")
+
+# Polite pool: set OPENALEX_MAILTO env var to enter the faster, higher-quota
+# pool per OpenAlex guidelines. Falls back to anonymous pool when unset.
+_OPENALEX_MAILTO = os.environ.get("OPENALEX_MAILTO", "").strip()
+_USER_AGENT = (
+    f"Relatenta/1.1 (https://github.com/Denny-Hwang/Relatenta; mailto:{_OPENALEX_MAILTO})"
+    if _OPENALEX_MAILTO
+    else "Relatenta/1.1 (https://github.com/Denny-Hwang/Relatenta)"
+)
+
+
+def _make_session() -> requests.Session:
+    """Build a requests Session with retry + exponential backoff."""
+    s = requests.Session()
+    retry = Retry(
+        total=4,
+        backoff_factor=0.5,  # 0.5, 1, 2, 4 seconds
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=("GET",),
+        respect_retry_after_header=True,
+        raise_on_status=False,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    s.mount("https://", adapter)
+    s.mount("http://", adapter)
+    s.headers.update({"User-Agent": _USER_AGENT})
+    return s
+
+
+_SESSION = _make_session()
+
+
+def _polite(params: dict | None = None) -> dict:
+    """Inject mailto for OpenAlex polite pool (if configured)."""
+    out = dict(params or {})
+    if _OPENALEX_MAILTO and "mailto" not in out:
+        out["mailto"] = _OPENALEX_MAILTO
+    return out
 
 
 def _format_author_result(item: dict) -> Dict[str, Any]:
@@ -66,8 +108,8 @@ def detect_query_type(query: str) -> str:
 
 def search_authors_by_name(name: str, per_page: int = 25) -> List[Dict[str, Any]]:
     """Search for authors by name via OpenAlex."""
-    params = {"search": name, "per_page": per_page}
-    r = requests.get(f"{OPENALEX}/authors", params=params, timeout=30)
+    params = _polite({"search": name, "per_page": per_page})
+    r = _SESSION.get(f"{OPENALEX}/authors", params=params, timeout=30)
     r.raise_for_status()
     data = r.json()
     return [_format_author_result(item) for item in data.get("results", [])]
@@ -95,7 +137,7 @@ def search_author_by_orcid(orcid_input: str) -> Tuple[List[Dict[str, Any]], str]
 
     # Direct lookup (faster)
     try:
-        r = requests.get(f"{OPENALEX}/authors/orcid:{orcid}", timeout=30)
+        r = _SESSION.get(f"{OPENALEX}/authors/orcid:{orcid}", params=_polite(), timeout=30)
         if r.status_code == 200:
             item = r.json()
             if item.get("id"):
@@ -105,8 +147,8 @@ def search_author_by_orcid(orcid_input: str) -> Tuple[List[Dict[str, Any]], str]
 
     # Fallback: filter search
     try:
-        params = {"filter": f"orcid:{orcid}"}
-        r = requests.get(f"{OPENALEX}/authors", params=params, timeout=30)
+        params = _polite({"filter": f"orcid:{orcid}"})
+        r = _SESSION.get(f"{OPENALEX}/authors", params=params, timeout=30)
         if r.status_code == 200:
             data = r.json()
             results = [_format_author_result(item) for item in data.get("results", [])]
@@ -162,7 +204,7 @@ def _resolve_google_scholar_profile(url: str) -> dict | None:
             ),
             "Accept-Language": "en-US,en;q=0.9",
         }
-        r = requests.get(url, headers=headers, timeout=15, allow_redirects=True)
+        r = _SESSION.get(url, headers=headers, timeout=15, allow_redirects=True)
         if r.status_code != 200:
             return None
 
@@ -205,7 +247,7 @@ def _resolve_orcid_name(orcid: str) -> str | None:
     # Method 1: ORCID public API (works without auth for public records)
     try:
         headers = {"Accept": "application/json"}
-        r = requests.get(
+        r = _SESSION.get(
             f"https://pub.orcid.org/v3.0/{orcid}/personal-details",
             headers=headers, timeout=15,
         )
@@ -222,7 +264,7 @@ def _resolve_orcid_name(orcid: str) -> str | None:
 
     # Method 2: scrape the ORCID.org HTML page
     try:
-        r = requests.get(f"https://orcid.org/{orcid}", timeout=15)
+        r = _SESSION.get(f"https://orcid.org/{orcid}", timeout=15)
         if r.status_code == 200:
             m = re.search(r"<title>(.+?)(?:\s*[-–—]\s*ORCID)?</title>", r.text)
             if m:
@@ -245,13 +287,13 @@ def list_author_works(openalex_author_id: str, per_page: int = 200, max_pages: i
     works = []
     page = 1
     while page <= max_pages:
-        params = {
+        params = _polite({
             "filter": f"author.id:A{author_filter.replace('A','')}" if not author_filter.startswith("A") else f"author.id:{author_filter}",
             "per_page": per_page,
             "page": page,
-            "sort": "cited_by_count:desc"
-        }
-        r = requests.get(f"{OPENALEX}/works", params=params, timeout=60)
+            "sort": "cited_by_count:desc",
+        })
+        r = _SESSION.get(f"{OPENALEX}/works", params=params, timeout=60)
         r.raise_for_status()
         data = r.json()
         works.extend(data.get("results", []))
