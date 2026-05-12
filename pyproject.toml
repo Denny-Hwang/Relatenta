@@ -6,3 +6,17 @@ filterwarnings = [
     "ignore::DeprecationWarning:sqlalchemy.*",
     "ignore::PendingDeprecationWarning",
 ]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+exclude = ["docs", "databases"]
+
+[tool.ruff.lint]
+# Pragmatic defaults — surface real bugs (F, B) and unsafe imports (I) without
+# bikeshedding on style noise from a Streamlit codebase.
+select = ["F", "E9", "B"]
+ignore = [
+    "F401",  # unused-import: streamlit_app.py imports plotly/matplotlib lazily
+    "B008",  # function-call-in-default-argument: SQLAlchemy idiom
+]
