@@ -83,12 +83,40 @@ Single Streamlit process. No separate backend server. One in-memory SQLite datab
 
 ## Data Persistence
 
-This app uses an **in-memory database**. Data exists only during the active browser session.
+By default Relatenta uses an **in-memory database** — data exists only during
+the active browser session.
 
 | Action | How |
 |--------|-----|
 | **Save** | Sidebar > "Export CSV" — downloads a ZIP with all tables |
 | **Restore** | Sidebar > "Restore from Export" — upload a previously exported ZIP |
+
+### Optional: persistent storage
+
+Set the `DATABASE_URL` environment variable before starting Streamlit and the
+app switches to a single shared engine that survives browser refreshes and is
+visible to every tab:
+
+```bash
+# Local file
+export DATABASE_URL="sqlite:///./relatenta.db"
+
+# Postgres
+export DATABASE_URL="postgresql+psycopg2://user:pw@host/relatenta"
+
+streamlit run streamlit_app.py
+```
+
+The in-memory unsaved-data warning is hidden automatically in this mode.
+
+### Optional: OpenAlex polite pool
+
+Set `OPENALEX_MAILTO` to your contact email to enter OpenAlex's faster,
+higher-quota polite pool:
+
+```bash
+export OPENALEX_MAILTO="you@example.com"
+```
 
 ---
 

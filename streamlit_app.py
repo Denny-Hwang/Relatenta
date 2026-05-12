@@ -8,10 +8,12 @@ import pandas as pd
 from sqlalchemy import select, func
 from datetime import datetime
 
-from app.db import get_db, init_db, reset_db, get_stats
+from app.db import get_db, init_db, reset_db, get_stats, is_persistent
 from app import connectors_openalex as oa
 from app import crud
 from app import models
+from app.fonts import configure_matplotlib
+from app.i18n import SUPPORTED_LANGUAGES, set_language, t
 from app.services_graph import build_graph
 from app.services_heatmap import author_keyword_heat, nation_nation_heat
 from app.services_export import export_to_csv
@@ -26,6 +28,32 @@ st.set_page_config(page_title="Relatenta", layout="wide", page_icon="🔬")
 
 # Ensure DB exists on every run
 init_db()
+
+
+# ============= Cached OpenAlex calls =============
+# Wrap the network-bound connector functions with @st.cache_data so identical
+# queries within the TTL skip a round-trip to api.openalex.org. The connector
+# itself stays free of Streamlit deps, so it's still importable from pytest.
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_search_authors_by_name(name: str, per_page: int = 25):
+    return oa.search_authors_by_name(name, per_page=per_page)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_search_author_by_orcid(query: str):
+    return oa.search_author_by_orcid(query)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_search_author_by_google_scholar(url: str):
+    return oa.search_author_by_google_scholar(url)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_list_author_works(author_id: str, per_page: int, max_pages: int):
+    return oa.list_author_works(author_id, per_page=per_page, max_pages=max_pages)
+
 
 # ============= Session State =============
 if "search_hits" not in st.session_state:
@@ -224,20 +252,31 @@ def _draw_fallback(graph_json: dict):
 
 def sidebar_data():
     """Sidebar: search, ingest, export, restore."""
+    # Language toggle — top of sidebar so it's discoverable on first visit.
+    lang_choice = st.sidebar.selectbox(
+        t("lang.label"),
+        SUPPORTED_LANGUAGES,
+        index=SUPPORTED_LANGUAGES.index(st.session_state.get("language", "en")),
+        format_func=lambda c: {"en": "English", "ko": "한국어"}.get(c, c),
+        key="language",
+    )
+    # Streamlit binds the widget to session_state via key, so set_language is
+    # only needed when the widget value lags behind (e.g., first run).
+    set_language(lang_choice)
+
     stats = get_stats()
 
     # --- Current data summary ---
-    st.sidebar.header("Database")
+    st.sidebar.header(t("sidebar.database"))
     is_demo = not st.session_state.demo_dismissed and stats["works"] > 0
 
     # Persistent unsaved-data warning. The DB is in-memory only — reload = data loss.
     # Demo data is auto-loaded, so don't pester users about it; only warn after
-    # they have ingested their own data.
-    if stats["works"] > 0 and not is_demo:
+    # they have ingested their own data. In persistent-storage mode the data
+    # survives reloads, so skip the warning entirely.
+    if stats["works"] > 0 and not is_demo and not is_persistent():
         st.sidebar.warning(
-            "Data is held in memory only.\n\n"
-            "Click **Export CSV** below before closing the tab — a browser refresh "
-            "or session timeout will erase everything.",
+            f"{t('warn.in_memory_title')}\n\n{t('warn.in_memory_body')}",
             icon="⚠️",
         )
 
@@ -254,14 +293,14 @@ def sidebar_data():
             try:
                 zip_bytes = export_to_csv()
                 st.download_button(
-                    "Export CSV", data=zip_bytes,
+                    t("btn.export_csv"), data=zip_bytes,
                     file_name=f"relatenta_export_{datetime.now().strftime('%Y%m%d')}.zip",
                     mime="application/zip", key="export_btn",
                 )
             except Exception as e:
                 st.error(f"Export error: {e}")
         with col2:
-            btn_label = "Start Fresh" if is_demo else "Clear All"
+            btn_label = t("btn.start_fresh") if is_demo else t("btn.clear_all")
             if st.button(btn_label, key="clear_btn"):
                 st.session_state.confirm_clear = True
                 st.rerun()
@@ -284,7 +323,7 @@ def sidebar_data():
     st.sidebar.divider()
 
     # --- OpenAlex search ---
-    st.sidebar.header("Search")
+    st.sidebar.header(t("sidebar.search"))
     query = st.sidebar.text_input(
         "Name, ORCID, or Google Scholar URL",
         key="author_search",
@@ -292,12 +331,12 @@ def sidebar_data():
     )
     # Auto-trigger search when an empty-state suggestion chip was clicked.
     auto_query = st.session_state.pop("_run_suggested_search", None)
-    do_search = st.sidebar.button("Search", key="search_btn")
+    do_search = st.sidebar.button(t("btn.search"), key="search_btn")
     if (do_search and query.strip()) or auto_query:
         try:
             qtype = oa.detect_query_type(query.strip())
             if qtype == "orcid":
-                results, method = oa.search_author_by_orcid(query.strip())
+                results, method = _cached_search_author_by_orcid(query.strip())
                 st.session_state.search_hits = results
                 if not results:
                     st.sidebar.warning("No author found for this ORCID in OpenAlex or ORCID.org.")
@@ -308,7 +347,7 @@ def sidebar_data():
                     )
             elif qtype == "google_scholar":
                 with st.spinner("Resolving Google Scholar profile..."):
-                    results, method = oa.search_author_by_google_scholar(query.strip())
+                    results, method = _cached_search_author_by_google_scholar(query.strip())
                 st.session_state.search_hits = results
                 if not results:
                     st.sidebar.warning("Could not resolve Google Scholar profile. Try searching by name instead.")
@@ -320,7 +359,7 @@ def sidebar_data():
                         "Please verify the correct author."
                     )
             else:
-                st.session_state.search_hits = oa.search_authors_by_name(query.strip())
+                st.session_state.search_hits = _cached_search_authors_by_name(query.strip())
         except Exception as e:
             st.sidebar.error(f"Search failed: {e}")
 
@@ -367,7 +406,7 @@ def sidebar_data():
 
         if sel:
             max_works = st.sidebar.slider("Max works per author", 50, 600, 200, 50)
-            if st.sidebar.button("Ingest Selected", type="primary", key="ingest_btn"):
+            if st.sidebar.button(t("btn.ingest_selected"), type="primary", key="ingest_btn"):
                 # Auto-clear demo data before ingesting a new author
                 if not st.session_state.demo_dismissed:
                     reset_db()
@@ -379,7 +418,7 @@ def sidebar_data():
                     total = 0
                     with get_db() as db:
                         for author_id in sel:
-                            works = oa.list_author_works(author_id, per_page=200, max_pages=max(1, max_works // 200))
+                            works = _cached_list_author_works(author_id, 200, max(1, max_works // 200))
                             for w in works:
                                 crud.upsert_work_from_openalex(db, w)
                                 total += 1
@@ -398,10 +437,10 @@ def sidebar_data():
     st.sidebar.divider()
 
     # --- CSV Import ---
-    st.sidebar.header("CSV Import")
+    st.sidebar.header(t("sidebar.csv_import"))
     kind = st.sidebar.selectbox("Data Type", ["works", "authors", "affiliations", "keywords"])
     uploaded = st.sidebar.file_uploader("Upload CSV", type=["csv"], key="csv_upload")
-    if uploaded and st.sidebar.button("Import CSV"):
+    if uploaded and st.sidebar.button(t("btn.import_csv")):
         # Auto-clear demo data before importing
         if not st.session_state.demo_dismissed:
             reset_db()
@@ -425,10 +464,10 @@ def sidebar_data():
         st.rerun()
 
     # --- ZIP Restore ---
-    st.sidebar.header("Restore from Export")
+    st.sidebar.header(t("sidebar.restore"))
     st.sidebar.caption("Upload a previously exported ZIP to restore data")
     zip_file = st.sidebar.file_uploader("Upload ZIP", type=["zip"], key="zip_restore")
-    if zip_file and st.sidebar.button("Restore Data", key="restore_btn"):
+    if zip_file and st.sidebar.button(t("btn.restore"), key="restore_btn"):
         _restore_from_zip(zip_file)
         st.session_state.demo_dismissed = True
         st.session_state.built_graph = None
@@ -647,7 +686,7 @@ def graph_tab():
         with c3:
             edge_width_range = st.slider("Edge Width Range", 0.1, 10.0, (0.5, 4.0), key="edge_width_range")
 
-    if st.button("Build Graph", type="primary", key="build_graph_btn"):
+    if st.button(t("btn.build_graph"), type="primary", key="build_graph_btn"):
         with st.spinner("Building graph..."):
             try:
                 with get_db() as db:
@@ -691,7 +730,7 @@ def heatmap_tab():
     with c3:
         year_max = st.number_input("Year max", value=2025, step=1, key="hm_year_max")
 
-    if st.button("Compute Heatmap", type="primary", key="compute_hm_btn"):
+    if st.button(t("btn.compute_heatmap"), type="primary", key="compute_hm_btn"):
         with st.spinner("Computing heatmap..."):
             with get_db() as db:
                 if kind == "author_keyword":
@@ -735,7 +774,7 @@ def report_tab():
     if report_name:
         st.session_state.report_name = report_name
 
-    if st.button("Generate Report", type="primary", key="gen_report_btn"):
+    if st.button(t("btn.generate_report"), type="primary", key="gen_report_btn"):
         with st.spinner("Analyzing data..."):
             with get_db() as db:
                 rpt = gather_report(db)
@@ -920,7 +959,7 @@ def report_tab():
 
     # ---- PDF Download ----
     st.subheader("Download Report")
-    if st.button("Generate PDF", key="gen_pdf_btn"):
+    if st.button(t("btn.generate_pdf"), key="gen_pdf_btn"):
         with st.spinner("Creating PDF..."):
             pdf_bytes = _generate_report_pdf(rpt)
             st.session_state.report_pdf = pdf_bytes
@@ -932,7 +971,7 @@ def report_tab():
         else:
             pdf_filename = f"Relatenta_report_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf"
         st.download_button(
-            "Download PDF",
+            t("btn.download_pdf"),
             data=st.session_state.report_pdf,
             file_name=pdf_filename,
             mime="application/pdf",
@@ -946,6 +985,7 @@ def _render_network_graph(rpt: dict):
         import networkx as nx
         import matplotlib
         matplotlib.use("Agg")
+        configure_matplotlib()
         import matplotlib.pyplot as plt
 
         G = nx.Graph()
@@ -1009,6 +1049,9 @@ def _generate_report_pdf(rpt: dict) -> bytes:
     """Generate a multi-page PDF report using matplotlib."""
     import matplotlib
     matplotlib.use("Agg")
+    # Activate the best available CJK font so Korean/Chinese/Japanese author
+    # names and keywords render correctly in the PDF. Cached after first call.
+    configure_matplotlib()
     import matplotlib.pyplot as plt
     from matplotlib.backends.backend_pdf import PdfPages
 
@@ -1219,11 +1262,7 @@ def _render_empty_state():
     Clicking a chip seeds the sidebar search field and triggers a rerun, so the
     user sees the search results immediately and only has to confirm Ingest.
     """
-    st.markdown(
-        "#### Nothing to show yet\n"
-        "Pick a starting point below or use the **Search** field in the sidebar "
-        "to enter your own researcher, ORCID, or Google Scholar URL."
-    )
+    st.markdown(f"#### {t('empty.title')}\n{t('empty.body')}")
     cols = st.columns(len(_SUGGESTED_RESEARCHERS))
     for col, name in zip(cols, _SUGGESTED_RESEARCHERS):
         with col:
@@ -1231,9 +1270,7 @@ def _render_empty_state():
                 st.session_state["author_search"] = name
                 st.session_state["_run_suggested_search"] = name
                 st.rerun()
-    st.caption(
-        "Tip: refine with year range, edge weight, and Focus filters once data is loaded."
-    )
+    st.caption(t("empty.tip"))
 
 
 _NATION_CHOICES = [
@@ -1310,11 +1347,11 @@ def _render_focus_picker(layer: str):
 def _load_demo_data() -> bool:
     """Load Geoffrey Hinton's data from OpenAlex as a demo example."""
     try:
-        hits = oa.search_authors_by_name("Geoffrey Hinton", per_page=1)
+        hits = _cached_search_authors_by_name("Geoffrey Hinton", per_page=1)
         if not hits:
             return False
         author_id = hits[0]["id"]
-        works = oa.list_author_works(author_id, per_page=200, max_pages=1)
+        works = _cached_list_author_works(author_id, 200, 1)
         if not works:
             return False
         with get_db() as db:
@@ -1872,8 +1909,8 @@ def _color_graph_by_community(graph_json: dict, partition: dict, layer: str):
 
 
 def main():
-    st.title("Relatenta")
-    st.caption("Research Relationship Visualization")
+    st.title(t("app.title"))
+    st.caption(t("app.subtitle"))
 
     # Auto-load demo on first visit
     stats = get_stats()
@@ -1888,7 +1925,10 @@ def main():
     with st.sidebar:
         sidebar_data()
 
-    tabs = st.tabs(["Graph", "Heatmaps", "Report", "Insights", "How to Use"])
+    tabs = st.tabs([
+        t("tabs.graph"), t("tabs.heatmaps"), t("tabs.report"),
+        t("tabs.insights"), t("tabs.how_to_use"),
+    ])
     with tabs[0]:
         graph_tab()
     with tabs[1]:
