@@ -6,12 +6,26 @@ without touching the OpenAlex network.
 """
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 
 import pytest
 
 from app import crud, models
 from app.db import get_db, init_db, reset_db
+
+
+@pytest.fixture()
+def monkeypatch_env_minimal():
+    """Inherit only the variables a Python subprocess needs to import the package.
+
+    Deliberately omits DATABASE_URL so persistent-mode tests start clean.
+    """
+    keep = ("PATH", "PYTHONPATH", "HOME", "LANG", "LC_ALL", "VIRTUAL_ENV")
+    env = {k: v for k, v in os.environ.items() if k in keep}
+    # Ensure the repo root is importable when pytest runs from a different cwd.
+    env.setdefault("PYTHONPATH", os.getcwd())
+    return env
 
 
 @dataclass

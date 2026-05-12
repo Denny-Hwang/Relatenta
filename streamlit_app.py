@@ -8,7 +8,7 @@ import pandas as pd
 from sqlalchemy import select, func
 from datetime import datetime
 
-from app.db import get_db, init_db, reset_db, get_stats
+from app.db import get_db, init_db, reset_db, get_stats, is_persistent
 from app import connectors_openalex as oa
 from app import crud
 from app import models
@@ -258,8 +258,9 @@ def sidebar_data():
 
     # Persistent unsaved-data warning. The DB is in-memory only — reload = data loss.
     # Demo data is auto-loaded, so don't pester users about it; only warn after
-    # they have ingested their own data.
-    if stats["works"] > 0 and not is_demo:
+    # they have ingested their own data. In persistent-storage mode the data
+    # survives reloads, so skip the warning entirely.
+    if stats["works"] > 0 and not is_demo and not is_persistent():
         st.sidebar.warning(
             "Data is held in memory only.\n\n"
             "Click **Export CSV** below before closing the tab — a browser refresh "
