@@ -64,6 +64,46 @@ if "built_graph" not in st.session_state:
     st.session_state.built_graph = None
 if "built_graph_settings" not in st.session_state:
     st.session_state.built_graph_settings = None
+if "_data_version" not in st.session_state:
+    st.session_state._data_version = 0
+
+
+# ============= Cached graph / heatmap =============
+# build_graph and the two heatmaps are pure functions of (params, DB state).
+# We can't hash the SQLAlchemy session, and Streamlit can't peek inside the DB
+# to know when it changed — so we pass an explicit "data version" integer that
+# the app bumps after every DB-mutating action (ingest, CSV import, ZIP
+# restore, reset). This keeps results cached when the user re-clicks Build
+# Graph with the same parameters, and invalidates correctly the moment they
+# load new data.
+
+def _bump_data_version() -> None:
+    """Invalidate all DB-derived caches for this session."""
+    st.session_state._data_version = st.session_state.get("_data_version", 0) + 1
+
+
+def _data_version() -> int:
+    return st.session_state.get("_data_version", 0)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _cached_build_graph(layer: str, year_min: int | None, year_max: int | None,
+                        edge_min: float, focus_tuple, focus_only: bool, _v: int):
+    focus = list(focus_tuple) if focus_tuple else None
+    with get_db() as db:
+        return build_graph(db, layer, year_min, year_max, edge_min, focus, focus_only)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _cached_author_keyword_heat(year_min: int | None, year_max: int | None, _v: int):
+    with get_db() as db:
+        return author_keyword_heat(db, year_min, year_max)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _cached_nation_nation_heat(year_min: int | None, year_max: int | None, _v: int):
+    with get_db() as db:
+        return nation_nation_heat(db, year_min, year_max)
 
 # ============= Visualization =============
 
@@ -193,6 +233,8 @@ def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height:
         enhanced_html = html_content.replace(
             "</head>",
             """<style>
+            html, body { margin:0; padding:0; overflow:hidden; touch-action:manipulation; }
+            #mynetwork { touch-action:none; }
             .vis-tooltip { position:absolute; visibility:hidden; padding:10px; white-space:pre-line;
                 font-family:'Segoe UI',sans-serif; font-size:14px; color:#000; background:rgba(255,255,255,0.95);
                 border-radius:8px; border:2px solid #333; box-shadow:0 4px 6px rgba(0,0,0,0.3);
@@ -202,6 +244,12 @@ def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height:
                 backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); }
             .control-panel div { margin:4px 0; display:flex; align-items:center; }
             .control-panel .icon { margin-right:8px; }
+            /* Mobile: hide the help overlay (would cover too much of a small graph)
+               and shrink the tooltip so it fits inside the viewport. */
+            @media (max-width: 640px) {
+                .control-panel { display:none; }
+                .vis-tooltip { font-size:12px; padding:6px; max-width:75vw; }
+            }
             </style></head>""",
         ).replace(
             "</body>",
@@ -429,6 +477,7 @@ def sidebar_data():
                         except Exception:
                             pass
                     st.sidebar.success(f"Ingested {total} works")
+                    _bump_data_version()
                     st.session_state.search_hits = []
                     st.session_state.demo_dismissed = True
                     st.session_state.built_graph = None
@@ -459,6 +508,7 @@ def sidebar_data():
             except Exception:
                 pass
         st.sidebar.success(f"Imported {len(df)} rows")
+        _bump_data_version()
         st.session_state.demo_dismissed = True
         st.session_state.built_graph = None
         st.rerun()
@@ -583,6 +633,7 @@ def _restore_from_zip(zip_file):
                 except Exception:
                     pass
 
+        _bump_data_version()
         st.sidebar.success("Data restored successfully")
     except Exception as e:
         st.sidebar.error(f"Restore failed: {e}")
@@ -689,8 +740,11 @@ def graph_tab():
     if st.button(t("btn.build_graph"), type="primary", key="build_graph_btn"):
         with st.spinner("Building graph..."):
             try:
-                with get_db() as db:
-                    g = build_graph(db, layer, year_min, year_max, edge_min, focus_ids, focus_only)
+                focus_tuple = tuple(focus_ids) if focus_ids else None
+                g = _cached_build_graph(
+                    layer, year_min, year_max, edge_min,
+                    focus_tuple, focus_only, _data_version(),
+                )
                 if not g["nodes"]:
                     st.warning("No nodes found. Try lowering edge weight or widening the year range.")
                     st.session_state.built_graph = None
@@ -732,13 +786,13 @@ def heatmap_tab():
 
     if st.button(t("btn.compute_heatmap"), type="primary", key="compute_hm_btn"):
         with st.spinner("Computing heatmap..."):
-            with get_db() as db:
-                if kind == "author_keyword":
-                    hm = author_keyword_heat(db, year_min, year_max)
-                elif kind == "nation_nation":
-                    hm = nation_nation_heat(db, year_min, year_max)
-                else:
-                    hm = {"rows": [], "cols": [], "data": []}
+            v = _data_version()
+            if kind == "author_keyword":
+                hm = _cached_author_keyword_heat(year_min, year_max, v)
+            elif kind == "nation_nation":
+                hm = _cached_nation_nation_heat(year_min, year_max, v)
+            else:
+                hm = {"rows": [], "cols": [], "data": []}
 
             if not hm.get("data"):
                 st.warning("No data available for the selected parameters")
@@ -1247,12 +1301,13 @@ def _generate_report_pdf(rpt: dict) -> bytes:
 # ============= Helpers =============
 
 
+# Top 3 chips stay readable on a mobile-portrait viewport (~360 px wide).
+# Streamlit columns don't reflow, so we cap the chip count instead of letting
+# 5 narrow buttons squish into a single phone row.
 _SUGGESTED_RESEARCHERS = [
     "Yoshua Bengio",
     "Yann LeCun",
     "Fei-Fei Li",
-    "Andrew Ng",
-    "Geoffrey Hinton",
 ]
 
 
@@ -1365,6 +1420,7 @@ def _load_demo_data() -> bool:
                 pass
             # Pre-build co-author graph for immediate display
             g = build_graph(db, "authors", 2000, 2026, 1.0, None, False)
+        _bump_data_version()
         st.session_state.built_graph = g
         st.session_state.built_graph_settings = None
         return True
@@ -1375,6 +1431,7 @@ def _load_demo_data() -> bool:
 def _clear_all_data():
     """Clear all data and session state."""
     reset_db()
+    _bump_data_version()
     st.session_state.demo_dismissed = True
     st.session_state.search_hits = []
     st.session_state.built_graph = None
@@ -1908,7 +1965,26 @@ def _color_graph_by_community(graph_json: dict, partition: dict, layer: str):
 # ============= Main =============
 
 
+_MOBILE_CSS = """
+<style>
+/* Phone-portrait tweaks. Goal: less wasted vertical space, easier touch
+   targets, and a hint that the primary search lives in the sidebar. */
+@media (max-width: 640px) {
+    /* Tighten Streamlit's default top padding so the title isn't off-screen */
+    section.main > div.block-container { padding-top: 1rem; padding-bottom: 1rem; }
+    /* Shrink the H1 so it stops competing with the data */
+    h1 { font-size: 1.6rem !important; line-height: 1.2 !important; }
+    /* Make st.button targets a bit taller for fat-finger taps */
+    .stButton > button { padding: 0.6rem 0.5rem !important; font-size: 0.95rem !important; }
+    /* When the sidebar is collapsed, make the burger icon more prominent */
+    [data-testid="collapsedControl"] { transform: scale(1.4); }
+}
+</style>
+"""
+
+
 def main():
+    st.markdown(_MOBILE_CSS, unsafe_allow_html=True)
     st.title(t("app.title"))
     st.caption(t("app.subtitle"))
 
