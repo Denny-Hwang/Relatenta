@@ -64,6 +64,46 @@ if "built_graph" not in st.session_state:
     st.session_state.built_graph = None
 if "built_graph_settings" not in st.session_state:
     st.session_state.built_graph_settings = None
+if "_data_version" not in st.session_state:
+    st.session_state._data_version = 0
+
+
+# ============= Cached graph / heatmap =============
+# build_graph and the two heatmaps are pure functions of (params, DB state).
+# We can't hash the SQLAlchemy session, and Streamlit can't peek inside the DB
+# to know when it changed — so we pass an explicit "data version" integer that
+# the app bumps after every DB-mutating action (ingest, CSV import, ZIP
+# restore, reset). This keeps results cached when the user re-clicks Build
+# Graph with the same parameters, and invalidates correctly the moment they
+# load new data.
+
+def _bump_data_version() -> None:
+    """Invalidate all DB-derived caches for this session."""
+    st.session_state._data_version = st.session_state.get("_data_version", 0) + 1
+
+
+def _data_version() -> int:
+    return st.session_state.get("_data_version", 0)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _cached_build_graph(layer: str, year_min: int | None, year_max: int | None,
+                        edge_min: float, focus_tuple, focus_only: bool, _v: int):
+    focus = list(focus_tuple) if focus_tuple else None
+    with get_db() as db:
+        return build_graph(db, layer, year_min, year_max, edge_min, focus, focus_only)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _cached_author_keyword_heat(year_min: int | None, year_max: int | None, _v: int):
+    with get_db() as db:
+        return author_keyword_heat(db, year_min, year_max)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _cached_nation_nation_heat(year_min: int | None, year_max: int | None, _v: int):
+    with get_db() as db:
+        return nation_nation_heat(db, year_min, year_max)
 
 # ============= Visualization =============
 
@@ -429,6 +469,7 @@ def sidebar_data():
                         except Exception:
                             pass
                     st.sidebar.success(f"Ingested {total} works")
+                    _bump_data_version()
                     st.session_state.search_hits = []
                     st.session_state.demo_dismissed = True
                     st.session_state.built_graph = None
@@ -459,6 +500,7 @@ def sidebar_data():
             except Exception:
                 pass
         st.sidebar.success(f"Imported {len(df)} rows")
+        _bump_data_version()
         st.session_state.demo_dismissed = True
         st.session_state.built_graph = None
         st.rerun()
@@ -583,6 +625,7 @@ def _restore_from_zip(zip_file):
                 except Exception:
                     pass
 
+        _bump_data_version()
         st.sidebar.success("Data restored successfully")
     except Exception as e:
         st.sidebar.error(f"Restore failed: {e}")
@@ -689,8 +732,11 @@ def graph_tab():
     if st.button(t("btn.build_graph"), type="primary", key="build_graph_btn"):
         with st.spinner("Building graph..."):
             try:
-                with get_db() as db:
-                    g = build_graph(db, layer, year_min, year_max, edge_min, focus_ids, focus_only)
+                focus_tuple = tuple(focus_ids) if focus_ids else None
+                g = _cached_build_graph(
+                    layer, year_min, year_max, edge_min,
+                    focus_tuple, focus_only, _data_version(),
+                )
                 if not g["nodes"]:
                     st.warning("No nodes found. Try lowering edge weight or widening the year range.")
                     st.session_state.built_graph = None
@@ -732,13 +778,13 @@ def heatmap_tab():
 
     if st.button(t("btn.compute_heatmap"), type="primary", key="compute_hm_btn"):
         with st.spinner("Computing heatmap..."):
-            with get_db() as db:
-                if kind == "author_keyword":
-                    hm = author_keyword_heat(db, year_min, year_max)
-                elif kind == "nation_nation":
-                    hm = nation_nation_heat(db, year_min, year_max)
-                else:
-                    hm = {"rows": [], "cols": [], "data": []}
+            v = _data_version()
+            if kind == "author_keyword":
+                hm = _cached_author_keyword_heat(year_min, year_max, v)
+            elif kind == "nation_nation":
+                hm = _cached_nation_nation_heat(year_min, year_max, v)
+            else:
+                hm = {"rows": [], "cols": [], "data": []}
 
             if not hm.get("data"):
                 st.warning("No data available for the selected parameters")
@@ -1365,6 +1411,7 @@ def _load_demo_data() -> bool:
                 pass
             # Pre-build co-author graph for immediate display
             g = build_graph(db, "authors", 2000, 2026, 1.0, None, False)
+        _bump_data_version()
         st.session_state.built_graph = g
         st.session_state.built_graph_settings = None
         return True
@@ -1375,6 +1422,7 @@ def _load_demo_data() -> bool:
 def _clear_all_data():
     """Clear all data and session state."""
     reset_db()
+    _bump_data_version()
     st.session_state.demo_dismissed = True
     st.session_state.search_hits = []
     st.session_state.built_graph = None
