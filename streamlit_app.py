@@ -233,6 +233,8 @@ def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height:
         enhanced_html = html_content.replace(
             "</head>",
             """<style>
+            html, body { margin:0; padding:0; overflow:hidden; touch-action:manipulation; }
+            #mynetwork { touch-action:none; }
             .vis-tooltip { position:absolute; visibility:hidden; padding:10px; white-space:pre-line;
                 font-family:'Segoe UI',sans-serif; font-size:14px; color:#000; background:rgba(255,255,255,0.95);
                 border-radius:8px; border:2px solid #333; box-shadow:0 4px 6px rgba(0,0,0,0.3);
@@ -242,6 +244,12 @@ def draw_pyvis_graph(graph_json: dict, viz_settings: dict | None = None, height:
                 backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); }
             .control-panel div { margin:4px 0; display:flex; align-items:center; }
             .control-panel .icon { margin-right:8px; }
+            /* Mobile: hide the help overlay (would cover too much of a small graph)
+               and shrink the tooltip so it fits inside the viewport. */
+            @media (max-width: 640px) {
+                .control-panel { display:none; }
+                .vis-tooltip { font-size:12px; padding:6px; max-width:75vw; }
+            }
             </style></head>""",
         ).replace(
             "</body>",
@@ -1293,12 +1301,13 @@ def _generate_report_pdf(rpt: dict) -> bytes:
 # ============= Helpers =============
 
 
+# Top 3 chips stay readable on a mobile-portrait viewport (~360 px wide).
+# Streamlit columns don't reflow, so we cap the chip count instead of letting
+# 5 narrow buttons squish into a single phone row.
 _SUGGESTED_RESEARCHERS = [
     "Yoshua Bengio",
     "Yann LeCun",
     "Fei-Fei Li",
-    "Andrew Ng",
-    "Geoffrey Hinton",
 ]
 
 
@@ -1956,7 +1965,26 @@ def _color_graph_by_community(graph_json: dict, partition: dict, layer: str):
 # ============= Main =============
 
 
+_MOBILE_CSS = """
+<style>
+/* Phone-portrait tweaks. Goal: less wasted vertical space, easier touch
+   targets, and a hint that the primary search lives in the sidebar. */
+@media (max-width: 640px) {
+    /* Tighten Streamlit's default top padding so the title isn't off-screen */
+    section.main > div.block-container { padding-top: 1rem; padding-bottom: 1rem; }
+    /* Shrink the H1 so it stops competing with the data */
+    h1 { font-size: 1.6rem !important; line-height: 1.2 !important; }
+    /* Make st.button targets a bit taller for fat-finger taps */
+    .stButton > button { padding: 0.6rem 0.5rem !important; font-size: 0.95rem !important; }
+    /* When the sidebar is collapsed, make the burger icon more prominent */
+    [data-testid="collapsedControl"] { transform: scale(1.4); }
+}
+</style>
+"""
+
+
 def main():
+    st.markdown(_MOBILE_CSS, unsafe_allow_html=True)
     st.title(t("app.title"))
     st.caption(t("app.subtitle"))
 
