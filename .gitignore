@@ -39,3 +39,6 @@ Thumbs.db
 # Temp
 tmp/
 temp/
+
+# Node (browser smoke test deps)
+node_modules

@@ -31,7 +31,34 @@ Relatenta ingests scholarly publication data from the [OpenAlex API](https://ope
 
 ---
 
-## Quick Start
+## Try it in the browser (GitHub Pages)
+
+**https://denny-hwang.github.io/Relatenta/** — no install, no server.
+
+The `web/` directory is a static, dependency-free port of the Streamlit app
+that runs entirely in your browser: OpenAlex search & ingest, the four-layer
+interactive network graph (vis-network), heatmaps, the analytic report
+(print-to-PDF) and all seven research-insight analyses. The dataset is kept in
+your browser (IndexedDB) and survives refreshes; ZIP exports are
+interchangeable with the Streamlit app.
+
+| | Streamlit app | Static site (`web/`) |
+|---|---|---|
+| Runs on | Python server / Streamlit Cloud | GitHub Pages (any static host) |
+| Search by name / ORCID | ✅ | ✅ |
+| Google Scholar URL lookup | ✅ (server-side scrape) | ❌ (blocked by CORS) |
+| Graph / Heatmaps / Report / Insights | ✅ | ✅ |
+| PDF report | matplotlib | browser print (CJK-safe) |
+| Persistence | in-memory (or `DATABASE_URL`) | IndexedDB per browser |
+
+Deployment is automatic: every push to `main` that touches `web/` runs the
+JS parity tests and publishes the site via `.github/workflows/pages.yml`.
+To run it locally, serve the folder with any static server, e.g.
+`python -m http.server -d web 8000`, and open http://localhost:8000.
+
+---
+
+## Quick Start (Streamlit)
 
 ### 1. Clone & Install
 
@@ -66,6 +93,14 @@ The app opens at **http://localhost:8501**.
 ## Architecture
 
 ```
+web/                          (static browser port — deployed to GitHub Pages)
+  index.html, css/app.css
+  js/store.js                 (in-memory tables, port of models.py + crud.py)
+  js/graph.js, heatmap.js, report.js, insights.js, netalgo.js (Louvain, BFS)
+  js/network-view.js          (interactive vis-network graph)
+  js/openalex.js, exporter.js, persist.js (fetch client, CSV/ZIP, IndexedDB)
+  tests/                      (parity tests against the Python service layer)
+
 streamlit_app.py              (UI, sidebar, tabs)
   |
   +-- app/db.py               (single in-memory SQLite engine)
