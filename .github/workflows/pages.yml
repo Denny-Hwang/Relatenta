@@ -1,5 +1,12 @@
 name: Deploy to GitHub Pages
 
+# Publishes web/ to the `gh-pages` branch on every push to main that touches
+# the site. GitHub serves that branch at https://denny-hwang.github.io/Relatenta/
+# (Settings → Pages → Source: "Deploy from a branch", branch gh-pages, folder /).
+# The branch-based flow only needs the default GITHUB_TOKEN; the Actions-based
+# flow (actions/deploy-pages) requires the Pages site to be created first,
+# which the token is not allowed to do.
+
 on:
   push:
     branches: [main]
@@ -9,9 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
@@ -31,19 +36,14 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Configure Pages (enables Pages for the repo on first run)
-        uses: actions/configure-pages@v5
+      - name: Publish web/ to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          enablement: true
-      - name: Upload site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: web
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./web
+          publish_branch: gh-pages
+          force_orphan: true
+          exclude_assets: "tests"
+          commit_message: "Deploy ${{ github.sha }}"

@@ -73,7 +73,7 @@ jobs:
         run: python web/tests/gen_expected.py
 
       - name: Fixtures must be up to date in git
-        run: git diff --exit-code -- web/tests/fixtures || (echo "::error::web/tests/fixtures is stale — run 'python web/tests/gen_expected.py' and commit" && exit 1)
+        run: git diff --exit-code -- web/tests/fixtures/works.json web/tests/fixtures/expected.json || (echo "::error::web/tests/fixtures is stale — run 'python web/tests/gen_expected.py' and commit" && exit 1)
 
       - name: Run JS parity tests
         run: node --test "web/tests/*.test.mjs"

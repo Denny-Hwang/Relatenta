@@ -13,7 +13,7 @@ Run from the repository root:
 """
 from __future__ import annotations
 
-import base64
+import hashlib
 import json
 import os
 import random
@@ -73,7 +73,8 @@ def make_works(seed: int = 7, n_works: int = 60) -> list[dict]:
         authorships = []
         for name, cc, inst in picked:
             authorships.append({
-                "author": {"id": f"https://openalex.org/A{abs(hash(name)) % 10**6}", "display_name": name,
+                "author": {"id": f"https://openalex.org/A{int(hashlib.md5(name.encode()).hexdigest()[:6], 16)}",
+                           "display_name": name,
                            "orcid": None},
                 "institutions": [{"display_name": inst, "country_code": cc}] if rnd.random() > 0.15 else [],
             })
@@ -167,6 +168,11 @@ def main() -> None:
         graphs["nations_focus_only"] = build_graph(db, "nations", 2000, 2026, 1.0, ["US"], True)
         graphs["nations_focus"] = build_graph(db, "nations", 2000, 2026, 1.0, ["KR"], False)
         graphs["authors_bad_focus"] = build_graph(db, "authors", 2000, 2026, 1.0, [999999], False)
+        # Canonical ordering: row order of un-ORDERed SELECTs is not guaranteed,
+        # and the JS test sorts both sides anyway.
+        for g in graphs.values():
+            g["nodes"].sort(key=lambda n: n["id"])
+            g["edges"].sort(key=lambda e: (e["source"], e["target"]))
         expected["graphs"] = graphs
         expected["focus_ids"] = {"author": first_author.id, "keyword": first_kw.id, "org": first_org.id}
 
@@ -174,7 +180,21 @@ def main() -> None:
         expected["heat_author_keyword_range"] = author_keyword_heat(db, 2018, 2021)
         expected["heat_nation"] = nation_nation_heat(db, 2000, 2026)
 
-        expected["report"] = gather_report(db)
+        rpt = gather_report(db)
+        # Break ties deterministically (SQL ORDER BY ... LIMIT leaves tie order undefined).
+        # Which tied rows survive a LIMIT is undefined, so keep only the numeric
+        # columns (their multiset is stable); the JS test compares exactly those.
+        keep = {
+            "top_authors": ("papers",), "top_keywords": ("count",), "top_venues": ("papers",),
+            "top_collabs": ("weight", "papers"), "top_kw_pairs": ("co_occurrences",),
+            "highlight_works": ("cited_by_count",),
+        }
+        for key, cols in keep.items():
+            rpt[key] = sorted(({c: row[c] for c in cols} for row in rpt[key]), key=lambda r: tuple(r.values()), reverse=True)
+        rpt["country_dist"].sort(key=lambda x: (-x["papers"], x["country"]))
+        rpt["n_graph_edges"] = len(rpt.pop("graph_edges"))
+        rpt.pop("graph_nodes")
+        expected["report"] = rpt
 
         expected["bursts"] = detect_bursts(db, 3, 3)
         expected["bursts_w2"] = detect_bursts(db, 2, 2)
@@ -201,11 +221,12 @@ def main() -> None:
         evo = build_thematic_evolution(db, 3, 2)
         expected["evolution"] = {"periods": evo["periods"], "n_nodes": len(evo["nodes"]), "n_flows": len(evo["flows"])}
 
-    zip_bytes = export_to_csv()
-    expected["export_zip_b64"] = base64.b64encode(zip_bytes).decode("ascii")
+    # The ZIP embeds an export timestamp, so it lives in its own (non-diffed) file.
+    with open(os.path.join(FIXTURE_DIR, "export.zip"), "wb") as fh:
+        fh.write(export_to_csv())
 
     with open(os.path.join(FIXTURE_DIR, "expected.json"), "w", encoding="utf-8") as fh:
-        json.dump(expected, fh, indent=1, default=str)
+        json.dump(expected, fh, indent=1, default=str, sort_keys=True)
     print(f"wrote fixtures to {FIXTURE_DIR}: stats={expected['stats']}")
 
 
