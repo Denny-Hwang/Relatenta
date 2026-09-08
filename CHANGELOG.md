@@ -6,6 +6,38 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Sem
 
 ---
 
+## [1.2.0] - 2026-09-08
+
+### Summary
+GitHub Pages port — the full GUI now also runs as a static site in the browser
+(`web/`), deployed automatically to https://denny-hwang.github.io/Relatenta/.
+The Streamlit app is unchanged.
+
+### Added
+- **`web/` static app** (vanilla ES modules, no build step): sidebar search /
+  ingest (OpenAlex name + ORCID), CSV import, ZIP export/restore, Graph,
+  Heatmaps, Report and Insights tabs, EN/KO language toggle.
+- **Interactive network view** built directly on vis-network (no iframe):
+  hover tooltips, neighbour highlighting, inspector panel (neighbours, papers,
+  "Focus on this node"), find-and-zoom, physics toggle, fit, labels toggle,
+  PNG export, fullscreen, stabilisation progress, keyboard shortcuts
+  (Space / F / Esc), ForceAtlas2 option and a performance mode for large graphs.
+- **Analytics ported 1:1** — graph builder, heatmaps, report, burst detection,
+  collaborator recommendation, shortest path, research gaps, strategic diagram,
+  thematic evolution; Louvain community detection implemented in JS.
+- **Browser persistence** — dataset saved in IndexedDB, survives refreshes.
+- **Parity test suite** (`web/tests`): fixtures generated from the Python
+  service layer, asserted against the JS port with `node --test`; a Playwright
+  browser smoke test drives every tab.
+- **CI/CD** — `pages.yml` deploys `web/` on push to `main`; `test.yml` gained a
+  `web` job that regenerates fixtures and runs the parity tests.
+
+### Not available in the static version
+- Google Scholar URL lookup (server-side scraping; blocked by CORS in browsers)
+- Shared persistent storage via `DATABASE_URL`
+
+---
+
 ## [1.1.0] - 2026-03-13
 
 ### Summary

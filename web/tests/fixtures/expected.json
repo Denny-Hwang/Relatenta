@@ -1,0 +1,7746 @@
+{
+ "stats": {
+  "works": 60,
+  "authors": 20,
+  "organizations": 10,
+  "keywords": 15,
+  "venues": 7
+ },
+ "authors": [
+  {
+   "id": 1,
+   "display_name": "Mallory Cho",
+   "normalized_name": "mallory cho"
+  },
+  {
+   "id": 2,
+   "display_name": "Niaj Moon",
+   "normalized_name": "niaj moon"
+  },
+  {
+   "id": 3,
+   "display_name": "Olivia Baek",
+   "normalized_name": "olivia baek"
+  },
+  {
+   "id": 4,
+   "display_name": "Peggy Nam",
+   "normalized_name": "peggy nam"
+  },
+  {
+   "id": 5,
+   "display_name": "Quentin Ha",
+   "normalized_name": "quentin ha"
+  },
+  {
+   "id": 6,
+   "display_name": "Bob Lee",
+   "normalized_name": "bob lee"
+  },
+  {
+   "id": 7,
+   "display_name": "Carol Park",
+   "normalized_name": "carol park"
+  },
+  {
+   "id": 8,
+   "display_name": "Dave Choi",
+   "normalized_name": "dave choi"
+  },
+  {
+   "id": 9,
+   "display_name": "Eve Jung",
+   "normalized_name": "eve jung"
+  },
+  {
+   "id": 10,
+   "display_name": "Sybil Kwon",
+   "normalized_name": "sybil kwon"
+  },
+  {
+   "id": 11,
+   "display_name": "Trent Yang",
+   "normalized_name": "trent yang"
+  },
+  {
+   "id": 12,
+   "display_name": "Alice Kim",
+   "normalized_name": "alice kim"
+  },
+  {
+   "id": 13,
+   "display_name": "Judy Kang",
+   "normalized_name": "judy kang"
+  },
+  {
+   "id": 14,
+   "display_name": "Kevin Lim",
+   "normalized_name": "kevin lim"
+  },
+  {
+   "id": 15,
+   "display_name": "Laura Shin",
+   "normalized_name": "laura shin"
+  },
+  {
+   "id": 16,
+   "display_name": "Frank Han",
+   "normalized_name": "frank han"
+  },
+  {
+   "id": 17,
+   "display_name": "Grace Oh",
+   "normalized_name": "grace oh"
+  },
+  {
+   "id": 18,
+   "display_name": "Rupert Song",
+   "normalized_name": "rupert song"
+  },
+  {
+   "id": 19,
+   "display_name": "Heidi Yoon",
+   "normalized_name": "heidi yoon"
+  },
+  {
+   "id": 20,
+   "display_name": "Ivan Seo",
+   "normalized_name": "ivan seo"
+  }
+ ],
+ "keywords": [
+  {
+   "id": 1,
+   "term_display": "Natural language processing"
+  },
+  {
+   "id": 2,
+   "term_display": "Language model"
+  },
+  {
+   "id": 3,
+   "term_display": "Transformer"
+  },
+  {
+   "id": 4,
+   "term_display": "Graph theory"
+  },
+  {
+   "id": 5,
+   "term_display": "Machine learning"
+  },
+  {
+   "id": 6,
+   "term_display": "Deep learning"
+  },
+  {
+   "id": 7,
+   "term_display": "Neural network"
+  },
+  {
+   "id": 8,
+   "term_display": "Computer vision"
+  },
+  {
+   "id": 9,
+   "term_display": "Bioinformatics"
+  },
+  {
+   "id": 10,
+   "term_display": "Genomics"
+  },
+  {
+   "id": 11,
+   "term_display": "Protein structure"
+  },
+  {
+   "id": 12,
+   "term_display": "Network science"
+  },
+  {
+   "id": 13,
+   "term_display": "Community structure"
+  },
+  {
+   "id": 14,
+   "term_display": "Image segmentation"
+  },
+  {
+   "id": 15,
+   "term_display": "Object detection"
+  }
+ ],
+ "coauthor_edges": [
+  [
+   1,
+   2,
+   7.0
+  ],
+  [
+   1,
+   3,
+   4.0
+  ],
+  [
+   1,
+   4,
+   3.0
+  ],
+  [
+   1,
+   5,
+   1.0
+  ],
+  [
+   1,
+   15,
+   2.0
+  ],
+  [
+   2,
+   3,
+   7.0
+  ],
+  [
+   2,
+   4,
+   5.0
+  ],
+  [
+   2,
+   5,
+   2.0
+  ],
+  [
+   2,
+   15,
+   1.0
+  ],
+  [
+   3,
+   4,
+   8.0
+  ],
+  [
+   3,
+   5,
+   5.0
+  ],
+  [
+   3,
+   10,
+   2.0
+  ],
+  [
+   3,
+   18,
+   3.0
+  ],
+  [
+   4,
+   5,
+   7.0
+  ],
+  [
+   4,
+   10,
+   2.0
+  ],
+  [
+   4,
+   18,
+   3.0
+  ],
+  [
+   5,
+   10,
+   3.0
+  ],
+  [
+   5,
+   11,
+   1.0
+  ],
+  [
+   5,
+   12,
+   1.0
+  ],
+  [
+   5,
+   18,
+   5.0
+  ],
+  [
+   6,
+   7,
+   6.0
+  ],
+  [
+   6,
+   8,
+   3.0
+  ],
+  [
+   6,
+   9,
+   2.0
+  ],
+  [
+   6,
+   10,
+   3.0
+  ],
+  [
+   6,
+   11,
+   5.0
+  ],
+  [
+   6,
+   12,
+   5.0
+  ],
+  [
+   6,
+   16,
+   1.0
+  ],
+  [
+   6,
+   18,
+   1.0
+  ],
+  [
+   7,
+   8,
+   5.0
+  ],
+  [
+   7,
+   9,
+   3.0
+  ],
+  [
+   7,
+   10,
+   2.0
+  ],
+  [
+   7,
+   11,
+   3.0
+  ],
+  [
+   7,
+   12,
+   3.0
+  ],
+  [
+   7,
+   16,
+   2.0
+  ],
+  [
+   7,
+   17,
+   1.0
+  ],
+  [
+   8,
+   9,
+   5.0
+  ],
+  [
+   8,
+   16,
+   4.0
+  ],
+  [
+   8,
+   17,
+   1.0
+  ],
+  [
+   9,
+   16,
+   11.0
+  ],
+  [
+   9,
+   17,
+   8.0
+  ],
+  [
+   9,
+   19,
+   4.0
+  ],
+  [
+   9,
+   20,
+   1.0
+  ],
+  [
+   10,
+   11,
+   4.0
+  ],
+  [
+   10,
+   12,
+   4.0
+  ],
+  [
+   10,
+   18,
+   5.0
+  ],
+  [
+   11,
+   12,
+   6.0
+  ],
+  [
+   11,
+   18,
+   2.0
+  ],
+  [
+   12,
+   18,
+   2.0
+  ],
+  [
+   13,
+   14,
+   6.0
+  ],
+  [
+   13,
+   15,
+   3.0
+  ],
+  [
+   13,
+   17,
+   2.0
+  ],
+  [
+   13,
+   19,
+   4.0
+  ],
+  [
+   13,
+   20,
+   6.0
+  ],
+  [
+   14,
+   15,
+   4.0
+  ],
+  [
+   14,
+   17,
+   2.0
+  ],
+  [
+   14,
+   19,
+   3.0
+  ],
+  [
+   14,
+   20,
+   5.0
+  ],
+  [
+   15,
+   20,
+   2.0
+  ],
+  [
+   16,
+   17,
+   8.0
+  ],
+  [
+   16,
+   19,
+   4.0
+  ],
+  [
+   16,
+   20,
+   1.0
+  ],
+  [
+   17,
+   19,
+   7.0
+  ],
+  [
+   17,
+   20,
+   4.0
+  ],
+  [
+   19,
+   20,
+   6.0
+  ]
+ ],
+ "org_edges": [
+  [
+   1,
+   2,
+   6.0
+  ],
+  [
+   1,
+   9,
+   2.0
+  ],
+  [
+   2,
+   3,
+   5.0
+  ],
+  [
+   2,
+   7,
+   2.0
+  ],
+  [
+   3,
+   4,
+   1.0
+  ],
+  [
+   3,
+   7,
+   4.0
+  ],
+  [
+   4,
+   5,
+   3.0
+  ],
+  [
+   4,
+   6,
+   2.0
+  ],
+  [
+   4,
+   7,
+   6.0
+  ],
+  [
+   5,
+   6,
+   5.0
+  ],
+  [
+   5,
+   10,
+   1.0
+  ],
+  [
+   6,
+   8,
+   1.0
+  ],
+  [
+   6,
+   10,
+   7.0
+  ],
+  [
+   8,
+   9,
+   5.0
+  ],
+  [
+   8,
+   10,
+   5.0
+  ],
+  [
+   9,
+   10,
+   2.0
+  ]
+ ],
+ "nation_edges": [
+  [
+   "CA",
+   "FR",
+   5.0
+  ],
+  [
+   "CA",
+   "KR",
+   4.0
+  ],
+  [
+   "CA",
+   "US",
+   1.0
+  ],
+  [
+   "CN",
+   "FR",
+   6.0
+  ],
+  [
+   "CN",
+   "US",
+   2.0
+  ],
+  [
+   "DE",
+   "GB",
+   1.0
+  ],
+  [
+   "DE",
+   "JP",
+   5.0
+  ],
+  [
+   "DE",
+   "KR",
+   7.0
+  ],
+  [
+   "DE",
+   "US",
+   2.0
+  ],
+  [
+   "FR",
+   "KR",
+   2.0
+  ],
+  [
+   "GB",
+   "KR",
+   5.0
+  ],
+  [
+   "GB",
+   "US",
+   3.0
+  ],
+  [
+   "JP",
+   "KR",
+   1.0
+  ],
+  [
+   "JP",
+   "US",
+   5.0
+  ],
+  [
+   "KR",
+   "US",
+   8.0
+  ]
+ ],
+ "graphs": {
+  "authors_full": {
+   "nodes": [
+    {
+     "id": "A1",
+     "label": "Mallory Cho",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A2",
+     "label": "Niaj Moon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A3",
+     "label": "Olivia Baek",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A4",
+     "label": "Peggy Nam",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A5",
+     "label": "Quentin Ha",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A6",
+     "label": "Bob Lee",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A7",
+     "label": "Carol Park",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A8",
+     "label": "Dave Choi",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A9",
+     "label": "Eve Jung",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A10",
+     "label": "Sybil Kwon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A11",
+     "label": "Trent Yang",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A12",
+     "label": "Alice Kim",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A13",
+     "label": "Judy Kang",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A14",
+     "label": "Kevin Lim",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A15",
+     "label": "Laura Shin",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A16",
+     "label": "Frank Han",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A17",
+     "label": "Grace Oh",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A18",
+     "label": "Rupert Song",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A19",
+     "label": "Heidi Yoon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A20",
+     "label": "Ivan Seo",
+     "type": "author",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "A1",
+     "target": "A2",
+     "weight": 7.0
+    },
+    {
+     "source": "A13",
+     "target": "A14",
+     "weight": 6.0
+    },
+    {
+     "source": "A13",
+     "target": "A15",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A15",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A3",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A4",
+     "weight": 3.0
+    },
+    {
+     "source": "A2",
+     "target": "A3",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A4",
+     "weight": 5.0
+    },
+    {
+     "source": "A3",
+     "target": "A4",
+     "weight": 8.0
+    },
+    {
+     "source": "A9",
+     "target": "A16",
+     "weight": 11.0
+    },
+    {
+     "source": "A9",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A16",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A4",
+     "target": "A5",
+     "weight": 7.0
+    },
+    {
+     "source": "A9",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A9",
+     "target": "A20",
+     "weight": 1.0
+    },
+    {
+     "source": "A16",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A16",
+     "target": "A20",
+     "weight": 1.0
+    },
+    {
+     "source": "A17",
+     "target": "A19",
+     "weight": 7.0
+    },
+    {
+     "source": "A17",
+     "target": "A20",
+     "weight": 4.0
+    },
+    {
+     "source": "A19",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A7",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A8",
+     "weight": 3.0
+    },
+    {
+     "source": "A6",
+     "target": "A9",
+     "weight": 2.0
+    },
+    {
+     "source": "A6",
+     "target": "A16",
+     "weight": 1.0
+    },
+    {
+     "source": "A7",
+     "target": "A8",
+     "weight": 5.0
+    },
+    {
+     "source": "A7",
+     "target": "A9",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A16",
+     "weight": 2.0
+    },
+    {
+     "source": "A8",
+     "target": "A9",
+     "weight": 5.0
+    },
+    {
+     "source": "A8",
+     "target": "A16",
+     "weight": 4.0
+    },
+    {
+     "source": "A5",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A2",
+     "target": "A5",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A5",
+     "weight": 5.0
+    },
+    {
+     "source": "A1",
+     "target": "A5",
+     "weight": 1.0
+    },
+    {
+     "source": "A1",
+     "target": "A15",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A4",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A4",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A5",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A10",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A13",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A13",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A13",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A14",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A14",
+     "target": "A19",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A20",
+     "weight": 5.0
+    },
+    {
+     "source": "A6",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A6",
+     "target": "A11",
+     "weight": 5.0
+    },
+    {
+     "source": "A6",
+     "target": "A12",
+     "weight": 5.0
+    },
+    {
+     "source": "A7",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A7",
+     "target": "A11",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A12",
+     "weight": 3.0
+    },
+    {
+     "source": "A10",
+     "target": "A11",
+     "weight": 4.0
+    },
+    {
+     "source": "A10",
+     "target": "A12",
+     "weight": 4.0
+    },
+    {
+     "source": "A11",
+     "target": "A12",
+     "weight": 6.0
+    },
+    {
+     "source": "A15",
+     "target": "A20",
+     "weight": 2.0
+    },
+    {
+     "source": "A5",
+     "target": "A11",
+     "weight": 1.0
+    },
+    {
+     "source": "A5",
+     "target": "A12",
+     "weight": 1.0
+    },
+    {
+     "source": "A11",
+     "target": "A18",
+     "weight": 2.0
+    },
+    {
+     "source": "A12",
+     "target": "A18",
+     "weight": 2.0
+    },
+    {
+     "source": "A6",
+     "target": "A18",
+     "weight": 1.0
+    },
+    {
+     "source": "A7",
+     "target": "A17",
+     "weight": 1.0
+    },
+    {
+     "source": "A8",
+     "target": "A17",
+     "weight": 1.0
+    },
+    {
+     "source": "A2",
+     "target": "A15",
+     "weight": 1.0
+    }
+   ]
+  },
+  "authors_range": {
+   "nodes": [
+    {
+     "id": "A1",
+     "label": "Mallory Cho",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A2",
+     "label": "Niaj Moon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A3",
+     "label": "Olivia Baek",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A4",
+     "label": "Peggy Nam",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A5",
+     "label": "Quentin Ha",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A6",
+     "label": "Bob Lee",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A7",
+     "label": "Carol Park",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A8",
+     "label": "Dave Choi",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A9",
+     "label": "Eve Jung",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A10",
+     "label": "Sybil Kwon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A13",
+     "label": "Judy Kang",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A14",
+     "label": "Kevin Lim",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A15",
+     "label": "Laura Shin",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A16",
+     "label": "Frank Han",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A17",
+     "label": "Grace Oh",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A18",
+     "label": "Rupert Song",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A19",
+     "label": "Heidi Yoon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A20",
+     "label": "Ivan Seo",
+     "type": "author",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "A1",
+     "target": "A2",
+     "weight": 7.0
+    },
+    {
+     "source": "A13",
+     "target": "A14",
+     "weight": 6.0
+    },
+    {
+     "source": "A13",
+     "target": "A15",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A15",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A3",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A4",
+     "weight": 3.0
+    },
+    {
+     "source": "A2",
+     "target": "A3",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A4",
+     "weight": 5.0
+    },
+    {
+     "source": "A3",
+     "target": "A4",
+     "weight": 8.0
+    },
+    {
+     "source": "A9",
+     "target": "A16",
+     "weight": 11.0
+    },
+    {
+     "source": "A9",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A16",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A4",
+     "target": "A5",
+     "weight": 7.0
+    },
+    {
+     "source": "A9",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A9",
+     "target": "A20",
+     "weight": 1.0
+    },
+    {
+     "source": "A16",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A16",
+     "target": "A20",
+     "weight": 1.0
+    },
+    {
+     "source": "A17",
+     "target": "A19",
+     "weight": 7.0
+    },
+    {
+     "source": "A17",
+     "target": "A20",
+     "weight": 4.0
+    },
+    {
+     "source": "A19",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A7",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A8",
+     "weight": 3.0
+    },
+    {
+     "source": "A6",
+     "target": "A9",
+     "weight": 2.0
+    },
+    {
+     "source": "A6",
+     "target": "A16",
+     "weight": 1.0
+    },
+    {
+     "source": "A7",
+     "target": "A8",
+     "weight": 5.0
+    },
+    {
+     "source": "A7",
+     "target": "A9",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A16",
+     "weight": 2.0
+    },
+    {
+     "source": "A8",
+     "target": "A9",
+     "weight": 5.0
+    },
+    {
+     "source": "A8",
+     "target": "A16",
+     "weight": 4.0
+    },
+    {
+     "source": "A5",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A2",
+     "target": "A5",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A5",
+     "weight": 5.0
+    },
+    {
+     "source": "A1",
+     "target": "A5",
+     "weight": 1.0
+    },
+    {
+     "source": "A1",
+     "target": "A15",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A4",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A4",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A5",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A10",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A13",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A13",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A13",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A14",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A14",
+     "target": "A19",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A20",
+     "weight": 5.0
+    },
+    {
+     "source": "A6",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A15",
+     "target": "A20",
+     "weight": 2.0
+    },
+    {
+     "source": "A6",
+     "target": "A18",
+     "weight": 1.0
+    },
+    {
+     "source": "A7",
+     "target": "A17",
+     "weight": 1.0
+    },
+    {
+     "source": "A8",
+     "target": "A17",
+     "weight": 1.0
+    },
+    {
+     "source": "A2",
+     "target": "A15",
+     "weight": 1.0
+    }
+   ]
+  },
+  "authors_edge2": {
+   "nodes": [
+    {
+     "id": "A1",
+     "label": "Mallory Cho",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A2",
+     "label": "Niaj Moon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A3",
+     "label": "Olivia Baek",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A4",
+     "label": "Peggy Nam",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A5",
+     "label": "Quentin Ha",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A6",
+     "label": "Bob Lee",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A7",
+     "label": "Carol Park",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A8",
+     "label": "Dave Choi",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A9",
+     "label": "Eve Jung",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A10",
+     "label": "Sybil Kwon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A11",
+     "label": "Trent Yang",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A12",
+     "label": "Alice Kim",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A13",
+     "label": "Judy Kang",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A14",
+     "label": "Kevin Lim",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A15",
+     "label": "Laura Shin",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A16",
+     "label": "Frank Han",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A17",
+     "label": "Grace Oh",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A18",
+     "label": "Rupert Song",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A19",
+     "label": "Heidi Yoon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A20",
+     "label": "Ivan Seo",
+     "type": "author",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "A1",
+     "target": "A2",
+     "weight": 7.0
+    },
+    {
+     "source": "A13",
+     "target": "A14",
+     "weight": 6.0
+    },
+    {
+     "source": "A13",
+     "target": "A15",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A15",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A3",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A4",
+     "weight": 3.0
+    },
+    {
+     "source": "A2",
+     "target": "A3",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A4",
+     "weight": 5.0
+    },
+    {
+     "source": "A3",
+     "target": "A4",
+     "weight": 8.0
+    },
+    {
+     "source": "A9",
+     "target": "A16",
+     "weight": 11.0
+    },
+    {
+     "source": "A9",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A16",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A4",
+     "target": "A5",
+     "weight": 7.0
+    },
+    {
+     "source": "A9",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A16",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A17",
+     "target": "A19",
+     "weight": 7.0
+    },
+    {
+     "source": "A17",
+     "target": "A20",
+     "weight": 4.0
+    },
+    {
+     "source": "A19",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A7",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A8",
+     "weight": 3.0
+    },
+    {
+     "source": "A6",
+     "target": "A9",
+     "weight": 2.0
+    },
+    {
+     "source": "A7",
+     "target": "A8",
+     "weight": 5.0
+    },
+    {
+     "source": "A7",
+     "target": "A9",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A16",
+     "weight": 2.0
+    },
+    {
+     "source": "A8",
+     "target": "A9",
+     "weight": 5.0
+    },
+    {
+     "source": "A8",
+     "target": "A16",
+     "weight": 4.0
+    },
+    {
+     "source": "A5",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A2",
+     "target": "A5",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A5",
+     "weight": 5.0
+    },
+    {
+     "source": "A1",
+     "target": "A15",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A4",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A4",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A5",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A10",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A13",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A13",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A13",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A14",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A14",
+     "target": "A19",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A20",
+     "weight": 5.0
+    },
+    {
+     "source": "A6",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A6",
+     "target": "A11",
+     "weight": 5.0
+    },
+    {
+     "source": "A6",
+     "target": "A12",
+     "weight": 5.0
+    },
+    {
+     "source": "A7",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A7",
+     "target": "A11",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A12",
+     "weight": 3.0
+    },
+    {
+     "source": "A10",
+     "target": "A11",
+     "weight": 4.0
+    },
+    {
+     "source": "A10",
+     "target": "A12",
+     "weight": 4.0
+    },
+    {
+     "source": "A11",
+     "target": "A12",
+     "weight": 6.0
+    },
+    {
+     "source": "A15",
+     "target": "A20",
+     "weight": 2.0
+    },
+    {
+     "source": "A11",
+     "target": "A18",
+     "weight": 2.0
+    },
+    {
+     "source": "A12",
+     "target": "A18",
+     "weight": 2.0
+    }
+   ]
+  },
+  "keywords_full": {
+   "nodes": [
+    {
+     "id": "K1",
+     "label": "Natural language processing",
+     "type": "keyword",
+     "count": 18,
+     "focus": false
+    },
+    {
+     "id": "K2",
+     "label": "Language model",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K3",
+     "label": "Transformer",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K4",
+     "label": "Graph theory",
+     "type": "keyword",
+     "count": 20,
+     "focus": false
+    },
+    {
+     "id": "K5",
+     "label": "Machine learning",
+     "type": "keyword",
+     "count": 14,
+     "focus": false
+    },
+    {
+     "id": "K6",
+     "label": "Deep learning",
+     "type": "keyword",
+     "count": 8,
+     "focus": false
+    },
+    {
+     "id": "K7",
+     "label": "Neural network",
+     "type": "keyword",
+     "count": 8,
+     "focus": false
+    },
+    {
+     "id": "K8",
+     "label": "Computer vision",
+     "type": "keyword",
+     "count": 20,
+     "focus": false
+    },
+    {
+     "id": "K9",
+     "label": "Bioinformatics",
+     "type": "keyword",
+     "count": 14,
+     "focus": false
+    },
+    {
+     "id": "K10",
+     "label": "Genomics",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K11",
+     "label": "Protein structure",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K12",
+     "label": "Network science",
+     "type": "keyword",
+     "count": 9,
+     "focus": false
+    },
+    {
+     "id": "K13",
+     "label": "Community structure",
+     "type": "keyword",
+     "count": 9,
+     "focus": false
+    },
+    {
+     "id": "K14",
+     "label": "Image segmentation",
+     "type": "keyword",
+     "count": 17,
+     "focus": false
+    },
+    {
+     "id": "K15",
+     "label": "Object detection",
+     "type": "keyword",
+     "count": 17,
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "K1",
+     "target": "K2",
+     "weight": 13.0
+    },
+    {
+     "source": "K1",
+     "target": "K3",
+     "weight": 13.0
+    },
+    {
+     "source": "K1",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K2",
+     "target": "K3",
+     "weight": 13.0
+    },
+    {
+     "source": "K2",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K3",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K5",
+     "target": "K6",
+     "weight": 8.0
+    },
+    {
+     "source": "K5",
+     "target": "K7",
+     "weight": 8.0
+    },
+    {
+     "source": "K5",
+     "target": "K8",
+     "weight": 3.0
+    },
+    {
+     "source": "K6",
+     "target": "K7",
+     "weight": 8.0
+    },
+    {
+     "source": "K6",
+     "target": "K8",
+     "weight": 3.0
+    },
+    {
+     "source": "K7",
+     "target": "K8",
+     "weight": 3.0
+    },
+    {
+     "source": "K5",
+     "target": "K9",
+     "weight": 6.0
+    },
+    {
+     "source": "K5",
+     "target": "K10",
+     "weight": 6.0
+    },
+    {
+     "source": "K5",
+     "target": "K11",
+     "weight": 6.0
+    },
+    {
+     "source": "K9",
+     "target": "K10",
+     "weight": 13.0
+    },
+    {
+     "source": "K9",
+     "target": "K11",
+     "weight": 13.0
+    },
+    {
+     "source": "K10",
+     "target": "K11",
+     "weight": 13.0
+    },
+    {
+     "source": "K4",
+     "target": "K12",
+     "weight": 9.0
+    },
+    {
+     "source": "K4",
+     "target": "K13",
+     "weight": 9.0
+    },
+    {
+     "source": "K12",
+     "target": "K13",
+     "weight": 9.0
+    },
+    {
+     "source": "K1",
+     "target": "K8",
+     "weight": 5.0
+    },
+    {
+     "source": "K1",
+     "target": "K14",
+     "weight": 5.0
+    },
+    {
+     "source": "K1",
+     "target": "K15",
+     "weight": 5.0
+    },
+    {
+     "source": "K8",
+     "target": "K14",
+     "weight": 17.0
+    },
+    {
+     "source": "K8",
+     "target": "K15",
+     "weight": 17.0
+    },
+    {
+     "source": "K14",
+     "target": "K15",
+     "weight": 17.0
+    },
+    {
+     "source": "K4",
+     "target": "K9",
+     "weight": 1.0
+    },
+    {
+     "source": "K9",
+     "target": "K12",
+     "weight": 1.0
+    },
+    {
+     "source": "K9",
+     "target": "K13",
+     "weight": 1.0
+    }
+   ]
+  },
+  "keywords_range": {
+   "nodes": [
+    {
+     "id": "K1",
+     "label": "Natural language processing",
+     "type": "keyword",
+     "count": 7,
+     "focus": false
+    },
+    {
+     "id": "K2",
+     "label": "Language model",
+     "type": "keyword",
+     "count": 4,
+     "focus": false
+    },
+    {
+     "id": "K3",
+     "label": "Transformer",
+     "type": "keyword",
+     "count": 4,
+     "focus": false
+    },
+    {
+     "id": "K4",
+     "label": "Graph theory",
+     "type": "keyword",
+     "count": 4,
+     "focus": false
+    },
+    {
+     "id": "K5",
+     "label": "Machine learning",
+     "type": "keyword",
+     "count": 8,
+     "focus": false
+    },
+    {
+     "id": "K6",
+     "label": "Deep learning",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    },
+    {
+     "id": "K7",
+     "label": "Neural network",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    },
+    {
+     "id": "K8",
+     "label": "Computer vision",
+     "type": "keyword",
+     "count": 11,
+     "focus": false
+    },
+    {
+     "id": "K9",
+     "label": "Bioinformatics",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    },
+    {
+     "id": "K10",
+     "label": "Genomics",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    },
+    {
+     "id": "K11",
+     "label": "Protein structure",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    },
+    {
+     "id": "K12",
+     "label": "Network science",
+     "type": "keyword",
+     "count": 1,
+     "focus": false
+    },
+    {
+     "id": "K13",
+     "label": "Community structure",
+     "type": "keyword",
+     "count": 1,
+     "focus": false
+    },
+    {
+     "id": "K14",
+     "label": "Image segmentation",
+     "type": "keyword",
+     "count": 9,
+     "focus": false
+    },
+    {
+     "id": "K15",
+     "label": "Object detection",
+     "type": "keyword",
+     "count": 9,
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "K8",
+     "target": "K14",
+     "weight": 9.0
+    },
+    {
+     "source": "K8",
+     "target": "K15",
+     "weight": 9.0
+    },
+    {
+     "source": "K14",
+     "target": "K15",
+     "weight": 9.0
+    },
+    {
+     "source": "K4",
+     "target": "K12",
+     "weight": 1.0
+    },
+    {
+     "source": "K4",
+     "target": "K13",
+     "weight": 1.0
+    },
+    {
+     "source": "K12",
+     "target": "K13",
+     "weight": 1.0
+    },
+    {
+     "source": "K5",
+     "target": "K6",
+     "weight": 5.0
+    },
+    {
+     "source": "K5",
+     "target": "K7",
+     "weight": 5.0
+    },
+    {
+     "source": "K6",
+     "target": "K7",
+     "weight": 5.0
+    },
+    {
+     "source": "K1",
+     "target": "K2",
+     "weight": 4.0
+    },
+    {
+     "source": "K1",
+     "target": "K3",
+     "weight": 4.0
+    },
+    {
+     "source": "K2",
+     "target": "K3",
+     "weight": 4.0
+    },
+    {
+     "source": "K1",
+     "target": "K4",
+     "weight": 3.0
+    },
+    {
+     "source": "K2",
+     "target": "K4",
+     "weight": 3.0
+    },
+    {
+     "source": "K3",
+     "target": "K4",
+     "weight": 3.0
+    },
+    {
+     "source": "K1",
+     "target": "K8",
+     "weight": 3.0
+    },
+    {
+     "source": "K1",
+     "target": "K14",
+     "weight": 3.0
+    },
+    {
+     "source": "K1",
+     "target": "K15",
+     "weight": 3.0
+    },
+    {
+     "source": "K5",
+     "target": "K9",
+     "weight": 3.0
+    },
+    {
+     "source": "K5",
+     "target": "K10",
+     "weight": 3.0
+    },
+    {
+     "source": "K5",
+     "target": "K11",
+     "weight": 3.0
+    },
+    {
+     "source": "K9",
+     "target": "K10",
+     "weight": 5.0
+    },
+    {
+     "source": "K9",
+     "target": "K11",
+     "weight": 5.0
+    },
+    {
+     "source": "K10",
+     "target": "K11",
+     "weight": 5.0
+    },
+    {
+     "source": "K5",
+     "target": "K8",
+     "weight": 2.0
+    },
+    {
+     "source": "K6",
+     "target": "K8",
+     "weight": 2.0
+    },
+    {
+     "source": "K7",
+     "target": "K8",
+     "weight": 2.0
+    }
+   ]
+  },
+  "keywords_edge2": {
+   "nodes": [
+    {
+     "id": "K1",
+     "label": "Natural language processing",
+     "type": "keyword",
+     "count": 18,
+     "focus": false
+    },
+    {
+     "id": "K2",
+     "label": "Language model",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K3",
+     "label": "Transformer",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K4",
+     "label": "Graph theory",
+     "type": "keyword",
+     "count": 20,
+     "focus": false
+    },
+    {
+     "id": "K5",
+     "label": "Machine learning",
+     "type": "keyword",
+     "count": 14,
+     "focus": false
+    },
+    {
+     "id": "K6",
+     "label": "Deep learning",
+     "type": "keyword",
+     "count": 8,
+     "focus": false
+    },
+    {
+     "id": "K7",
+     "label": "Neural network",
+     "type": "keyword",
+     "count": 8,
+     "focus": false
+    },
+    {
+     "id": "K8",
+     "label": "Computer vision",
+     "type": "keyword",
+     "count": 20,
+     "focus": false
+    },
+    {
+     "id": "K9",
+     "label": "Bioinformatics",
+     "type": "keyword",
+     "count": 14,
+     "focus": false
+    },
+    {
+     "id": "K10",
+     "label": "Genomics",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K11",
+     "label": "Protein structure",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K12",
+     "label": "Network science",
+     "type": "keyword",
+     "count": 9,
+     "focus": false
+    },
+    {
+     "id": "K13",
+     "label": "Community structure",
+     "type": "keyword",
+     "count": 9,
+     "focus": false
+    },
+    {
+     "id": "K14",
+     "label": "Image segmentation",
+     "type": "keyword",
+     "count": 17,
+     "focus": false
+    },
+    {
+     "id": "K15",
+     "label": "Object detection",
+     "type": "keyword",
+     "count": 17,
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "K1",
+     "target": "K2",
+     "weight": 13.0
+    },
+    {
+     "source": "K1",
+     "target": "K3",
+     "weight": 13.0
+    },
+    {
+     "source": "K1",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K2",
+     "target": "K3",
+     "weight": 13.0
+    },
+    {
+     "source": "K2",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K3",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K5",
+     "target": "K6",
+     "weight": 8.0
+    },
+    {
+     "source": "K5",
+     "target": "K7",
+     "weight": 8.0
+    },
+    {
+     "source": "K5",
+     "target": "K8",
+     "weight": 3.0
+    },
+    {
+     "source": "K6",
+     "target": "K7",
+     "weight": 8.0
+    },
+    {
+     "source": "K6",
+     "target": "K8",
+     "weight": 3.0
+    },
+    {
+     "source": "K7",
+     "target": "K8",
+     "weight": 3.0
+    },
+    {
+     "source": "K5",
+     "target": "K9",
+     "weight": 6.0
+    },
+    {
+     "source": "K5",
+     "target": "K10",
+     "weight": 6.0
+    },
+    {
+     "source": "K5",
+     "target": "K11",
+     "weight": 6.0
+    },
+    {
+     "source": "K9",
+     "target": "K10",
+     "weight": 13.0
+    },
+    {
+     "source": "K9",
+     "target": "K11",
+     "weight": 13.0
+    },
+    {
+     "source": "K10",
+     "target": "K11",
+     "weight": 13.0
+    },
+    {
+     "source": "K4",
+     "target": "K12",
+     "weight": 9.0
+    },
+    {
+     "source": "K4",
+     "target": "K13",
+     "weight": 9.0
+    },
+    {
+     "source": "K12",
+     "target": "K13",
+     "weight": 9.0
+    },
+    {
+     "source": "K1",
+     "target": "K8",
+     "weight": 5.0
+    },
+    {
+     "source": "K1",
+     "target": "K14",
+     "weight": 5.0
+    },
+    {
+     "source": "K1",
+     "target": "K15",
+     "weight": 5.0
+    },
+    {
+     "source": "K8",
+     "target": "K14",
+     "weight": 17.0
+    },
+    {
+     "source": "K8",
+     "target": "K15",
+     "weight": 17.0
+    },
+    {
+     "source": "K14",
+     "target": "K15",
+     "weight": 17.0
+    }
+   ]
+  },
+  "orgs_full": {
+   "nodes": [
+    {
+     "id": "O1",
+     "label": "Tsinghua",
+     "type": "org",
+     "country": "CN",
+     "focus": false
+    },
+    {
+     "id": "O2",
+     "label": "Sorbonne",
+     "type": "org",
+     "country": "FR",
+     "focus": false
+    },
+    {
+     "id": "O3",
+     "label": "Toronto",
+     "type": "org",
+     "country": "CA",
+     "focus": false
+    },
+    {
+     "id": "O4",
+     "label": "MIT",
+     "type": "org",
+     "country": "US",
+     "focus": false
+    },
+    {
+     "id": "O5",
+     "label": "Cambridge",
+     "type": "org",
+     "country": "GB",
+     "focus": false
+    },
+    {
+     "id": "O6",
+     "label": "KAIST",
+     "type": "org",
+     "country": "KR",
+     "focus": false
+    },
+    {
+     "id": "O7",
+     "label": "SNU",
+     "type": "org",
+     "country": "KR",
+     "focus": false
+    },
+    {
+     "id": "O8",
+     "label": "Tokyo",
+     "type": "org",
+     "country": "JP",
+     "focus": false
+    },
+    {
+     "id": "O9",
+     "label": "Stanford",
+     "type": "org",
+     "country": "US",
+     "focus": false
+    },
+    {
+     "id": "O10",
+     "label": "TU Munich",
+     "type": "org",
+     "country": "DE",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "O8",
+     "target": "O9",
+     "weight": 5.0
+    },
+    {
+     "source": "O1",
+     "target": "O2",
+     "weight": 6.0
+    },
+    {
+     "source": "O6",
+     "target": "O10",
+     "weight": 7.0
+    },
+    {
+     "source": "O2",
+     "target": "O3",
+     "weight": 5.0
+    },
+    {
+     "source": "O6",
+     "target": "O8",
+     "weight": 1.0
+    },
+    {
+     "source": "O8",
+     "target": "O10",
+     "weight": 5.0
+    },
+    {
+     "source": "O4",
+     "target": "O5",
+     "weight": 3.0
+    },
+    {
+     "source": "O4",
+     "target": "O6",
+     "weight": 2.0
+    },
+    {
+     "source": "O5",
+     "target": "O6",
+     "weight": 5.0
+    },
+    {
+     "source": "O1",
+     "target": "O9",
+     "weight": 2.0
+    },
+    {
+     "source": "O2",
+     "target": "O7",
+     "weight": 2.0
+    },
+    {
+     "source": "O3",
+     "target": "O7",
+     "weight": 4.0
+    },
+    {
+     "source": "O9",
+     "target": "O10",
+     "weight": 2.0
+    },
+    {
+     "source": "O4",
+     "target": "O7",
+     "weight": 6.0
+    },
+    {
+     "source": "O3",
+     "target": "O4",
+     "weight": 1.0
+    },
+    {
+     "source": "O5",
+     "target": "O10",
+     "weight": 1.0
+    }
+   ]
+  },
+  "orgs_range": {
+   "nodes": [
+    {
+     "id": "O1",
+     "label": "Tsinghua",
+     "type": "org",
+     "country": "CN",
+     "focus": false
+    },
+    {
+     "id": "O2",
+     "label": "Sorbonne",
+     "type": "org",
+     "country": "FR",
+     "focus": false
+    },
+    {
+     "id": "O3",
+     "label": "Toronto",
+     "type": "org",
+     "country": "CA",
+     "focus": false
+    },
+    {
+     "id": "O4",
+     "label": "MIT",
+     "type": "org",
+     "country": "US",
+     "focus": false
+    },
+    {
+     "id": "O5",
+     "label": "Cambridge",
+     "type": "org",
+     "country": "GB",
+     "focus": false
+    },
+    {
+     "id": "O6",
+     "label": "KAIST",
+     "type": "org",
+     "country": "KR",
+     "focus": false
+    },
+    {
+     "id": "O7",
+     "label": "SNU",
+     "type": "org",
+     "country": "KR",
+     "focus": false
+    },
+    {
+     "id": "O8",
+     "label": "Tokyo",
+     "type": "org",
+     "country": "JP",
+     "focus": false
+    },
+    {
+     "id": "O9",
+     "label": "Stanford",
+     "type": "org",
+     "country": "US",
+     "focus": false
+    },
+    {
+     "id": "O10",
+     "label": "TU Munich",
+     "type": "org",
+     "country": "DE",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "O8",
+     "target": "O9",
+     "weight": 5.0
+    },
+    {
+     "source": "O1",
+     "target": "O2",
+     "weight": 6.0
+    },
+    {
+     "source": "O6",
+     "target": "O10",
+     "weight": 7.0
+    },
+    {
+     "source": "O2",
+     "target": "O3",
+     "weight": 5.0
+    },
+    {
+     "source": "O6",
+     "target": "O8",
+     "weight": 1.0
+    },
+    {
+     "source": "O8",
+     "target": "O10",
+     "weight": 5.0
+    },
+    {
+     "source": "O4",
+     "target": "O5",
+     "weight": 3.0
+    },
+    {
+     "source": "O4",
+     "target": "O6",
+     "weight": 2.0
+    },
+    {
+     "source": "O5",
+     "target": "O6",
+     "weight": 5.0
+    },
+    {
+     "source": "O1",
+     "target": "O9",
+     "weight": 2.0
+    },
+    {
+     "source": "O2",
+     "target": "O7",
+     "weight": 2.0
+    },
+    {
+     "source": "O3",
+     "target": "O7",
+     "weight": 4.0
+    },
+    {
+     "source": "O9",
+     "target": "O10",
+     "weight": 2.0
+    },
+    {
+     "source": "O4",
+     "target": "O7",
+     "weight": 6.0
+    },
+    {
+     "source": "O3",
+     "target": "O4",
+     "weight": 1.0
+    },
+    {
+     "source": "O5",
+     "target": "O10",
+     "weight": 1.0
+    }
+   ]
+  },
+  "orgs_edge2": {
+   "nodes": [
+    {
+     "id": "O1",
+     "label": "Tsinghua",
+     "type": "org",
+     "country": "CN",
+     "focus": false
+    },
+    {
+     "id": "O2",
+     "label": "Sorbonne",
+     "type": "org",
+     "country": "FR",
+     "focus": false
+    },
+    {
+     "id": "O3",
+     "label": "Toronto",
+     "type": "org",
+     "country": "CA",
+     "focus": false
+    },
+    {
+     "id": "O4",
+     "label": "MIT",
+     "type": "org",
+     "country": "US",
+     "focus": false
+    },
+    {
+     "id": "O5",
+     "label": "Cambridge",
+     "type": "org",
+     "country": "GB",
+     "focus": false
+    },
+    {
+     "id": "O6",
+     "label": "KAIST",
+     "type": "org",
+     "country": "KR",
+     "focus": false
+    },
+    {
+     "id": "O7",
+     "label": "SNU",
+     "type": "org",
+     "country": "KR",
+     "focus": false
+    },
+    {
+     "id": "O8",
+     "label": "Tokyo",
+     "type": "org",
+     "country": "JP",
+     "focus": false
+    },
+    {
+     "id": "O9",
+     "label": "Stanford",
+     "type": "org",
+     "country": "US",
+     "focus": false
+    },
+    {
+     "id": "O10",
+     "label": "TU Munich",
+     "type": "org",
+     "country": "DE",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "O8",
+     "target": "O9",
+     "weight": 5.0
+    },
+    {
+     "source": "O1",
+     "target": "O2",
+     "weight": 6.0
+    },
+    {
+     "source": "O6",
+     "target": "O10",
+     "weight": 7.0
+    },
+    {
+     "source": "O2",
+     "target": "O3",
+     "weight": 5.0
+    },
+    {
+     "source": "O8",
+     "target": "O10",
+     "weight": 5.0
+    },
+    {
+     "source": "O4",
+     "target": "O5",
+     "weight": 3.0
+    },
+    {
+     "source": "O4",
+     "target": "O6",
+     "weight": 2.0
+    },
+    {
+     "source": "O5",
+     "target": "O6",
+     "weight": 5.0
+    },
+    {
+     "source": "O1",
+     "target": "O9",
+     "weight": 2.0
+    },
+    {
+     "source": "O2",
+     "target": "O7",
+     "weight": 2.0
+    },
+    {
+     "source": "O3",
+     "target": "O7",
+     "weight": 4.0
+    },
+    {
+     "source": "O9",
+     "target": "O10",
+     "weight": 2.0
+    },
+    {
+     "source": "O4",
+     "target": "O7",
+     "weight": 6.0
+    }
+   ]
+  },
+  "nations_full": {
+   "nodes": [
+    {
+     "id": "NCA",
+     "label": "CA",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NCN",
+     "label": "CN",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NDE",
+     "label": "DE",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NFR",
+     "label": "FR",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NGB",
+     "label": "GB",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NJP",
+     "label": "JP",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NKR",
+     "label": "KR",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NUS",
+     "label": "US",
+     "type": "nation",
+     "focus": null
+    }
+   ],
+   "edges": [
+    {
+     "source": "NJP",
+     "target": "NUS",
+     "weight": 5.0
+    },
+    {
+     "source": "NCN",
+     "target": "NFR",
+     "weight": 6.0
+    },
+    {
+     "source": "NDE",
+     "target": "NKR",
+     "weight": 7.0
+    },
+    {
+     "source": "NCA",
+     "target": "NFR",
+     "weight": 5.0
+    },
+    {
+     "source": "NDE",
+     "target": "NJP",
+     "weight": 5.0
+    },
+    {
+     "source": "NJP",
+     "target": "NKR",
+     "weight": 1.0
+    },
+    {
+     "source": "NGB",
+     "target": "NKR",
+     "weight": 5.0
+    },
+    {
+     "source": "NGB",
+     "target": "NUS",
+     "weight": 3.0
+    },
+    {
+     "source": "NKR",
+     "target": "NUS",
+     "weight": 8.0
+    },
+    {
+     "source": "NCN",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NKR",
+     "weight": 4.0
+    },
+    {
+     "source": "NFR",
+     "target": "NKR",
+     "weight": 2.0
+    },
+    {
+     "source": "NDE",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NUS",
+     "weight": 1.0
+    },
+    {
+     "source": "NDE",
+     "target": "NGB",
+     "weight": 1.0
+    }
+   ]
+  },
+  "nations_range": {
+   "nodes": [
+    {
+     "id": "NCA",
+     "label": "CA",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NCN",
+     "label": "CN",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NDE",
+     "label": "DE",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NFR",
+     "label": "FR",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NGB",
+     "label": "GB",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NJP",
+     "label": "JP",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NKR",
+     "label": "KR",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NUS",
+     "label": "US",
+     "type": "nation",
+     "focus": null
+    }
+   ],
+   "edges": [
+    {
+     "source": "NJP",
+     "target": "NUS",
+     "weight": 5.0
+    },
+    {
+     "source": "NCN",
+     "target": "NFR",
+     "weight": 6.0
+    },
+    {
+     "source": "NDE",
+     "target": "NKR",
+     "weight": 7.0
+    },
+    {
+     "source": "NCA",
+     "target": "NFR",
+     "weight": 5.0
+    },
+    {
+     "source": "NDE",
+     "target": "NJP",
+     "weight": 5.0
+    },
+    {
+     "source": "NJP",
+     "target": "NKR",
+     "weight": 1.0
+    },
+    {
+     "source": "NGB",
+     "target": "NKR",
+     "weight": 5.0
+    },
+    {
+     "source": "NGB",
+     "target": "NUS",
+     "weight": 3.0
+    },
+    {
+     "source": "NKR",
+     "target": "NUS",
+     "weight": 8.0
+    },
+    {
+     "source": "NCN",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NKR",
+     "weight": 4.0
+    },
+    {
+     "source": "NFR",
+     "target": "NKR",
+     "weight": 2.0
+    },
+    {
+     "source": "NDE",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NUS",
+     "weight": 1.0
+    },
+    {
+     "source": "NDE",
+     "target": "NGB",
+     "weight": 1.0
+    }
+   ]
+  },
+  "nations_edge2": {
+   "nodes": [
+    {
+     "id": "NCA",
+     "label": "CA",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NCN",
+     "label": "CN",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NDE",
+     "label": "DE",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NFR",
+     "label": "FR",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NGB",
+     "label": "GB",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NJP",
+     "label": "JP",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NKR",
+     "label": "KR",
+     "type": "nation",
+     "focus": null
+    },
+    {
+     "id": "NUS",
+     "label": "US",
+     "type": "nation",
+     "focus": null
+    }
+   ],
+   "edges": [
+    {
+     "source": "NJP",
+     "target": "NUS",
+     "weight": 5.0
+    },
+    {
+     "source": "NCN",
+     "target": "NFR",
+     "weight": 6.0
+    },
+    {
+     "source": "NDE",
+     "target": "NKR",
+     "weight": 7.0
+    },
+    {
+     "source": "NCA",
+     "target": "NFR",
+     "weight": 5.0
+    },
+    {
+     "source": "NDE",
+     "target": "NJP",
+     "weight": 5.0
+    },
+    {
+     "source": "NGB",
+     "target": "NKR",
+     "weight": 5.0
+    },
+    {
+     "source": "NGB",
+     "target": "NUS",
+     "weight": 3.0
+    },
+    {
+     "source": "NKR",
+     "target": "NUS",
+     "weight": 8.0
+    },
+    {
+     "source": "NCN",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NKR",
+     "weight": 4.0
+    },
+    {
+     "source": "NFR",
+     "target": "NKR",
+     "weight": 2.0
+    },
+    {
+     "source": "NDE",
+     "target": "NUS",
+     "weight": 2.0
+    }
+   ]
+  },
+  "authors_focus": {
+   "nodes": [
+    {
+     "id": "A1",
+     "label": "Mallory Cho",
+     "type": "focus_author",
+     "focus": true
+    },
+    {
+     "id": "A2",
+     "label": "Niaj Moon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A3",
+     "label": "Olivia Baek",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A4",
+     "label": "Peggy Nam",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A5",
+     "label": "Quentin Ha",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A6",
+     "label": "Bob Lee",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A7",
+     "label": "Carol Park",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A8",
+     "label": "Dave Choi",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A9",
+     "label": "Eve Jung",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A10",
+     "label": "Sybil Kwon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A11",
+     "label": "Trent Yang",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A12",
+     "label": "Alice Kim",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A13",
+     "label": "Judy Kang",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A14",
+     "label": "Kevin Lim",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A15",
+     "label": "Laura Shin",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A16",
+     "label": "Frank Han",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A17",
+     "label": "Grace Oh",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A18",
+     "label": "Rupert Song",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A19",
+     "label": "Heidi Yoon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A20",
+     "label": "Ivan Seo",
+     "type": "author",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "A1",
+     "target": "A2",
+     "weight": 7.0
+    },
+    {
+     "source": "A13",
+     "target": "A14",
+     "weight": 6.0
+    },
+    {
+     "source": "A13",
+     "target": "A15",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A15",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A3",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A4",
+     "weight": 3.0
+    },
+    {
+     "source": "A2",
+     "target": "A3",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A4",
+     "weight": 5.0
+    },
+    {
+     "source": "A3",
+     "target": "A4",
+     "weight": 8.0
+    },
+    {
+     "source": "A9",
+     "target": "A16",
+     "weight": 11.0
+    },
+    {
+     "source": "A9",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A16",
+     "target": "A17",
+     "weight": 8.0
+    },
+    {
+     "source": "A4",
+     "target": "A5",
+     "weight": 7.0
+    },
+    {
+     "source": "A9",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A9",
+     "target": "A20",
+     "weight": 1.0
+    },
+    {
+     "source": "A16",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A16",
+     "target": "A20",
+     "weight": 1.0
+    },
+    {
+     "source": "A17",
+     "target": "A19",
+     "weight": 7.0
+    },
+    {
+     "source": "A17",
+     "target": "A20",
+     "weight": 4.0
+    },
+    {
+     "source": "A19",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A7",
+     "weight": 6.0
+    },
+    {
+     "source": "A6",
+     "target": "A8",
+     "weight": 3.0
+    },
+    {
+     "source": "A6",
+     "target": "A9",
+     "weight": 2.0
+    },
+    {
+     "source": "A6",
+     "target": "A16",
+     "weight": 1.0
+    },
+    {
+     "source": "A7",
+     "target": "A8",
+     "weight": 5.0
+    },
+    {
+     "source": "A7",
+     "target": "A9",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A16",
+     "weight": 2.0
+    },
+    {
+     "source": "A8",
+     "target": "A9",
+     "weight": 5.0
+    },
+    {
+     "source": "A8",
+     "target": "A16",
+     "weight": 4.0
+    },
+    {
+     "source": "A5",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A2",
+     "target": "A5",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A5",
+     "weight": 5.0
+    },
+    {
+     "source": "A1",
+     "target": "A5",
+     "weight": 1.0
+    },
+    {
+     "source": "A1",
+     "target": "A15",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A4",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A4",
+     "target": "A18",
+     "weight": 3.0
+    },
+    {
+     "source": "A5",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A10",
+     "target": "A18",
+     "weight": 5.0
+    },
+    {
+     "source": "A13",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A13",
+     "target": "A19",
+     "weight": 4.0
+    },
+    {
+     "source": "A13",
+     "target": "A20",
+     "weight": 6.0
+    },
+    {
+     "source": "A14",
+     "target": "A17",
+     "weight": 2.0
+    },
+    {
+     "source": "A14",
+     "target": "A19",
+     "weight": 3.0
+    },
+    {
+     "source": "A14",
+     "target": "A20",
+     "weight": 5.0
+    },
+    {
+     "source": "A6",
+     "target": "A10",
+     "weight": 3.0
+    },
+    {
+     "source": "A6",
+     "target": "A11",
+     "weight": 5.0
+    },
+    {
+     "source": "A6",
+     "target": "A12",
+     "weight": 5.0
+    },
+    {
+     "source": "A7",
+     "target": "A10",
+     "weight": 2.0
+    },
+    {
+     "source": "A7",
+     "target": "A11",
+     "weight": 3.0
+    },
+    {
+     "source": "A7",
+     "target": "A12",
+     "weight": 3.0
+    },
+    {
+     "source": "A10",
+     "target": "A11",
+     "weight": 4.0
+    },
+    {
+     "source": "A10",
+     "target": "A12",
+     "weight": 4.0
+    },
+    {
+     "source": "A11",
+     "target": "A12",
+     "weight": 6.0
+    },
+    {
+     "source": "A15",
+     "target": "A20",
+     "weight": 2.0
+    },
+    {
+     "source": "A5",
+     "target": "A11",
+     "weight": 1.0
+    },
+    {
+     "source": "A5",
+     "target": "A12",
+     "weight": 1.0
+    },
+    {
+     "source": "A11",
+     "target": "A18",
+     "weight": 2.0
+    },
+    {
+     "source": "A12",
+     "target": "A18",
+     "weight": 2.0
+    },
+    {
+     "source": "A6",
+     "target": "A18",
+     "weight": 1.0
+    },
+    {
+     "source": "A7",
+     "target": "A17",
+     "weight": 1.0
+    },
+    {
+     "source": "A8",
+     "target": "A17",
+     "weight": 1.0
+    },
+    {
+     "source": "A2",
+     "target": "A15",
+     "weight": 1.0
+    }
+   ]
+  },
+  "authors_focus_only": {
+   "nodes": [
+    {
+     "id": "A1",
+     "label": "Mallory Cho",
+     "type": "focus_author",
+     "focus": true
+    },
+    {
+     "id": "A2",
+     "label": "Niaj Moon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A3",
+     "label": "Olivia Baek",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A4",
+     "label": "Peggy Nam",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A5",
+     "label": "Quentin Ha",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A15",
+     "label": "Laura Shin",
+     "type": "author",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "A1",
+     "target": "A2",
+     "weight": 7.0
+    },
+    {
+     "source": "A1",
+     "target": "A3",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A4",
+     "weight": 3.0
+    },
+    {
+     "source": "A2",
+     "target": "A3",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A4",
+     "weight": 5.0
+    },
+    {
+     "source": "A3",
+     "target": "A4",
+     "weight": 8.0
+    },
+    {
+     "source": "A4",
+     "target": "A5",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A5",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A5",
+     "weight": 5.0
+    },
+    {
+     "source": "A1",
+     "target": "A5",
+     "weight": 1.0
+    },
+    {
+     "source": "A1",
+     "target": "A15",
+     "weight": 2.0
+    },
+    {
+     "source": "A2",
+     "target": "A15",
+     "weight": 1.0
+    }
+   ]
+  },
+  "authors_focus_only_range": {
+   "nodes": [
+    {
+     "id": "A1",
+     "label": "Mallory Cho",
+     "type": "focus_author",
+     "focus": true
+    },
+    {
+     "id": "A2",
+     "label": "Niaj Moon",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A3",
+     "label": "Olivia Baek",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A4",
+     "label": "Peggy Nam",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A5",
+     "label": "Quentin Ha",
+     "type": "author",
+     "focus": false
+    },
+    {
+     "id": "A15",
+     "label": "Laura Shin",
+     "type": "author",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "A1",
+     "target": "A2",
+     "weight": 7.0
+    },
+    {
+     "source": "A1",
+     "target": "A3",
+     "weight": 4.0
+    },
+    {
+     "source": "A1",
+     "target": "A4",
+     "weight": 3.0
+    },
+    {
+     "source": "A2",
+     "target": "A3",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A4",
+     "weight": 5.0
+    },
+    {
+     "source": "A3",
+     "target": "A4",
+     "weight": 8.0
+    },
+    {
+     "source": "A4",
+     "target": "A5",
+     "weight": 7.0
+    },
+    {
+     "source": "A2",
+     "target": "A5",
+     "weight": 2.0
+    },
+    {
+     "source": "A3",
+     "target": "A5",
+     "weight": 5.0
+    },
+    {
+     "source": "A1",
+     "target": "A5",
+     "weight": 1.0
+    },
+    {
+     "source": "A1",
+     "target": "A15",
+     "weight": 2.0
+    },
+    {
+     "source": "A2",
+     "target": "A15",
+     "weight": 1.0
+    }
+   ]
+  },
+  "keywords_focus_only": {
+   "nodes": [
+    {
+     "id": "K1",
+     "label": "Natural language processing",
+     "type": "focus_keyword",
+     "count": 18,
+     "focus": true
+    },
+    {
+     "id": "K2",
+     "label": "Language model",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K3",
+     "label": "Transformer",
+     "type": "keyword",
+     "count": 13,
+     "focus": false
+    },
+    {
+     "id": "K4",
+     "label": "Graph theory",
+     "type": "keyword",
+     "count": 11,
+     "focus": false
+    },
+    {
+     "id": "K8",
+     "label": "Computer vision",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    },
+    {
+     "id": "K14",
+     "label": "Image segmentation",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    },
+    {
+     "id": "K15",
+     "label": "Object detection",
+     "type": "keyword",
+     "count": 5,
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "K1",
+     "target": "K2",
+     "weight": 13.0
+    },
+    {
+     "source": "K1",
+     "target": "K3",
+     "weight": 13.0
+    },
+    {
+     "source": "K1",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K2",
+     "target": "K3",
+     "weight": 13.0
+    },
+    {
+     "source": "K2",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K3",
+     "target": "K4",
+     "weight": 11.0
+    },
+    {
+     "source": "K1",
+     "target": "K8",
+     "weight": 5.0
+    },
+    {
+     "source": "K1",
+     "target": "K14",
+     "weight": 5.0
+    },
+    {
+     "source": "K1",
+     "target": "K15",
+     "weight": 5.0
+    },
+    {
+     "source": "K8",
+     "target": "K14",
+     "weight": 5.0
+    },
+    {
+     "source": "K8",
+     "target": "K15",
+     "weight": 5.0
+    },
+    {
+     "source": "K14",
+     "target": "K15",
+     "weight": 5.0
+    }
+   ]
+  },
+  "orgs_focus_only": {
+   "nodes": [
+    {
+     "id": "O1",
+     "label": "Tsinghua",
+     "type": "focus_org",
+     "country": "CN",
+     "focus": true
+    },
+    {
+     "id": "O2",
+     "label": "Sorbonne",
+     "type": "org",
+     "country": "FR",
+     "focus": false
+    },
+    {
+     "id": "O9",
+     "label": "Stanford",
+     "type": "org",
+     "country": "US",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "O1",
+     "target": "O2",
+     "weight": 6.0
+    },
+    {
+     "source": "O1",
+     "target": "O9",
+     "weight": 2.0
+    }
+   ]
+  },
+  "nations_focus_only": {
+   "nodes": [
+    {
+     "id": "NCA",
+     "label": "CA",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NCN",
+     "label": "CN",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NDE",
+     "label": "DE",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NGB",
+     "label": "GB",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NJP",
+     "label": "JP",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NKR",
+     "label": "KR",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NUS",
+     "label": "US",
+     "type": "focus_nation",
+     "focus": true
+    }
+   ],
+   "edges": [
+    {
+     "source": "NJP",
+     "target": "NUS",
+     "weight": 5.0
+    },
+    {
+     "source": "NDE",
+     "target": "NKR",
+     "weight": 7.0
+    },
+    {
+     "source": "NDE",
+     "target": "NJP",
+     "weight": 5.0
+    },
+    {
+     "source": "NJP",
+     "target": "NKR",
+     "weight": 1.0
+    },
+    {
+     "source": "NGB",
+     "target": "NKR",
+     "weight": 5.0
+    },
+    {
+     "source": "NGB",
+     "target": "NUS",
+     "weight": 3.0
+    },
+    {
+     "source": "NKR",
+     "target": "NUS",
+     "weight": 8.0
+    },
+    {
+     "source": "NCN",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NKR",
+     "weight": 4.0
+    },
+    {
+     "source": "NDE",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NUS",
+     "weight": 1.0
+    },
+    {
+     "source": "NDE",
+     "target": "NGB",
+     "weight": 1.0
+    }
+   ]
+  },
+  "nations_focus": {
+   "nodes": [
+    {
+     "id": "NCA",
+     "label": "CA",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NCN",
+     "label": "CN",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NDE",
+     "label": "DE",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NFR",
+     "label": "FR",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NGB",
+     "label": "GB",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NJP",
+     "label": "JP",
+     "type": "nation",
+     "focus": false
+    },
+    {
+     "id": "NKR",
+     "label": "KR",
+     "type": "focus_nation",
+     "focus": true
+    },
+    {
+     "id": "NUS",
+     "label": "US",
+     "type": "nation",
+     "focus": false
+    }
+   ],
+   "edges": [
+    {
+     "source": "NJP",
+     "target": "NUS",
+     "weight": 5.0
+    },
+    {
+     "source": "NCN",
+     "target": "NFR",
+     "weight": 6.0
+    },
+    {
+     "source": "NDE",
+     "target": "NKR",
+     "weight": 7.0
+    },
+    {
+     "source": "NCA",
+     "target": "NFR",
+     "weight": 5.0
+    },
+    {
+     "source": "NDE",
+     "target": "NJP",
+     "weight": 5.0
+    },
+    {
+     "source": "NJP",
+     "target": "NKR",
+     "weight": 1.0
+    },
+    {
+     "source": "NGB",
+     "target": "NKR",
+     "weight": 5.0
+    },
+    {
+     "source": "NGB",
+     "target": "NUS",
+     "weight": 3.0
+    },
+    {
+     "source": "NKR",
+     "target": "NUS",
+     "weight": 8.0
+    },
+    {
+     "source": "NCN",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NKR",
+     "weight": 4.0
+    },
+    {
+     "source": "NFR",
+     "target": "NKR",
+     "weight": 2.0
+    },
+    {
+     "source": "NDE",
+     "target": "NUS",
+     "weight": 2.0
+    },
+    {
+     "source": "NCA",
+     "target": "NUS",
+     "weight": 1.0
+    },
+    {
+     "source": "NDE",
+     "target": "NGB",
+     "weight": 1.0
+    }
+   ]
+  },
+  "authors_bad_focus": {
+   "nodes": [],
+   "edges": []
+  }
+ },
+ "focus_ids": {
+  "author": 1,
+  "keyword": 1,
+  "org": 1
+ },
+ "heat_author_keyword": {
+  "rows": [
+   {
+    "id": 9,
+    "label": "Eve Jung"
+   },
+   {
+    "id": 3,
+    "label": "Olivia Baek"
+   },
+   {
+    "id": 16,
+    "label": "Frank Han"
+   },
+   {
+    "id": 17,
+    "label": "Grace Oh"
+   },
+   {
+    "id": 4,
+    "label": "Peggy Nam"
+   },
+   {
+    "id": 2,
+    "label": "Niaj Moon"
+   },
+   {
+    "id": 20,
+    "label": "Ivan Seo"
+   },
+   {
+    "id": 1,
+    "label": "Mallory Cho"
+   },
+   {
+    "id": 7,
+    "label": "Carol Park"
+   },
+   {
+    "id": 8,
+    "label": "Dave Choi"
+   },
+   {
+    "id": 19,
+    "label": "Heidi Yoon"
+   },
+   {
+    "id": 5,
+    "label": "Quentin Ha"
+   },
+   {
+    "id": 14,
+    "label": "Kevin Lim"
+   },
+   {
+    "id": 6,
+    "label": "Bob Lee"
+   },
+   {
+    "id": 13,
+    "label": "Judy Kang"
+   },
+   {
+    "id": 15,
+    "label": "Laura Shin"
+   },
+   {
+    "id": 18,
+    "label": "Rupert Song"
+   },
+   {
+    "id": 10,
+    "label": "Sybil Kwon"
+   },
+   {
+    "id": 11,
+    "label": "Trent Yang"
+   },
+   {
+    "id": 12,
+    "label": "Alice Kim"
+   }
+  ],
+  "cols": [
+   {
+    "id": 4,
+    "label": "Graph theory"
+   },
+   {
+    "id": 8,
+    "label": "Computer vision"
+   },
+   {
+    "id": 1,
+    "label": "Natural language processing"
+   },
+   {
+    "id": 5,
+    "label": "Machine learning"
+   },
+   {
+    "id": 14,
+    "label": "Image segmentation"
+   },
+   {
+    "id": 15,
+    "label": "Object detection"
+   },
+   {
+    "id": 9,
+    "label": "Bioinformatics"
+   },
+   {
+    "id": 10,
+    "label": "Genomics"
+   },
+   {
+    "id": 11,
+    "label": "Protein structure"
+   },
+   {
+    "id": 2,
+    "label": "Language model"
+   },
+   {
+    "id": 3,
+    "label": "Transformer"
+   },
+   {
+    "id": 6,
+    "label": "Deep learning"
+   },
+   {
+    "id": 7,
+    "label": "Neural network"
+   },
+   {
+    "id": 13,
+    "label": "Community structure"
+   },
+   {
+    "id": 12,
+    "label": "Network science"
+   }
+  ],
+  "data": [
+   [
+    5,
+    4,
+    4,
+    4,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    2,
+    2,
+    1,
+    1
+   ],
+   [
+    3,
+    6,
+    3,
+    1,
+    5,
+    5,
+    3,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2
+   ],
+   [
+    4,
+    4,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    3,
+    3,
+    2,
+    2,
+    1,
+    1
+   ],
+   [
+    6,
+    2,
+    4,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    1,
+    1,
+    2,
+    2
+   ],
+   [
+    3,
+    6,
+    3,
+    2,
+    5,
+    5,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2
+   ],
+   [
+    4,
+    6,
+    4,
+    1,
+    5,
+    5,
+    1,
+    0,
+    0,
+    2,
+    2,
+    1,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    1,
+    1,
+    5,
+    0,
+    0,
+    5,
+    5,
+    5,
+    1,
+    1,
+    3,
+    3,
+    1,
+    1
+   ],
+   [
+    6,
+    3,
+    5,
+    0,
+    3,
+    3,
+    1,
+    0,
+    0,
+    4,
+    4,
+    0,
+    0,
+    2,
+    2
+   ],
+   [
+    4,
+    2,
+    4,
+    3,
+    1,
+    1,
+    1,
+    1,
+    1,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2
+   ],
+   [
+    3,
+    2,
+    3,
+    2,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    1,
+    1
+   ],
+   [
+    4,
+    1,
+    3,
+    2,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    6,
+    1,
+    2,
+    5,
+    5,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    0,
+    0
+   ],
+   [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1
+   ],
+   [
+    2,
+    1,
+    1,
+    5,
+    0,
+    0,
+    2,
+    2,
+    2,
+    1,
+    1,
+    3,
+    3,
+    2,
+    2
+   ],
+   [
+    2,
+    1,
+    1,
+    2,
+    1,
+    1,
+    5,
+    5,
+    5,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1
+   ],
+   [
+    3,
+    2,
+    4,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    1,
+    1
+   ],
+   [
+    2,
+    3,
+    1,
+    2,
+    3,
+    3,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    2,
+    2,
+    3,
+    2,
+    2,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    3,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1,
+    3,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    1,
+    1
+   ]
+  ]
+ },
+ "heat_author_keyword_range": {
+  "rows": [
+   {
+    "id": 20,
+    "label": "Ivan Seo"
+   },
+   {
+    "id": 19,
+    "label": "Heidi Yoon"
+   },
+   {
+    "id": 17,
+    "label": "Grace Oh"
+   },
+   {
+    "id": 14,
+    "label": "Kevin Lim"
+   },
+   {
+    "id": 9,
+    "label": "Eve Jung"
+   },
+   {
+    "id": 16,
+    "label": "Frank Han"
+   },
+   {
+    "id": 13,
+    "label": "Judy Kang"
+   },
+   {
+    "id": 4,
+    "label": "Peggy Nam"
+   },
+   {
+    "id": 5,
+    "label": "Quentin Ha"
+   },
+   {
+    "id": 15,
+    "label": "Laura Shin"
+   },
+   {
+    "id": 18,
+    "label": "Rupert Song"
+   },
+   {
+    "id": 3,
+    "label": "Olivia Baek"
+   },
+   {
+    "id": 7,
+    "label": "Carol Park"
+   },
+   {
+    "id": 1,
+    "label": "Mallory Cho"
+   },
+   {
+    "id": 8,
+    "label": "Dave Choi"
+   },
+   {
+    "id": 10,
+    "label": "Sybil Kwon"
+   },
+   {
+    "id": 2,
+    "label": "Niaj Moon"
+   },
+   {
+    "id": 6,
+    "label": "Bob Lee"
+   }
+  ],
+  "cols": [
+   {
+    "id": 8,
+    "label": "Computer vision"
+   },
+   {
+    "id": 5,
+    "label": "Machine learning"
+   },
+   {
+    "id": 14,
+    "label": "Image segmentation"
+   },
+   {
+    "id": 15,
+    "label": "Object detection"
+   },
+   {
+    "id": 9,
+    "label": "Bioinformatics"
+   },
+   {
+    "id": 10,
+    "label": "Genomics"
+   },
+   {
+    "id": 11,
+    "label": "Protein structure"
+   },
+   {
+    "id": 1,
+    "label": "Natural language processing"
+   },
+   {
+    "id": 6,
+    "label": "Deep learning"
+   },
+   {
+    "id": 7,
+    "label": "Neural network"
+   },
+   {
+    "id": 4,
+    "label": "Graph theory"
+   },
+   {
+    "id": 2,
+    "label": "Language model"
+   },
+   {
+    "id": 3,
+    "label": "Transformer"
+   },
+   {
+    "id": 13,
+    "label": "Community structure"
+   },
+   {
+    "id": 12,
+    "label": "Network science"
+   }
+  ],
+  "data": [
+   [
+    1,
+    5,
+    0,
+    0,
+    3,
+    3,
+    3,
+    1,
+    3,
+    3,
+    2,
+    1,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    2,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    3,
+    2,
+    2,
+    1,
+    1
+   ],
+   [
+    2,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    3,
+    2,
+    2,
+    1,
+    1
+   ],
+   [
+    1,
+    2,
+    1,
+    1,
+    3,
+    3,
+    3,
+    2,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    3,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    3,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    2,
+    0,
+    0,
+    3,
+    3,
+    3,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    2,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ "heat_nation": {
+  "rows": [
+   {
+    "id": 0,
+    "label": "CA"
+   },
+   {
+    "id": 1,
+    "label": "CN"
+   },
+   {
+    "id": 2,
+    "label": "DE"
+   },
+   {
+    "id": 3,
+    "label": "FR"
+   },
+   {
+    "id": 4,
+    "label": "GB"
+   },
+   {
+    "id": 5,
+    "label": "JP"
+   },
+   {
+    "id": 6,
+    "label": "KR"
+   },
+   {
+    "id": 7,
+    "label": "US"
+   }
+  ],
+  "cols": [
+   {
+    "id": 0,
+    "label": "CA"
+   },
+   {
+    "id": 1,
+    "label": "CN"
+   },
+   {
+    "id": 2,
+    "label": "DE"
+   },
+   {
+    "id": 3,
+    "label": "FR"
+   },
+   {
+    "id": 4,
+    "label": "GB"
+   },
+   {
+    "id": 5,
+    "label": "JP"
+   },
+   {
+    "id": 6,
+    "label": "KR"
+   },
+   {
+    "id": 7,
+    "label": "US"
+   }
+  ],
+  "data": [
+   [
+    0.0,
+    0.0,
+    0.0,
+    5.0,
+    0.0,
+    0.0,
+    4.0,
+    1.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    6.0,
+    0.0,
+    0.0,
+    0.0,
+    2.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    5.0,
+    7.0,
+    2.0
+   ],
+   [
+    5.0,
+    6.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    2.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    5.0,
+    3.0
+   ],
+   [
+    0.0,
+    0.0,
+    5.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    5.0
+   ],
+   [
+    4.0,
+    0.0,
+    7.0,
+    2.0,
+    5.0,
+    1.0,
+    0.0,
+    8.0
+   ],
+   [
+    1.0,
+    2.0,
+    2.0,
+    0.0,
+    3.0,
+    5.0,
+    8.0,
+    0.0
+   ]
+  ]
+ },
+ "report": {
+  "n_works": 60,
+  "n_authors": 20,
+  "n_orgs": 10,
+  "n_keywords": 15,
+  "n_venues": 7,
+  "year_min": 2015,
+  "year_max": 2024,
+  "pub_trend": [
+   {
+    "year": 2015,
+    "count": 6
+   },
+   {
+    "year": 2016,
+    "count": 6
+   },
+   {
+    "year": 2017,
+    "count": 6
+   },
+   {
+    "year": 2018,
+    "count": 6
+   },
+   {
+    "year": 2019,
+    "count": 6
+   },
+   {
+    "year": 2020,
+    "count": 6
+   },
+   {
+    "year": 2021,
+    "count": 6
+   },
+   {
+    "year": 2022,
+    "count": 6
+   },
+   {
+    "year": 2023,
+    "count": 6
+   },
+   {
+    "year": 2024,
+    "count": 6
+   }
+  ],
+  "top_authors": [
+   {
+    "name": "Eve Jung",
+    "papers": 13
+   },
+   {
+    "name": "Grace Oh",
+    "papers": 11
+   },
+   {
+    "name": "Frank Han",
+    "papers": 11
+   },
+   {
+    "name": "Peggy Nam",
+    "papers": 11
+   },
+   {
+    "name": "Olivia Baek",
+    "papers": 11
+   },
+   {
+    "name": "Ivan Seo",
+    "papers": 10
+   },
+   {
+    "name": "Niaj Moon",
+    "papers": 10
+   },
+   {
+    "name": "Heidi Yoon",
+    "papers": 9
+   },
+   {
+    "name": "Dave Choi",
+    "papers": 9
+   },
+   {
+    "name": "Carol Park",
+    "papers": 9
+   },
+   {
+    "name": "Quentin Ha",
+    "papers": 9
+   },
+   {
+    "name": "Mallory Cho",
+    "papers": 9
+   },
+   {
+    "name": "Rupert Song",
+    "papers": 8
+   },
+   {
+    "name": "Kevin Lim",
+    "papers": 8
+   },
+   {
+    "name": "Judy Kang",
+    "papers": 8
+   },
+   {
+    "name": "Bob Lee",
+    "papers": 8
+   },
+   {
+    "name": "Laura Shin",
+    "papers": 7
+   },
+   {
+    "name": "Sybil Kwon",
+    "papers": 7
+   },
+   {
+    "name": "Alice Kim",
+    "papers": 6
+   },
+   {
+    "name": "Trent Yang",
+    "papers": 6
+   }
+  ],
+  "top_keywords": [
+   {
+    "term": "Computer vision",
+    "count": 20
+   },
+   {
+    "term": "Graph theory",
+    "count": 20
+   },
+   {
+    "term": "Natural language processing",
+    "count": 18
+   },
+   {
+    "term": "Object detection",
+    "count": 17
+   },
+   {
+    "term": "Image segmentation",
+    "count": 17
+   },
+   {
+    "term": "Bioinformatics",
+    "count": 14
+   },
+   {
+    "term": "Machine learning",
+    "count": 14
+   },
+   {
+    "term": "Protein structure",
+    "count": 13
+   },
+   {
+    "term": "Genomics",
+    "count": 13
+   },
+   {
+    "term": "Transformer",
+    "count": 13
+   },
+   {
+    "term": "Language model",
+    "count": 13
+   },
+   {
+    "term": "Community structure",
+    "count": 9
+   },
+   {
+    "term": "Network science",
+    "count": 9
+   },
+   {
+    "term": "Neural network",
+    "count": 8
+   },
+   {
+    "term": "Deep learning",
+    "count": 8
+   }
+  ],
+  "country_dist": [
+   {
+    "country": "KR",
+    "papers": 22
+   },
+   {
+    "country": "US",
+    "papers": 19
+   },
+   {
+    "country": "FR",
+    "papers": 14
+   },
+   {
+    "country": "JP",
+    "papers": 11
+   },
+   {
+    "country": "DE",
+    "papers": 11
+   },
+   {
+    "country": "CN",
+    "papers": 11
+   },
+   {
+    "country": "GB",
+    "papers": 9
+   },
+   {
+    "country": "CA",
+    "papers": 9
+   }
+  ],
+  "top_collabs": [
+   {
+    "author_a": "Eve Jung",
+    "author_b": "Frank Han",
+    "weight": 11.0,
+    "papers": 11
+   },
+   {
+    "author_a": "Olivia Baek",
+    "author_b": "Peggy Nam",
+    "weight": 8.0,
+    "papers": 8
+   },
+   {
+    "author_a": "Eve Jung",
+    "author_b": "Grace Oh",
+    "weight": 8.0,
+    "papers": 8
+   },
+   {
+    "author_a": "Frank Han",
+    "author_b": "Grace Oh",
+    "weight": 8.0,
+    "papers": 8
+   },
+   {
+    "author_a": "Mallory Cho",
+    "author_b": "Niaj Moon",
+    "weight": 7.0,
+    "papers": 7
+   },
+   {
+    "author_a": "Niaj Moon",
+    "author_b": "Olivia Baek",
+    "weight": 7.0,
+    "papers": 7
+   },
+   {
+    "author_a": "Peggy Nam",
+    "author_b": "Quentin Ha",
+    "weight": 7.0,
+    "papers": 7
+   },
+   {
+    "author_a": "Grace Oh",
+    "author_b": "Heidi Yoon",
+    "weight": 7.0,
+    "papers": 7
+   },
+   {
+    "author_a": "Judy Kang",
+    "author_b": "Kevin Lim",
+    "weight": 6.0,
+    "papers": 6
+   },
+   {
+    "author_a": "Heidi Yoon",
+    "author_b": "Ivan Seo",
+    "weight": 6.0,
+    "papers": 6
+   },
+   {
+    "author_a": "Bob Lee",
+    "author_b": "Carol Park",
+    "weight": 6.0,
+    "papers": 6
+   },
+   {
+    "author_a": "Judy Kang",
+    "author_b": "Ivan Seo",
+    "weight": 6.0,
+    "papers": 6
+   },
+   {
+    "author_a": "Trent Yang",
+    "author_b": "Alice Kim",
+    "weight": 6.0,
+    "papers": 6
+   },
+   {
+    "author_a": "Niaj Moon",
+    "author_b": "Peggy Nam",
+    "weight": 5.0,
+    "papers": 5
+   },
+   {
+    "author_a": "Carol Park",
+    "author_b": "Dave Choi",
+    "weight": 5.0,
+    "papers": 5
+   }
+  ],
+  "top_kw_pairs": [
+   {
+    "keyword_a": "Computer vision",
+    "keyword_b": "Image segmentation",
+    "co_occurrences": 17
+   },
+   {
+    "keyword_a": "Computer vision",
+    "keyword_b": "Object detection",
+    "co_occurrences": 17
+   },
+   {
+    "keyword_a": "Image segmentation",
+    "keyword_b": "Object detection",
+    "co_occurrences": 17
+   },
+   {
+    "keyword_a": "Natural language processing",
+    "keyword_b": "Language model",
+    "co_occurrences": 13
+   },
+   {
+    "keyword_a": "Natural language processing",
+    "keyword_b": "Transformer",
+    "co_occurrences": 13
+   },
+   {
+    "keyword_a": "Language model",
+    "keyword_b": "Transformer",
+    "co_occurrences": 13
+   },
+   {
+    "keyword_a": "Bioinformatics",
+    "keyword_b": "Genomics",
+    "co_occurrences": 13
+   },
+   {
+    "keyword_a": "Bioinformatics",
+    "keyword_b": "Protein structure",
+    "co_occurrences": 13
+   },
+   {
+    "keyword_a": "Genomics",
+    "keyword_b": "Protein structure",
+    "co_occurrences": 13
+   },
+   {
+    "keyword_a": "Natural language processing",
+    "keyword_b": "Graph theory",
+    "co_occurrences": 11
+   },
+   {
+    "keyword_a": "Language model",
+    "keyword_b": "Graph theory",
+    "co_occurrences": 11
+   },
+   {
+    "keyword_a": "Transformer",
+    "keyword_b": "Graph theory",
+    "co_occurrences": 11
+   },
+   {
+    "keyword_a": "Graph theory",
+    "keyword_b": "Network science",
+    "co_occurrences": 9
+   },
+   {
+    "keyword_a": "Graph theory",
+    "keyword_b": "Community structure",
+    "co_occurrences": 9
+   },
+   {
+    "keyword_a": "Network science",
+    "keyword_b": "Community structure",
+    "co_occurrences": 9
+   }
+  ],
+  "top_venues": [
+   {
+    "venue": "Science",
+    "papers": 9
+   },
+   {
+    "venue": "Nature",
+    "papers": 9
+   },
+   {
+    "venue": "ICML",
+    "papers": 9
+   },
+   {
+    "venue": "NeurIPS",
+    "papers": 9
+   },
+   {
+    "venue": "Bioinformatics",
+    "papers": 8
+   },
+   {
+    "venue": "ACL",
+    "papers": 8
+   },
+   {
+    "venue": "CVPR",
+    "papers": 8
+   }
+  ],
+  "highlight_works": [
+   {
+    "title": "Paper 23 on Computer vision",
+    "year": 2018,
+    "cited_by_count": 497,
+    "doi": "https://doi.org/10.1000/test.23",
+    "link": "https://doi.org/https://doi.org/10.1000/test.23",
+    "authors": "Olivia Baek, Peggy Nam, Quentin Ha, Rupert Song, Sybil Kwon",
+    "venue": "Nature"
+   },
+   {
+    "title": "Paper 42 on Bioinformatics",
+    "year": 2022,
+    "cited_by_count": 497,
+    "doi": "https://doi.org/10.1000/test.42",
+    "link": "https://doi.org/https://doi.org/10.1000/test.42",
+    "authors": "Trent Yang, Alice Kim, Bob Lee",
+    "venue": "NeurIPS"
+   },
+   {
+    "title": "Paper 15 on Computer vision",
+    "year": 2017,
+    "cited_by_count": 487,
+    "doi": "https://doi.org/10.1000/test.15",
+    "link": "https://doi.org/https://doi.org/10.1000/test.15",
+    "authors": "Kevin Lim",
+    "venue": "ICML"
+   },
+   {
+    "title": "Paper 55 on Graph theory",
+    "year": 2024,
+    "cited_by_count": 481,
+    "doi": "https://doi.org/10.1000/test.55",
+    "link": "https://doi.org/https://doi.org/10.1000/test.55",
+    "authors": "Eve Jung, Frank Han, Grace Oh",
+    "venue": "Bioinformatics"
+   },
+   {
+    "title": "Paper 56 on Computer vision",
+    "year": 2024,
+    "cited_by_count": 473,
+    "doi": null,
+    "link": "https://example.org/56",
+    "authors": "Judy Kang",
+    "venue": "NeurIPS"
+   },
+   {
+    "title": "Paper 25 on Computer vision",
+    "year": 2019,
+    "cited_by_count": 449,
+    "doi": "https://doi.org/10.1000/test.25",
+    "link": "https://doi.org/https://doi.org/10.1000/test.25",
+    "authors": "Laura Shin",
+    "venue": "CVPR"
+   },
+   {
+    "title": "Paper 5 on Natural language processing",
+    "year": 2015,
+    "cited_by_count": 448,
+    "doi": "https://doi.org/10.1000/test.5",
+    "link": "https://doi.org/https://doi.org/10.1000/test.5",
+    "authors": "Carol Park, Dave Choi, Eve Jung, Frank Han, Grace Oh",
+    "venue": "ACL"
+   },
+   {
+    "title": "Paper 33 on Bioinformatics",
+    "year": 2020,
+    "cited_by_count": 448,
+    "doi": "https://doi.org/10.1000/test.33",
+    "link": "https://doi.org/https://doi.org/10.1000/test.33",
+    "authors": "Olivia Baek, Peggy Nam, Quentin Ha, Rupert Song",
+    "venue": "ACL"
+   },
+   {
+    "title": "Paper 13 on Bioinformatics",
+    "year": 2017,
+    "cited_by_count": 447,
+    "doi": "https://doi.org/10.1000/test.13",
+    "link": "https://doi.org/https://doi.org/10.1000/test.13",
+    "authors": "Dave Choi",
+    "venue": "Bioinformatics"
+   },
+   {
+    "title": "Paper 34 on Machine learning",
+    "year": 2020,
+    "cited_by_count": 434,
+    "doi": "https://doi.org/10.1000/test.34",
+    "link": "https://doi.org/https://doi.org/10.1000/test.34",
+    "authors": "Ivan Seo",
+    "venue": "Bioinformatics"
+   },
+   {
+    "title": "Paper 40 on Computer vision",
+    "year": 2021,
+    "cited_by_count": 428,
+    "doi": null,
+    "link": "https://example.org/40",
+    "authors": "Kevin Lim, Laura Shin",
+    "venue": "ACL"
+   },
+   {
+    "title": "Paper 52 on Graph theory",
+    "year": 2023,
+    "cited_by_count": 419,
+    "doi": null,
+    "link": "https://example.org/52",
+    "authors": "Rupert Song",
+    "venue": "Science"
+   },
+   {
+    "title": "Paper 21 on Natural language processing",
+    "year": 2018,
+    "cited_by_count": 404,
+    "doi": "https://doi.org/10.1000/test.21",
+    "link": "https://doi.org/https://doi.org/10.1000/test.21",
+    "authors": "Dave Choi",
+    "venue": "NeurIPS"
+   },
+   {
+    "title": "Paper 27 on Computer vision",
+    "year": 2019,
+    "cited_by_count": 397,
+    "doi": "https://doi.org/10.1000/test.27",
+    "link": "https://doi.org/https://doi.org/10.1000/test.27",
+    "authors": "Peggy Nam, Quentin Ha",
+    "venue": "Bioinformatics"
+   },
+   {
+    "title": "Paper 30 on Computer vision",
+    "year": 2020,
+    "cited_by_count": 397,
+    "doi": "https://doi.org/10.1000/test.30",
+    "link": "https://doi.org/https://doi.org/10.1000/test.30",
+    "authors": "Eve Jung, Frank Han, Grace Oh, Heidi Yoon",
+    "venue": "Nature"
+   }
+  ],
+  "graph_nodes": [
+   {
+    "id": 1,
+    "label": "Mallory Cho"
+   },
+   {
+    "id": 2,
+    "label": "Niaj Moon"
+   },
+   {
+    "id": 3,
+    "label": "Olivia Baek"
+   },
+   {
+    "id": 4,
+    "label": "Peggy Nam"
+   },
+   {
+    "id": 5,
+    "label": "Quentin Ha"
+   },
+   {
+    "id": 6,
+    "label": "Bob Lee"
+   },
+   {
+    "id": 7,
+    "label": "Carol Park"
+   },
+   {
+    "id": 8,
+    "label": "Dave Choi"
+   },
+   {
+    "id": 9,
+    "label": "Eve Jung"
+   },
+   {
+    "id": 10,
+    "label": "Sybil Kwon"
+   },
+   {
+    "id": 11,
+    "label": "Trent Yang"
+   },
+   {
+    "id": 12,
+    "label": "Alice Kim"
+   },
+   {
+    "id": 13,
+    "label": "Judy Kang"
+   },
+   {
+    "id": 14,
+    "label": "Kevin Lim"
+   },
+   {
+    "id": 15,
+    "label": "Laura Shin"
+   },
+   {
+    "id": 16,
+    "label": "Frank Han"
+   },
+   {
+    "id": 17,
+    "label": "Grace Oh"
+   },
+   {
+    "id": 18,
+    "label": "Rupert Song"
+   },
+   {
+    "id": 19,
+    "label": "Heidi Yoon"
+   },
+   {
+    "id": 20,
+    "label": "Ivan Seo"
+   }
+  ],
+  "graph_edges": [
+   {
+    "a": 9,
+    "b": 16,
+    "weight": 11.0
+   },
+   {
+    "a": 3,
+    "b": 4,
+    "weight": 8.0
+   },
+   {
+    "a": 9,
+    "b": 17,
+    "weight": 8.0
+   },
+   {
+    "a": 16,
+    "b": 17,
+    "weight": 8.0
+   },
+   {
+    "a": 1,
+    "b": 2,
+    "weight": 7.0
+   },
+   {
+    "a": 2,
+    "b": 3,
+    "weight": 7.0
+   },
+   {
+    "a": 4,
+    "b": 5,
+    "weight": 7.0
+   },
+   {
+    "a": 17,
+    "b": 19,
+    "weight": 7.0
+   },
+   {
+    "a": 13,
+    "b": 14,
+    "weight": 6.0
+   },
+   {
+    "a": 19,
+    "b": 20,
+    "weight": 6.0
+   },
+   {
+    "a": 6,
+    "b": 7,
+    "weight": 6.0
+   },
+   {
+    "a": 13,
+    "b": 20,
+    "weight": 6.0
+   },
+   {
+    "a": 11,
+    "b": 12,
+    "weight": 6.0
+   },
+   {
+    "a": 2,
+    "b": 4,
+    "weight": 5.0
+   },
+   {
+    "a": 7,
+    "b": 8,
+    "weight": 5.0
+   },
+   {
+    "a": 8,
+    "b": 9,
+    "weight": 5.0
+   },
+   {
+    "a": 5,
+    "b": 18,
+    "weight": 5.0
+   },
+   {
+    "a": 3,
+    "b": 5,
+    "weight": 5.0
+   },
+   {
+    "a": 10,
+    "b": 18,
+    "weight": 5.0
+   },
+   {
+    "a": 14,
+    "b": 20,
+    "weight": 5.0
+   },
+   {
+    "a": 6,
+    "b": 11,
+    "weight": 5.0
+   },
+   {
+    "a": 6,
+    "b": 12,
+    "weight": 5.0
+   },
+   {
+    "a": 14,
+    "b": 15,
+    "weight": 4.0
+   },
+   {
+    "a": 1,
+    "b": 3,
+    "weight": 4.0
+   },
+   {
+    "a": 9,
+    "b": 19,
+    "weight": 4.0
+   },
+   {
+    "a": 16,
+    "b": 19,
+    "weight": 4.0
+   },
+   {
+    "a": 17,
+    "b": 20,
+    "weight": 4.0
+   },
+   {
+    "a": 8,
+    "b": 16,
+    "weight": 4.0
+   },
+   {
+    "a": 13,
+    "b": 19,
+    "weight": 4.0
+   },
+   {
+    "a": 10,
+    "b": 11,
+    "weight": 4.0
+   },
+   {
+    "a": 10,
+    "b": 12,
+    "weight": 4.0
+   },
+   {
+    "a": 13,
+    "b": 15,
+    "weight": 3.0
+   },
+   {
+    "a": 1,
+    "b": 4,
+    "weight": 3.0
+   },
+   {
+    "a": 6,
+    "b": 8,
+    "weight": 3.0
+   },
+   {
+    "a": 7,
+    "b": 9,
+    "weight": 3.0
+   },
+   {
+    "a": 3,
+    "b": 18,
+    "weight": 3.0
+   },
+   {
+    "a": 4,
+    "b": 18,
+    "weight": 3.0
+   },
+   {
+    "a": 5,
+    "b": 10,
+    "weight": 3.0
+   },
+   {
+    "a": 14,
+    "b": 19,
+    "weight": 3.0
+   },
+   {
+    "a": 6,
+    "b": 10,
+    "weight": 3.0
+   }
+  ]
+ },
+ "bursts": [
+  {
+   "keyword_id": 12,
+   "keyword": "Network science",
+   "burst_score": 1.92,
+   "baseline_avg": 0.57,
+   "recent_avg": 1.67,
+   "total_papers": 9,
+   "trend": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    2,
+    3
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "growing"
+  },
+  {
+   "keyword_id": 13,
+   "keyword": "Community structure",
+   "burst_score": 1.92,
+   "baseline_avg": 0.57,
+   "recent_avg": 1.67,
+   "total_papers": 9,
+   "trend": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    2,
+    3
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "growing"
+  },
+  {
+   "keyword_id": 4,
+   "keyword": "Graph theory",
+   "burst_score": 0.26,
+   "baseline_avg": 1.86,
+   "recent_avg": 2.33,
+   "total_papers": 20,
+   "trend": [
+    3,
+    4,
+    2,
+    2,
+    0,
+    1,
+    1,
+    2,
+    2,
+    3
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 10,
+   "keyword": "Genomics",
+   "burst_score": 0.04,
+   "baseline_avg": 1.29,
+   "recent_avg": 1.33,
+   "total_papers": 13,
+   "trend": [
+    1,
+    1,
+    2,
+    0,
+    2,
+    1,
+    2,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 11,
+   "keyword": "Protein structure",
+   "burst_score": 0.04,
+   "baseline_avg": 1.29,
+   "recent_avg": 1.33,
+   "total_papers": 13,
+   "trend": [
+    1,
+    1,
+    2,
+    0,
+    2,
+    1,
+    2,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 14,
+   "keyword": "Image segmentation",
+   "burst_score": -0.03,
+   "baseline_avg": 1.71,
+   "recent_avg": 1.67,
+   "total_papers": 17,
+   "trend": [
+    0,
+    1,
+    2,
+    2,
+    2,
+    3,
+    2,
+    2,
+    1,
+    2
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 15,
+   "keyword": "Object detection",
+   "burst_score": -0.03,
+   "baseline_avg": 1.71,
+   "recent_avg": 1.67,
+   "total_papers": 17,
+   "trend": [
+    0,
+    1,
+    2,
+    2,
+    2,
+    3,
+    2,
+    2,
+    1,
+    2
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 9,
+   "keyword": "Bioinformatics",
+   "burst_score": -0.07,
+   "baseline_avg": 1.43,
+   "recent_avg": 1.33,
+   "total_papers": 14,
+   "trend": [
+    1,
+    2,
+    2,
+    0,
+    2,
+    1,
+    2,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 8,
+   "keyword": "Computer vision",
+   "burst_score": -0.22,
+   "baseline_avg": 2.14,
+   "recent_avg": 1.67,
+   "total_papers": 20,
+   "trend": [
+    1,
+    1,
+    2,
+    2,
+    3,
+    4,
+    2,
+    2,
+    1,
+    2
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 2,
+   "keyword": "Language model",
+   "burst_score": -0.3,
+   "baseline_avg": 1.43,
+   "recent_avg": 1.0,
+   "total_papers": 13,
+   "trend": [
+    2,
+    3,
+    1,
+    2,
+    0,
+    1,
+    1,
+    2,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 3,
+   "keyword": "Transformer",
+   "burst_score": -0.3,
+   "baseline_avg": 1.43,
+   "recent_avg": 1.0,
+   "total_papers": 13,
+   "trend": [
+    2,
+    3,
+    1,
+    2,
+    0,
+    1,
+    1,
+    2,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 1,
+   "keyword": "Natural language processing",
+   "burst_score": -0.33,
+   "baseline_avg": 2.0,
+   "recent_avg": 1.33,
+   "total_papers": 18,
+   "trend": [
+    2,
+    4,
+    1,
+    2,
+    1,
+    1,
+    3,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 5,
+   "keyword": "Machine learning",
+   "burst_score": -0.61,
+   "baseline_avg": 1.71,
+   "recent_avg": 0.67,
+   "total_papers": 14,
+   "trend": [
+    3,
+    0,
+    1,
+    1,
+    3,
+    1,
+    3,
+    1,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 6,
+   "keyword": "Deep learning",
+   "burst_score": -0.67,
+   "baseline_avg": 1.0,
+   "recent_avg": 0.33,
+   "total_papers": 8,
+   "trend": [
+    2,
+    0,
+    0,
+    1,
+    2,
+    1,
+    1,
+    0,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 7,
+   "keyword": "Neural network",
+   "burst_score": -0.67,
+   "baseline_avg": 1.0,
+   "recent_avg": 0.33,
+   "total_papers": 8,
+   "trend": [
+    2,
+    0,
+    0,
+    1,
+    2,
+    1,
+    1,
+    0,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  }
+ ],
+ "bursts_w2": [
+  {
+   "keyword_id": 12,
+   "keyword": "Network science",
+   "burst_score": 4.0,
+   "baseline_avg": 0.5,
+   "recent_avg": 2.5,
+   "total_papers": 9,
+   "trend": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    2,
+    3
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "burst"
+  },
+  {
+   "keyword_id": 13,
+   "keyword": "Community structure",
+   "burst_score": 4.0,
+   "baseline_avg": 0.5,
+   "recent_avg": 2.5,
+   "total_papers": 9,
+   "trend": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    2,
+    3
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "burst"
+  },
+  {
+   "keyword_id": 4,
+   "keyword": "Graph theory",
+   "burst_score": 0.33,
+   "baseline_avg": 1.88,
+   "recent_avg": 2.5,
+   "total_papers": 20,
+   "trend": [
+    3,
+    4,
+    2,
+    2,
+    0,
+    1,
+    1,
+    2,
+    2,
+    3
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 14,
+   "keyword": "Image segmentation",
+   "burst_score": -0.14,
+   "baseline_avg": 1.75,
+   "recent_avg": 1.5,
+   "total_papers": 17,
+   "trend": [
+    0,
+    1,
+    2,
+    2,
+    2,
+    3,
+    2,
+    2,
+    1,
+    2
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 15,
+   "keyword": "Object detection",
+   "burst_score": -0.14,
+   "baseline_avg": 1.75,
+   "recent_avg": 1.5,
+   "total_papers": 17,
+   "trend": [
+    0,
+    1,
+    2,
+    2,
+    2,
+    3,
+    2,
+    2,
+    1,
+    2
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 10,
+   "keyword": "Genomics",
+   "burst_score": -0.27,
+   "baseline_avg": 1.38,
+   "recent_avg": 1.0,
+   "total_papers": 13,
+   "trend": [
+    1,
+    1,
+    2,
+    0,
+    2,
+    1,
+    2,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 11,
+   "keyword": "Protein structure",
+   "burst_score": -0.27,
+   "baseline_avg": 1.38,
+   "recent_avg": 1.0,
+   "total_papers": 13,
+   "trend": [
+    1,
+    1,
+    2,
+    0,
+    2,
+    1,
+    2,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 8,
+   "keyword": "Computer vision",
+   "burst_score": -0.29,
+   "baseline_avg": 2.12,
+   "recent_avg": 1.5,
+   "total_papers": 20,
+   "trend": [
+    1,
+    1,
+    2,
+    2,
+    3,
+    4,
+    2,
+    2,
+    1,
+    2
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "stable"
+  },
+  {
+   "keyword_id": 9,
+   "keyword": "Bioinformatics",
+   "burst_score": -0.33,
+   "baseline_avg": 1.5,
+   "recent_avg": 1.0,
+   "total_papers": 14,
+   "trend": [
+    1,
+    2,
+    2,
+    0,
+    2,
+    1,
+    2,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 6,
+   "keyword": "Deep learning",
+   "burst_score": -0.43,
+   "baseline_avg": 0.88,
+   "recent_avg": 0.5,
+   "total_papers": 8,
+   "trend": [
+    2,
+    0,
+    0,
+    1,
+    2,
+    1,
+    1,
+    0,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 7,
+   "keyword": "Neural network",
+   "burst_score": -0.43,
+   "baseline_avg": 0.88,
+   "recent_avg": 0.5,
+   "total_papers": 8,
+   "trend": [
+    2,
+    0,
+    0,
+    1,
+    2,
+    1,
+    1,
+    0,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 1,
+   "keyword": "Natural language processing",
+   "burst_score": -0.5,
+   "baseline_avg": 2.0,
+   "recent_avg": 1.0,
+   "total_papers": 18,
+   "trend": [
+    2,
+    4,
+    1,
+    2,
+    1,
+    1,
+    3,
+    2,
+    1,
+    1
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 2,
+   "keyword": "Language model",
+   "burst_score": -0.67,
+   "baseline_avg": 1.5,
+   "recent_avg": 0.5,
+   "total_papers": 13,
+   "trend": [
+    2,
+    3,
+    1,
+    2,
+    0,
+    1,
+    1,
+    2,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 3,
+   "keyword": "Transformer",
+   "burst_score": -0.67,
+   "baseline_avg": 1.5,
+   "recent_avg": 0.5,
+   "total_papers": 13,
+   "trend": [
+    2,
+    3,
+    1,
+    2,
+    0,
+    1,
+    1,
+    2,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  },
+  {
+   "keyword_id": 5,
+   "keyword": "Machine learning",
+   "burst_score": -0.69,
+   "baseline_avg": 1.62,
+   "recent_avg": 0.5,
+   "total_papers": 14,
+   "trend": [
+    3,
+    0,
+    1,
+    1,
+    3,
+    1,
+    3,
+    1,
+    1,
+    0
+   ],
+   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "status": "declining"
+  }
+ ],
+ "recommend": [
+  {
+   "author_id": 18,
+   "author_name": "Rupert Song",
+   "score": 0.58,
+   "jaccard_similarity": 0.667,
+   "common_neighbors": 3,
+   "common_neighbor_names": [
+    "Olivia Baek",
+    "Peggy Nam",
+    "Quentin Ha"
+   ],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 2
+  },
+  {
+   "author_id": 10,
+   "author_name": "Sybil Kwon",
+   "score": 0.513,
+   "jaccard_similarity": 0.533,
+   "common_neighbors": 3,
+   "common_neighbor_names": [
+    "Olivia Baek",
+    "Peggy Nam",
+    "Quentin Ha"
+   ],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 2
+  },
+  {
+   "author_id": 13,
+   "author_name": "Judy Kang",
+   "score": 0.491,
+   "jaccard_similarity": 0.769,
+   "common_neighbors": 1,
+   "common_neighbor_names": [
+    "Laura Shin"
+   ],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Genomics",
+    "Protein structure",
+    "Machine learning"
+   ],
+   "path_length": 2
+  },
+  {
+   "author_id": 14,
+   "author_name": "Kevin Lim",
+   "score": 0.491,
+   "jaccard_similarity": 0.769,
+   "common_neighbors": 1,
+   "common_neighbor_names": [
+    "Laura Shin"
+   ],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Genomics",
+    "Protein structure",
+    "Machine learning"
+   ],
+   "path_length": 2
+  },
+  {
+   "author_id": 11,
+   "author_name": "Trent Yang",
+   "score": 0.46,
+   "jaccard_similarity": 0.667,
+   "common_neighbors": 1,
+   "common_neighbor_names": [
+    "Quentin Ha"
+   ],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 2
+  },
+  {
+   "author_id": 12,
+   "author_name": "Alice Kim",
+   "score": 0.46,
+   "jaccard_similarity": 0.667,
+   "common_neighbors": 1,
+   "common_neighbor_names": [
+    "Quentin Ha"
+   ],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 2
+  },
+  {
+   "author_id": 7,
+   "author_name": "Carol Park",
+   "score": 0.4,
+   "jaccard_similarity": 0.667,
+   "common_neighbors": 0,
+   "common_neighbor_names": [],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 3
+  },
+  {
+   "author_id": 8,
+   "author_name": "Dave Choi",
+   "score": 0.4,
+   "jaccard_similarity": 0.667,
+   "common_neighbors": 0,
+   "common_neighbor_names": [],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 4
+  },
+  {
+   "author_id": 9,
+   "author_name": "Eve Jung",
+   "score": 0.4,
+   "jaccard_similarity": 0.667,
+   "common_neighbors": 0,
+   "common_neighbor_names": [],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 3
+  },
+  {
+   "author_id": 16,
+   "author_name": "Frank Han",
+   "score": 0.4,
+   "jaccard_similarity": 0.667,
+   "common_neighbors": 0,
+   "common_neighbor_names": [],
+   "shared_keywords": [
+    "Natural language processing",
+    "Language model",
+    "Transformer",
+    "Graph theory",
+    "Computer vision"
+   ],
+   "unique_keywords": [
+    "Machine learning",
+    "Deep learning",
+    "Neural network",
+    "Genomics",
+    "Protein structure"
+   ],
+   "path_length": 3
+  }
+ ],
+ "shortest_path": {
+  "path_exists": true,
+  "path_length": 2,
+  "path": [
+   {
+    "node_id": 1,
+    "name": "Mallory Cho"
+   },
+   {
+    "node_id": 5,
+    "name": "Quentin Ha",
+    "connection_weight": 1.0,
+    "shared_papers": 1
+   },
+   {
+    "node_id": 11,
+    "name": "Trent Yang",
+    "connection_weight": 1.0,
+    "shared_papers": 1
+   }
+  ],
+  "alternative_paths": []
+ },
+ "shortest_path_missing": {
+  "path_exists": false,
+  "message": "Node(s) not found in network: 999999",
+  "path_length": -1,
+  "path": []
+ },
+ "communities_authors": {
+  "num_nodes": 20,
+  "modularity": 0.4814,
+  "num_communities": 4
+ },
+ "communities_keywords": {
+  "num_nodes": 15,
+  "modularity": 0.5468,
+  "num_communities": 3
+ },
+ "gaps_count": 3,
+ "strategic": {
+  "n_themes": 3,
+  "quadrants": [
+   "Emerging or Declining",
+   "Emerging or Declining",
+   "Motor"
+  ]
+ },
+ "evolution": {
+  "periods": [
+   {
+    "label": "2015-2017",
+    "start": 2015,
+    "end": 2017
+   },
+   {
+    "label": "2018-2020",
+    "start": 2018,
+    "end": 2020
+   },
+   {
+    "label": "2021-2024",
+    "start": 2021,
+    "end": 2024
+   }
+  ],
+  "n_nodes": 11,
+  "n_flows": 8
+ },
+ "export_zip_b64": "UEsDBBQAAAAIAC+RKF3gvL/sbAUAAL0mAAAJAAAAd29ya3MuY3N2lZrLbuNGEEX38xX6AMJmvfjIbuJFMEBmYmSCZDlgZMZmIEsCRQ3Gfx9KzdbCqepqAoZhA7J4XGzew9vU8FQ8HYbidDiP2/7beXgqpmHa9UX392kau+1UvPXdWHzv9+c+fP82vR374jzuiusPu27/fO6e++UdPkBRvEzT8fTT/f3h2O+7Xf/j7jA+3/8FZVkWj92xHzfl5rDffOmm89jtNvENNsfxsO1Pp2H/XPzxMpw289cxvLzAEqT40p/HT49fi3/nA83veztM/6N7Pe7661HKohunYTvz9/vit/n4H+fjf8Dba+d/9fo6KO8uPPdTf5ruwCaGhRguxJ+77cuw7ze7eSL7/2NCwPz08PnXJCOojJRmRJsRF0a8MP48HIb9P4fxtZsPcXpHiMsgL5Pvk4yoMnKakWxGWhgpY44UKL9uh36/TWOSiimJJcgLCF9Afhm748tmeukP49s7CA4QD38+/p4kYJWgSg9KbD5Z+GTdJSIB9+NDeumJSlunaSubtlpoq3W01YW2Kt6t1RR4pYI3afDaBq8X8HodeB3Ac5KoVonbxNJsFqbmwvRweD2ep/m378NpOOzfcTSBw42aRoWAMj231mZsF8bWuXzaZVB+0rQ6IjiRXZqMEC0DKzUDZYDOCR7QRQOeaWzVwE014OY4QCB10wl01wDZyxCiTgCdcwxXndRu6IAuE3BsArZOIOoEyJ8VBcoVYQO6VkAcYLaBo3aA/YsbOBDnpAzo/gFHQGAbCKKBQDJQJaD69zy6eeY/tUGiXKDyT3K1jMzPG9BVAo5LwJYJRJnASptAHaizAkf3CbQOdmNjR99AhnDgapwmI3F05aCjHLCdA9E54EkH2gDpBpLuHExUF4xSwTLjDhbLALIic9BoLo5Q0BYKRqEgrFuWCIE+J39QFwx6bcauM3irM7gSGwO2m0Wo+wgdH6HtI4w+QvIvJaRlvBktTBcRJgoORtMg5yzUq2rarARCXTXoqAZt1WBUDWaoBiWgugmEumrQaTlo1xyMJkLfRFgFTC+DUNcQOhpCW0MYNYR1xjTrgLkmoXQDYaLSYFQMNjmLsQlMWbmja4YczaCtGYyawdY/yW0g9aNGNw057YbsdkNRRFT6Z5kuHprNkhE1pPuHHP+Q7R+K/iHIIIVAmrXpY2ygJUoNRakQZrBgYHGThnSRkLdNZouEbvtkfrEhCphe0pAuEXLaDNlthqJjKMcxxIFzRdSQrhpyVEO2aiiqhlZurJEsl1BGKJFuHkqUHIpqoSpnlBe5zLdcbu6Qbhdy7EK2XSjahWp/ZdYBMyd2dKmQU2vIrjUUnUPNyjPdBOqsCNL1w45+yNYPRf2Qrx9qA6kfULp+OFF0OPqFM/zCZQDxIoh1ubAjF7blwlEunCEXhoC5IoFYdww7vYbtXsNRQew/p+GrgTArdNh4VONIiG0JcZQQ+xJiCqRuIrFuIU5UGb49q8nYNGNeRuZnDut2YccubNuFo114pV1YAnVO5rBuF3Z6Ddu9hqN8eOXzG64Ctv90TPcQOx5i20McPcQZLYfrwOnmk24hTlQbjprhjN0zvqqFVgWQbhhxDMO2YTgahtuMWw1uA3JWBOmaEafliN1yJFpISmfPT8rA6QaQ6A4Sx0FiO0iig2TlBpvAMls/q0T3kCS6jkTRiPcARzBw5KSP6JoRRzNia0aiZsTXjFAgdQNHjE8EOGVH7LIj0ULCPuZVQuw/htcNJN7HBmwDye1zA+KddAmMK7JIdPNIotdIVItUfjxKFZByskZ0o4hjFLGNItEoUnujqwOnnzW6T8RpNWK3Gom6kQzdSLPMMyNfdM1UjmbE1oxEzYj3uEbagJkVP7pi/gNQSwMEFAAAAAgAL5EoXbw4A3ZAAQAACwIAAAsAAABhdXRob3JzLmNzdi3Ry3bCIBAG4D1PwQP8C+PdZbUXa7y1duOqZ0xogiFgibEnffoO2BUfc37ODKBz5Lq5GOo+LdUK1vmajP5V+X3vfKZzkWBDxjjfyUXpUP87Y4s+tprOcuOchQ2qg8QAO6NvmuScVAV39ylYDLFXRdHJLdW4RHEniBHeWmWv2sol4fufJUGMMXcnuVYKJ14Nr2KCBXln5J58hSzyEiimeKSbClNq5EFZkJjhib1qbQHFOAeIpIdDd9JGpj88cRNZBYokwYfnAeSROHiN7Cie6ePB6EzJVNegqIolkgFWbd7JNKTOQdU9P0SqbnyRNaeqKBPzI6yp9SQPpbYwkU2gSMZ49mQrfgWLr6iSQn2CF0/cb1eiiHAlV6d4by/KX+XBcT9/d+Ni7xmWSudaHsOPlJFd/Jx+D683svKgHHRAwxB/UEsDBBQAAAAIAC+RKF0JcIKECAYAANw3AAAQAAAAd29ya19hdXRob3JzLmNzdrWb21LjRhCG7/MUeoAp0Jx8yF0g2WwW2GVDbvYqpQUFKxjJJctQvH3GhXvQmF+WZ3tytWzh/jTq6en+3dM8N+3D39WdeN7+21Xdsnz98a6pRLHpFk27/e3up7p4LMWqWVdd1dTitmnbcr1q6ruqvv9JietiVbaZzJo6uypuF1VdZsuyaGv3W7HoutX659NThz1p2vtTmZ/IPM9Pu3LdnUihxOeq+De7ahw2Fx+K5brkAbX4sqyeqiI7K8oHIVMgjbgu7+9fss/Fo1tvAqAVXzdl3VV19rFwC34l6h1RbYlnVVPV/zTtY9FVt+vDPCUm4qz5nl2WpXchAzYV50XbLLPron3zH4M3E78WT2V2vnBxpfi4ufjN0T5tnJfJc2ZH0/F7oYXMxc3L92qZXTz3QpCHlOKv1u1v9q1wH5ZJkEr8sqxuy+yieotBFvEtZpK4MYgasyPaHdFsib+3xWqRdYuyaV+EkFp82ty9ZBdbF+VHfN6Ii/LJnZhL5wB5xOetuCw2bZHduNfwHpvsDOzW4HPRuQ8ss6Vbwqa4L7NV29yW6/Xo29rwbfPE8P6BkYnZvdOT2idyIj60Rf3gclrtYyoZfCrc/rr4/7Lw0TXdsScs9mQvVPLUdHFVLJcuJrcb6vczFb1fPmlDZzv2lMWe7lXSPDG9X1RlYnZQX1O7Rc7EnxsH6rKbpleEkuGDekSxPt/RZ1v6efO42nTuf0/VeivH9mIsP8qmHznyKIswHtRRNv1dJk+5N3w1mb9L2wd9Mx94zx/nIR/8OA37x4mBnVLMWZHh1tVL3v7dvQ6VsVJK7mtlzyR1JtX7utrfUG9AykHq6EXooNx5IlV2aVBYHUaaoTjhQWGw8JADEcODwiPHQwb5lFKSpNoubTzThoLObxHVRTkBkQQPwGGLQJTII216WsPvCaV3ycvvjo3lRsoHQMUhKVFLmKkPQ2dDR4oHRUdKUf6VkQnYraW/c3kK3lx8LKu7KvuWaoXO9o+nos5uyuatlUAVQuXwmxfMuaNGwZn1S6dyoSQrytzTUdpW/nu94uHVQLwpqjRKR8ebWxyud0woErJMJNSvTOaAbOVSoVpVVG6UwcEJEvmoDUzl41YgmY8bBedeH2vWP9zeFVQlVXyVdA/ExUJRAVOogB1mTvYjIRE0CAS/PVTV1DT+7ac48fGQOC1SGVMzvLPvG6yjJrCNOmqFmqWjRqAlOmoTnCYKVk2VTc2jQwBXXyYR1l8eE1Vg5ir7rUydBtkXx353qOTrPDryNfz2yCTCjMxlgnzNRcJsrkkKaRkPldCbPCL2JpOJvEkiTavRxlB+pA2+dNP+RiG6L6CHxBqPibQajwilGg85oNQ0yQ+N5cdhrAkSn/cmqRPNa9BrCw9EOjo+HAn56KAkxOMURIpLT8YFpXcq6R89jY6t6f9ADKqfTIPsVz+VBhnoaL8BpJL0jLfDMyx+EuKxEkr3ACiLEq4faqSEfCSYDGkwHa3B9L74zJMw+16WaVbZd6xKg+z70g8HkAYzUIPhdu6oUXAqvUNI85h4zeOeCO/mDQkYEz1y4pYTDnQkYvYnOmQS5Nu3VB8IJERMtBBxSxk4ASwmPAG8VcIT4EdD4IVHKNvyI432hJlfPukEw9MJZmCuJCEfjZYYUiGGN4zglgk0YEI61IAp+UADpsRDDWhI1pj4dpaZDsQxjzkU5kxq0CBUiaBBYk7k0yAzey1BWsXgQQd0HTJm0zsu8kiT4AyQEy2VezOP/2bonjjQEGZjYUuYTQ22PJkL+nuuE0Hf6rEfiCRBZPO4q0O3FHwjxiGi61cOD48zcIholsGSPLS8O0y3Ljz7m/IBcBI45QPQXHBC/vsp4YRwPDNMEtiC6aOhTEUC0kYLSKthT4RHhD0RJhL1RJhI2BOxJIKtiWYaWAZ5RFAkeUBcQv2gso1MUrDzycFBmcsCAl1rSdfaCdYZcDyfdJWdRi5iCm5QOTR4ucoBontXS1rMxg832Rm8R2Ei8TULE4r+umlCysdGjjjZfYGWpyCiVgkH+L5RwqEFwegnLne80aHfocm6o+2RivsPUEsDBBQAAAAIAC+RKF3pjjcxiQAAAKIAAAARAAAAb3JnYW5pemF0aW9ucy5jc3YdjL0OgkAQBvt9Ch/gK8R/SwQ1SCDGO2pzcAgXw25yHgVvL6GbKWacBZuhRSMjBz+9G7GzuDBRBP1z3PWjQVKCNlDia2FucXuBttDihYMgiUE7FJlGpUB7JGaovbNdi/sFdEAeZ0ojn5sjVFktdJrr7yR4PEFnqGD4I94ug2gNXa2KkV3TI72C/lBLAwQUAAAACAAvkShd/TnXt7EFAABKMwAAEAAAAGFmZmlsaWF0aW9ucy5jc3a1ms9W2zoQxvd5Cj+ADsSyZCd3B/QfBChtwqKrHpH4Jr4kFsdx4OTt77hELIo1E3XUFQQyv0+RRjOfHL3Y5vFntRAv3c+2atfl668LWwmza1e26f57+K02m1LYZtn9qfvx6/Xc7uq22f+c20Up9qVpBlLcmaeySdLE1smNma+qukzW8J+6qpdi1bZP239OT0HhBCCn6fAkHQ6Hp225bU9SocRduVzuk1uzEVJMbfNg67oUn74LOUw1j63Ft11Zt1WdfDEiEzPb2Lq14uLslZ0d2LJjn1e2qv+1zca01XyLk6XIxbl9SK7LEsZ/czkT91M2ciQ+mOcyuVjBSmhxYTYPTbVYluLzORs9Fh+BfLWDGcvF5OxyOhOTw/yqAzULn99MpEMx3T9U62TyYmtRiOntfSRwKmYNrFzyw8CbY4KlOFtX8zKZVJvflk4fuKrjfm7M0yppV6Vt9kKkmbjaLfbJpBvNCPLocW/F1R0dp8SkfIb0uwa1sZi2pluzxVGSWlybXWOSKXy+vtj8EKu72FvTwnvXyRoGuDPLMnlq7LzcbskZ0WTaxdJBcjCWRJqLT42pH2G3139PpBCwUpBBX1dd/s/uk5tdXc1X4sPHV6HiIJSzhHIqA/J4QuLGrNeQdV0SwKtZF7TaGXFxG1dIitvK/JfcWCgWPTKjg0zBkimg0H9dV8+VSc5N+fi+p8QTQltXPBm0i8WT8RfzfDA+aIw6jQu7edq18Oq52lbwVjqB8HAiLfBgcrHxcGIJYU5eo8fvKjQ6m2N6Tv4cTczXn4PJuYS2fHBjQ1aywRC97QBU3jxfGmp1YID0h3BGKpXv2y6aD8UgdR07VX3phI9N4SvHphOfnM2n5sZ12FSH0zXhlQDvulCa92SFP5/ISMQ10LG4GYB4V51TXnkGIcIPxNXCqxdoubKa9tZVnD+i+CMuH91oo4F0JTINrJEwLGLJmfCx+FJWiyr58WvksfEQe/ls6mRa2t+OMcB1tV0Oew9W+PY/Ih61MRDvqr5MWdkL48CPNCD1dpSWPClJJ7J0x1WZBScyjJOo6Ww+tSg8OuzE7zsIb5OphcmMz/daVkC7ZidVfz56O8aYjkV6xjHReAk5hkDViSMY/mIAwa6Xy/BeDsJEqwK+a6uyr63i+JxKKzbem1VAdj1WFuETQ5wYge66nhz1r1n/Y8cjAgsog41dJ3emeeypiUcQ8KJ6BADbb1Qsut8y1xHlOHi1yX7OxtM7lSeAbWPm0P1PPdlo1OwD3ZmJbBi8zTL/4VIOuWR/IkZgo5kYgU+kYqfgTFiWhiuk6LzzyPTcOE+XyeCHTEeE4z6sA7x9LZGF7oeMsnlsPNZ22HDMQrLheKvv8M7mZP02BxdQ/vLZsZ0LynhfGmT+bz/iquDVKaIOuRsjah1RtZwpy4rgFCuQDEiZZLTL8emoye7wzlVlI94ijKgFj6tFLXhUNXT1I34or5cCHeW8VBbspTLaYfIF/uLYiR2inONRvY6HH0/tIeVsiwq3LSCOH7s6vvMdKvhaBwzNe01CSi7Zc0+CDe49wXZUZxNUsE2AAfl3MZeMJD+g3y5w9H6hglsjCHddUvG6JAyDSLSoWuiTgE7KPX1RvAsDMGSvbYqqgtimuDpUpQY1ZwlU+PMlhV8V4NMJM87nY+WMiUbqmevyqv+KAJ7uGRnvzeFsoF3zVOPwwwvoep9UxmB7FyMC27cafHR/fwGucwJ6GPa1GQwIfXbAQxMHf4A7A6J5X4vBINEVjSiDLG48Fe86O3eie253EAUMop1X0MFeQWMuhEtGXAgbjVpooDuPo1UwXRHFUzHp3tLKBSOOANBvV0l14H5HngPxsPh4nYPRef8hyJ9cEOz6ri4CR1V49iiPSSaU68Y6/OKIxi+O8OlEtWfz0ee8apC73qoDr45ozA4wub5uwcP6Us+1avL+InWzQw/+B1BLAwQUAAAACAAvkShdqmLKzycBAAAwAwAADAAAAGtleXdvcmRzLmNzdn2Sy04DMQxF9/2KfIAXtLQ8thSpQoLCgn2VZszUkNhRkinM35Ph2akRq/G9uSeK7aEGCqawYUnhs2ooR2972Iuz287b1E+mwLZ0yXrjLbedbdHEJA5zJm5h/c+ZRGTr8W3jhB3GMpnBTyxIgx5ux1IBp1CS5fxU34cJHg9qFZ1Dm2zcmbJDST2sDoUKLyBYtyNG49EmHh57d2wo6AwaxPgbuB4pFT8Hxo/RMJZXSS+wHksFXICTELu6B7OnTMKwPNIKuYQtCfEwE1vIZbgaSwVMT6BFljAcrr4LnZpCXWNBYpNL6lxdMcKDcjQ3g6/uTHaE1axNj7VmToe2Q8dU+oO7l394mp0DheH3ydgG5FKbrlO60ZYmFyDbZ3TFNFjqZwjdHxuKegdQSwMEFAAAAAgAL5EoXW9j/79+BgAAzDUAABEAAAB3b3JrX2tleXdvcmRzLmNzdqVay3LjNhC85yv0AayU8AavSaq2UpVs9pB7SpERm1mLdFF0vP77iLbgHUgDoEmdbMnuJgEMZnoeL8P49a/urnmZf07d9Biar+H19Olu/vb8a/MSuvuHqQnfpnG3n4bxB9l82T2FcSM2Q7/5fbd/6PqweQy7se/6+8Y0V19tf1RON8NT6HeP4VsFb5tfQniiYK1gsGs+h+dx97jpwzSv6oS2zqJo3/w8HJ6ep9M//Ncdu6GfH/4drM5gOYN/6oau/2cYD7up2x+btrn44rRm7zCs2DafQj8czjAnQJhovozDFLp+c5zG5/30PIb5hb3B8OxBkeXqM1bhx6wljL8+Zrf1KJg5ZmPIbpszWs/oT+Pu6WEzPYRhfG10k3w8bbduEZyQp0e+PWtz3Heh379vNQRVs1kdnvtuek1OyrTkle0Zb2b85930trzHXX//vLsPm6dx2IfjcV67aEp/PS2IngHMKpvf4reH4S48vp2HWEGkmj/HXX+czSyMM4tpV7BcHRNZkzuT2Ft3ym/XsDI75a1bQXS5U8aveZ3STvkzibt1pzQ1BZiV2SnlVvBcbpRSZgVLaaPaM4mfSS5jABsV6IkX0UI3vx7mVzmG+0Pop5PvfWNQXqIMpvnj73/Dftrchen04x1vjEfxtcP9znOKRO9Ebd1xatVCQN5zYg8tuE4BETBhmT5ZRDmwvfWGGClX8TJ3xK57w8tb4t26NyrdE/GhnwSmgZz1KDpVQV4aGMjrIOeofUYhJCQgCaiXKiFZ06ZitQjO2bZOlh6FkFCg6kxuRhF9oTstDuR33Ah62FEQCY06Vb9tYXzOrfrW4hy8Y6WLiIJFGHQRhqr+Cj63CCcMzsEuIjnLqCWExUxIJzeniE5NyHoLA3kTUsagDLX0RURlIG6WP45G+wW8jHPXrV9Fdendk5x4AU/Ru0cZIWAdZIWA8TlrNydPCHOw1q4EOR8Z1YAARIy3EkOyrt63CkTnfL13lCEGabnFU26bVFYqDNdJt1+AZrLuJIWSMUxLcfuNa1fxcmmsWcV0nZ1RG/uoq8ibV6rtKl4uuTJiFdVVftWaVTwl3yKjoJAKjqQChudci5UtzsG7FhoLZdQTUi+oiSX1xwoDU/ykqVINzpU/DfVwUUtIWM9YWqSq4LN6xrc4R1XP1AjwdFdGgSFBZeQljE6VkbMWBvLKyFqDMtSUkYxyQTrUCpKUqILPWgGV9zWOjBUQ8SSjUpAev4zOWJyBi5YOh3NFarvg8bVuRNQbsgVzcYmCL1NxCwN52/XUdlVUGWoLRwJa26/gc9anpcc5WOvTtGKnopJQAl2Fo+2CCj5bNaT2W+NgV+EVbS/F4K4kfhYKxucVv8Y5+LBM80T10SwCaySehuQy+rJG4mFg5ipQVaNiOFcL9ISngqDGwOgJ6oVrcMaFueT8K/iaC4uRXN3c9UoK8gt4uYTBr2K6ytDFKpqSiFYx7Cu7wF7EAoZre1EL0FyCSEO2ikFfOfCiJi63iE4vqk4iRhmYaaMn96TIUNNbKgZ65W82c7OKlksWk/XhVFf93XULLZm5jhpDgcomaaSX0RfShvY1K8BMzVtZlKE6bxFFiYaFkaOyvILPNyLxd8hIinYBA56d6ShvNCyxPBV5FXxWnJgFHLw4UQpnWLAfUShpdACJ1nHK6PRaGBpMK8CM90w2schQvRZRZmlQ3dHAWwZfrHqLA3PdC0LwMRAE979oqakCz19mi3PwOTatF+moW/TNAo2WYRfQcv3xdh3VVeRSq2iKkSsKJH3zcJKjpcsFvNyGJYN1ONVVCdys4ynuWFRWGq5FOelgfLZN7PB3yNyT5KZF4aPhzpminbMKPlveFi3Owdc0aEHLRPmi2wXpBTWuGgNX3hY4nE1HyUGaqD3Mtt76o6l8CcjPL9GdL6JznT9aCTRRI5ibG2ealncW8DJuw1BZt4Dqys/SeRYTtYABBnE87bmVkHx3lvZ2i+jcGSV31ERFYNBJnMQ0i+iLZkEyV1wG5uQX3bgoA4xG0ymJoi/KY3RupQLMKKgtffTHuLCp24puWwzJ32eqKYro7ETilsgJE4OjsXiHpYXx2dSFFmtqHHwqR8cYTYyLxiHuVGBIfmiOdgiL6Owkhaf7H2OhgeOxTy5dGZ9VFXR0s8bBqwp8EQsyRxvjqkFGYmiLoYTkD9Kh6OxFogcZI+vN87k2mc9FWbmoSCM/TFQcYYdZSkL6f1BLAwQUAAAACAAvkShddNW3H3QAAAD4AAAACgAAAHZlbnVlcy5jc3Z1zc0KwjAQBOB7n2UE/z1rToVaggXvaVxxpd2UTXLw7dUH2DnM5RsYfkDCTCifhcA5C5Y6TpxfpM0GPVVt/YB3qiphwvqX1b/g69hs0bprZ+AOfShVyeA9hsgk0fID3N3fDDzi7KzfEy6cWJ5J51A4ZmP2BVBLAwQUAAAACAAvkShdZ5LWXmUAAAB/AAAADAAAAG1ldGFkYXRhLmNzdjWLSwqEMBAF956lHdrMmBjPMXtpsFFR0hI78/H0ZmGgFq8eFP92iTqMpAwqStvwlbge96aks8RiEicKy0m6SCjfyv8cjEU/HBIflUFja/Q1du+m69H3T3y4l3HowSIYhCbTgqsuUEsBAhQDFAAAAAgAL5EoXeC8v+xsBQAAvSYAAAkAAAAAAAAAAAAAAIABAAAAAHdvcmtzLmNzdlBLAQIUAxQAAAAIAC+RKF28OAN2QAEAAAsCAAALAAAAAAAAAAAAAACAAZMFAABhdXRob3JzLmNzdlBLAQIUAxQAAAAIAC+RKF0JcIKECAYAANw3AAAQAAAAAAAAAAAAAACAAfwGAAB3b3JrX2F1dGhvcnMuY3N2UEsBAhQDFAAAAAgAL5EoXemONzGJAAAAogAAABEAAAAAAAAAAAAAAIABMg0AAG9yZ2FuaXphdGlvbnMuY3N2UEsBAhQDFAAAAAgAL5EoXf0517exBQAASjMAABAAAAAAAAAAAAAAAIAB6g0AAGFmZmlsaWF0aW9ucy5jc3ZQSwECFAMUAAAACAAvkShdqmLKzycBAAAwAwAADAAAAAAAAAAAAAAAgAHJEwAAa2V5d29yZHMuY3N2UEsBAhQDFAAAAAgAL5EoXW9j/79+BgAAzDUAABEAAAAAAAAAAAAAAIABGhUAAHdvcmtfa2V5d29yZHMuY3N2UEsBAhQDFAAAAAgAL5EoXXTVtx90AAAA+AAAAAoAAAAAAAAAAAAAAIABxxsAAHZlbnVlcy5jc3ZQSwECFAMUAAAACAAvkShdZ5LWXmUAAAB/AAAADAAAAAAAAAAAAAAAgAFjHAAAbWV0YWRhdGEuY3N2UEsFBgAAAAAJAAkAFgIAAPIcAAAAAA=="
+}

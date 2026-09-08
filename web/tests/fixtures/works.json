@@ -1,0 +1,5406 @@
+[
+ {
+  "id": "https://openalex.org/W1000",
+  "doi": null,
+  "title": "Paper 0 on Natural language processing",
+  "publication_year": 2015,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 19,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/0"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.622
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.519
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.335
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "0": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1001",
+  "doi": "https://doi.org/10.1000/test.1",
+  "title": "Paper 1 on Machine learning",
+  "publication_year": 2015,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 295,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/1"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.374
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.434
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.676
+   },
+   {
+    "display_name": "Computer vision",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "1": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1002",
+  "doi": "https://doi.org/10.1000/test.2",
+  "title": "Paper 2 on Bioinformatics",
+  "publication_year": 2015,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 92,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/2"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.387
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.371
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.485
+   },
+   {
+    "display_name": "Machine learning",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "2": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1003",
+  "doi": "https://doi.org/10.1000/test.3",
+  "title": "Paper 3 on Machine learning",
+  "publication_year": 2015,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 299,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/3"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A493336",
+     "display_name": "Sybil Kwon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A739853",
+     "display_name": "Trent Yang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A771186",
+     "display_name": "Alice Kim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.424
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.708
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.557
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "3": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1004",
+  "doi": null,
+  "title": "Paper 4 on Graph theory",
+  "publication_year": 2015,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 229,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/4"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A291994",
+     "display_name": "Laura Shin",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.349
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.48
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.597
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "4": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1005",
+  "doi": "https://doi.org/10.1000/test.5",
+  "title": "Paper 5 on Natural language processing",
+  "publication_year": 2015,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 448,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/5"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.324
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.701
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.759
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "5": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1006",
+  "doi": "https://doi.org/10.1000/test.6",
+  "title": "Paper 6 on Natural language processing",
+  "publication_year": 2016,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 31,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/6"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A291994",
+     "display_name": "Laura Shin",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.804
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.867
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.584
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "6": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1007",
+  "doi": "https://doi.org/10.1000/test.7",
+  "title": "Paper 7 on Natural language processing",
+  "publication_year": 2016,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 66,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/7"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A493336",
+     "display_name": "Sybil Kwon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.401
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.37
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.335
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "7": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1008",
+  "doi": null,
+  "title": "Paper 8 on Computer vision",
+  "publication_year": 2016,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 361,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/8"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.467
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.382
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.558
+   },
+   {
+    "display_name": "Natural language processing",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "8": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1009",
+  "doi": "https://doi.org/10.1000/test.9",
+  "title": "Paper 9 on Graph theory",
+  "publication_year": 2016,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 134,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/9"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.439
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.44
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.591
+   },
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "9": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1010",
+  "doi": "https://doi.org/10.1000/test.10",
+  "title": "Paper 10 on Natural language processing",
+  "publication_year": 2016,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 263,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/10"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.522
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.64
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.872
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "10": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1011",
+  "doi": "https://doi.org/10.1000/test.11",
+  "title": "Paper 11 on Bioinformatics",
+  "publication_year": 2016,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 204,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/11"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.768
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.825
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.779
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "11": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1012",
+  "doi": null,
+  "title": "Paper 12 on Graph theory",
+  "publication_year": 2017,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 174,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/12"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.337
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.34
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.425
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "12": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1013",
+  "doi": "https://doi.org/10.1000/test.13",
+  "title": "Paper 13 on Bioinformatics",
+  "publication_year": 2017,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 447,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/13"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.391
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.361
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.518
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "13": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1014",
+  "doi": "https://doi.org/10.1000/test.14",
+  "title": "Paper 14 on Computer vision",
+  "publication_year": 2017,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 43,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/14"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.809
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.896
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.58
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "14": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1015",
+  "doi": "https://doi.org/10.1000/test.15",
+  "title": "Paper 15 on Computer vision",
+  "publication_year": 2017,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 487,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/15"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.587
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.715
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.61
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "15": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1016",
+  "doi": null,
+  "title": "Paper 16 on Bioinformatics",
+  "publication_year": 2017,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 265,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/16"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.479
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.686
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.355
+   },
+   {
+    "display_name": "Machine learning",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "16": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1017",
+  "doi": "https://doi.org/10.1000/test.17",
+  "title": "Paper 17 on Natural language processing",
+  "publication_year": 2017,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 388,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/17"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A291994",
+     "display_name": "Laura Shin",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.767
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.498
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.434
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "17": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1018",
+  "doi": "https://doi.org/10.1000/test.18",
+  "title": "Paper 18 on Computer vision",
+  "publication_year": 2018,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 143,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/18"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.611
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.513
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.317
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "18": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1019",
+  "doi": "https://doi.org/10.1000/test.19",
+  "title": "Paper 19 on Graph theory",
+  "publication_year": 2018,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 112,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/19"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.862
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.893
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.873
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "19": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1020",
+  "doi": null,
+  "title": "Paper 20 on Machine learning",
+  "publication_year": 2018,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 334,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/20"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.674
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.84
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.804
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "20": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1021",
+  "doi": "https://doi.org/10.1000/test.21",
+  "title": "Paper 21 on Natural language processing",
+  "publication_year": 2018,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 404,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/21"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.769
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.75
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.587
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "21": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1022",
+  "doi": "https://doi.org/10.1000/test.22",
+  "title": "Paper 22 on Natural language processing",
+  "publication_year": 2018,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 14,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/22"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.746
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.351
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.395
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "22": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1023",
+  "doi": "https://doi.org/10.1000/test.23",
+  "title": "Paper 23 on Computer vision",
+  "publication_year": 2018,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 497,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/23"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A493336",
+     "display_name": "Sybil Kwon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.51
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.629
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.379
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "23": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1024",
+  "doi": null,
+  "title": "Paper 24 on Machine learning",
+  "publication_year": 2019,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 214,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/24"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.476
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.444
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.652
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "24": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1025",
+  "doi": "https://doi.org/10.1000/test.25",
+  "title": "Paper 25 on Computer vision",
+  "publication_year": 2019,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 449,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/25"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A291994",
+     "display_name": "Laura Shin",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.697
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.789
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.61
+   },
+   {
+    "display_name": "Natural language processing",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "25": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1026",
+  "doi": "https://doi.org/10.1000/test.26",
+  "title": "Paper 26 on Bioinformatics",
+  "publication_year": 2019,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 76,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/26"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A493336",
+     "display_name": "Sybil Kwon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.824
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.766
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.665
+   },
+   {
+    "display_name": "Machine learning",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "26": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1027",
+  "doi": "https://doi.org/10.1000/test.27",
+  "title": "Paper 27 on Computer vision",
+  "publication_year": 2019,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 397,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/27"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.337
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.709
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.618
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "27": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1028",
+  "doi": null,
+  "title": "Paper 28 on Machine learning",
+  "publication_year": 2019,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 258,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/28"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.756
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.847
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.566
+   },
+   {
+    "display_name": "Computer vision",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "28": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1029",
+  "doi": "https://doi.org/10.1000/test.29",
+  "title": "Paper 29 on Bioinformatics",
+  "publication_year": 2019,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 286,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/29"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.72
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.826
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.865
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "29": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1030",
+  "doi": "https://doi.org/10.1000/test.30",
+  "title": "Paper 30 on Computer vision",
+  "publication_year": 2020,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 397,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/30"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.557
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.428
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.482
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "30": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1031",
+  "doi": "https://doi.org/10.1000/test.31",
+  "title": "Paper 31 on Computer vision",
+  "publication_year": 2020,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 341,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/31"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.748
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.356
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.831
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "31": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1032",
+  "doi": null,
+  "title": "Paper 32 on Computer vision",
+  "publication_year": 2020,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 173,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/32"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.553
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.514
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.355
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "32": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1033",
+  "doi": "https://doi.org/10.1000/test.33",
+  "title": "Paper 33 on Bioinformatics",
+  "publication_year": 2020,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 448,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/33"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.876
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.368
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.851
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "33": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1034",
+  "doi": "https://doi.org/10.1000/test.34",
+  "title": "Paper 34 on Machine learning",
+  "publication_year": 2020,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 434,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/34"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.844
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.409
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.753
+   },
+   {
+    "display_name": "Computer vision",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "34": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1035",
+  "doi": "https://doi.org/10.1000/test.35",
+  "title": "Paper 35 on Natural language processing",
+  "publication_year": 2020,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 137,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/35"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.467
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.78
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.41
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "35": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1036",
+  "doi": null,
+  "title": "Paper 36 on Machine learning",
+  "publication_year": 2021,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 173,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/36"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.814
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.34
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.818
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "36": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1037",
+  "doi": "https://doi.org/10.1000/test.37",
+  "title": "Paper 37 on Bioinformatics",
+  "publication_year": 2021,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 321,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/37"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A291994",
+     "display_name": "Laura Shin",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.882
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.457
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.409
+   },
+   {
+    "display_name": "Machine learning",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "37": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1038",
+  "doi": "https://doi.org/10.1000/test.38",
+  "title": "Paper 38 on Natural language processing",
+  "publication_year": 2021,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 97,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/38"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.45
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.309
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.74
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "38": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1039",
+  "doi": "https://doi.org/10.1000/test.39",
+  "title": "Paper 39 on Bioinformatics",
+  "publication_year": 2021,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 352,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/39"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.597
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.801
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.536
+   },
+   {
+    "display_name": "Machine learning",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "39": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1040",
+  "doi": null,
+  "title": "Paper 40 on Computer vision",
+  "publication_year": 2021,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 428,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/40"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A291994",
+     "display_name": "Laura Shin",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.737
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.384
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.894
+   },
+   {
+    "display_name": "Natural language processing",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "40": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1041",
+  "doi": "https://doi.org/10.1000/test.41",
+  "title": "Paper 41 on Computer vision",
+  "publication_year": 2021,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 195,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/41"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.828
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.558
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.333
+   },
+   {
+    "display_name": "Natural language processing",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "41": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1042",
+  "doi": "https://doi.org/10.1000/test.42",
+  "title": "Paper 42 on Bioinformatics",
+  "publication_year": 2022,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 497,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/42"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A739853",
+     "display_name": "Trent Yang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A771186",
+     "display_name": "Alice Kim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.395
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.567
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.458
+   },
+   {
+    "display_name": "Machine learning",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "42": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1043",
+  "doi": "https://doi.org/10.1000/test.43",
+  "title": "Paper 43 on Bioinformatics",
+  "publication_year": 2022,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 335,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/43"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.41
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.501
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.35
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "43": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1044",
+  "doi": null,
+  "title": "Paper 44 on Computer vision",
+  "publication_year": 2022,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 153,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/44"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.79
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.386
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.652
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "44": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1045",
+  "doi": "https://doi.org/10.1000/test.45",
+  "title": "Paper 45 on Natural language processing",
+  "publication_year": 2022,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 199,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/45"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.75
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.695
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.73
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "45": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1046",
+  "doi": "https://doi.org/10.1000/test.46",
+  "title": "Paper 46 on Natural language processing",
+  "publication_year": 2022,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 258,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/46"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A285275",
+     "display_name": "Heidi Yoon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "TU Munich",
+      "country_code": "DE"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.729
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.608
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.558
+   },
+   {
+    "display_name": "Graph theory",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "46": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1047",
+  "doi": "https://doi.org/10.1000/test.47",
+  "title": "Paper 47 on Computer vision",
+  "publication_year": 2022,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 21,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/47"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A650351",
+     "display_name": "Quentin Ha",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A493336",
+     "display_name": "Sybil Kwon",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A739853",
+     "display_name": "Trent Yang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A771186",
+     "display_name": "Alice Kim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.727
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.874
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.686
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "47": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1048",
+  "doi": null,
+  "title": "Paper 48 on Computer vision",
+  "publication_year": 2023,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 233,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/48"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.311
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.619
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.447
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "48": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1049",
+  "doi": "https://doi.org/10.1000/test.49",
+  "title": "Paper 49 on Machine learning",
+  "publication_year": 2023,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 332,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/49"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A493336",
+     "display_name": "Sybil Kwon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A739853",
+     "display_name": "Trent Yang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A771186",
+     "display_name": "Alice Kim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Machine learning",
+    "score": 0.808
+   },
+   {
+    "display_name": "Deep learning",
+    "score": 0.441
+   },
+   {
+    "display_name": "Neural network",
+    "score": 0.754
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "49": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1050",
+  "doi": "https://doi.org/10.1000/test.50",
+  "title": "Paper 50 on Graph theory",
+  "publication_year": 2023,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 333,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/50"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A625975",
+     "display_name": "Mallory Cho",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.68
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.419
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.66
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "50": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1051",
+  "doi": "https://doi.org/10.1000/test.51",
+  "title": "Paper 51 on Natural language processing",
+  "publication_year": 2023,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 238,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/51"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A493336",
+     "display_name": "Sybil Kwon",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A739853",
+     "display_name": "Trent Yang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A771186",
+     "display_name": "Alice Kim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Natural language processing",
+    "score": 0.431
+   },
+   {
+    "display_name": "Language model",
+    "score": 0.594
+   },
+   {
+    "display_name": "Transformer",
+    "score": 0.725
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "51": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1052",
+  "doi": null,
+  "title": "Paper 52 on Graph theory",
+  "publication_year": 2023,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 419,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/52"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A561245",
+     "display_name": "Rupert Song",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Toronto",
+      "country_code": "CA"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.887
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.862
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.311
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "52": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1053",
+  "doi": "https://doi.org/10.1000/test.53",
+  "title": "Paper 53 on Bioinformatics",
+  "publication_year": 2023,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 308,
+  "host_venue": {
+   "display_name": "CVPR",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/53"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A600267",
+     "display_name": "Ivan Seo",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A220102",
+     "display_name": "Kevin Lim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Stanford",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A291994",
+     "display_name": "Laura Shin",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.354
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.748
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.457
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "53": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1054",
+  "doi": "https://doi.org/10.1000/test.54",
+  "title": "Paper 54 on Bioinformatics",
+  "publication_year": 2024,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 230,
+  "host_venue": {
+   "display_name": "ACL",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/54"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Bioinformatics",
+    "score": 0.592
+   },
+   {
+    "display_name": "Genomics",
+    "score": 0.315
+   },
+   {
+    "display_name": "Protein structure",
+    "score": 0.302
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "54": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1055",
+  "doi": "https://doi.org/10.1000/test.55",
+  "title": "Paper 55 on Graph theory",
+  "publication_year": 2024,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 481,
+  "host_venue": {
+   "display_name": "Bioinformatics",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/55"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A710064",
+     "display_name": "Eve Jung",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A814981",
+     "display_name": "Frank Han",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "KAIST",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A650878",
+     "display_name": "Grace Oh",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.499
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.495
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.503
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "55": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1056",
+  "doi": null,
+  "title": "Paper 56 on Computer vision",
+  "publication_year": 2024,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 473,
+  "host_venue": {
+   "display_name": "NeurIPS",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/56"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A305363",
+     "display_name": "Judy Kang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tokyo",
+      "country_code": "JP"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.339
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.534
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.822
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "56": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1057",
+  "doi": "https://doi.org/10.1000/test.57",
+  "title": "Paper 57 on Graph theory",
+  "publication_year": 2024,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 161,
+  "host_venue": {
+   "display_name": "ICML",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/57"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": []
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A670583",
+     "display_name": "Dave Choi",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Cambridge",
+      "country_code": "GB"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.681
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.389
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.883
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "57": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1058",
+  "doi": "https://doi.org/10.1000/test.58",
+  "title": "Paper 58 on Computer vision",
+  "publication_year": 2024,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 25,
+  "host_venue": {
+   "display_name": "Nature",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/58"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A569534",
+     "display_name": "Niaj Moon",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Tsinghua",
+      "country_code": "CN"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A701913",
+     "display_name": "Olivia Baek",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A425927",
+     "display_name": "Peggy Nam",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "Sorbonne",
+      "country_code": "FR"
+     }
+    ]
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Computer vision",
+    "score": 0.848
+   },
+   {
+    "display_name": "Image segmentation",
+    "score": 0.864
+   },
+   {
+    "display_name": "Object detection",
+    "score": 0.63
+   },
+   {
+    "display_name": "Natural language processing",
+    "score": 0.4
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "58": [
+    3
+   ]
+  }
+ },
+ {
+  "id": "https://openalex.org/W1059",
+  "doi": "https://doi.org/10.1000/test.59",
+  "title": "Paper 59 on Graph theory",
+  "publication_year": 2024,
+  "type": "article",
+  "language": "en",
+  "cited_by_count": 152,
+  "host_venue": {
+   "display_name": "Science",
+   "type": "journal",
+   "issn": [
+    "0000-0000"
+   ],
+   "publisher": "Pub"
+  },
+  "primary_location": {
+   "source": {
+    "url": "https://example.org/59"
+   }
+  },
+  "authorships": [
+   {
+    "author": {
+     "id": "https://openalex.org/A739853",
+     "display_name": "Trent Yang",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "SNU",
+      "country_code": "KR"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A771186",
+     "display_name": "Alice Kim",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A945853",
+     "display_name": "Bob Lee",
+     "orcid": null
+    },
+    "institutions": [
+     {
+      "display_name": "MIT",
+      "country_code": "US"
+     }
+    ]
+   },
+   {
+    "author": {
+     "id": "https://openalex.org/A877464",
+     "display_name": "Carol Park",
+     "orcid": null
+    },
+    "institutions": []
+   }
+  ],
+  "concepts": [
+   {
+    "display_name": "Graph theory",
+    "score": 0.856
+   },
+   {
+    "display_name": "Network science",
+    "score": 0.376
+   },
+   {
+    "display_name": "Community structure",
+    "score": 0.583
+   }
+  ],
+  "abstract_inverted_index": {
+   "This": [
+    0
+   ],
+   "is": [
+    1
+   ],
+   "paper": [
+    2
+   ],
+   "59": [
+    3
+   ]
+  }
+ }
+]
