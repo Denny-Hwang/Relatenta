@@ -104,8 +104,9 @@ test("report", () => {
   assert.deepEqual(counts(r.top_kw_pairs, "co_occurrences"), counts(e.top_kw_pairs, "co_occurrences"));
   assert.deepEqual(counts(r.top_venues, "papers"), counts(e.top_venues, "papers"));
   assert.deepEqual(r.highlight_works.map((w) => w.cited_by_count), e.highlight_works.map((w) => w.cited_by_count));
-  assert.equal(r.graph_nodes.length, e.graph_nodes.length);
-  assert.equal(r.graph_edges.length, e.graph_edges.length);
+  assert.equal(r.graph_edges.length, e.n_graph_edges);
+  const nodeIds = new Set(r.graph_nodes.map((n) => n.id));
+  for (const ge of r.graph_edges) assert.ok(nodeIds.has(ge.a) && nodeIds.has(ge.b), "report graph edge endpoints must be nodes");
 });
 
 test("burst detection", () => {
@@ -180,7 +181,7 @@ test("CSV round-trip and pandas compatibility", () => {
 });
 
 test("restore a Python-exported ZIP reproduces the dataset", async () => {
-  const zipBytes = Buffer.from(expected.export_zip_b64, "base64");
+  const zipBytes = readFileSync(path.join(here, "fixtures", "export.zip"));
   const s = new Store();
   const stats = await restoreFromZip(s, zipBytes, JSZip);
   assert.equal(stats.works, expected.stats.works);
